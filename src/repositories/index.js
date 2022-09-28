@@ -9,8 +9,10 @@ const pool = new Pool({
   port: process.env.DB_PORT
 });
 
-const query = (text, param) => {
-  return pool.query(text, param);
+const getClient = async () => pool.connect();
+
+const query = async (text, param) => {
+  return await pool.query(text, param);
 }
 
-module.exports = { query }
+module.exports = { query, getClient };
