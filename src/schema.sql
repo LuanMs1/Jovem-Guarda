@@ -54,7 +54,7 @@ ALTER TABLE music_genre_list ADD CONSTRAINT music_genre_list_pk PRIMARY KEY (gen
 DROP TABLE IF EXISTS exchange;
 CREATE TABLE exchange (
   id serial NOT NULL PRIMARY KEY,
-  status varchar(50) DEFAULT "pending_approval",
+  status varchar(50) DEFAULT 'pending_approval',
   user_to integer NOT NULL REFERENCES users(id),
   user_from integer NOT NULL REFERENCES users(id),
   requested_at timestamptz DEFAULT now(),
