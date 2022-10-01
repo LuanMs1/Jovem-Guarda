@@ -1,5 +1,12 @@
 const express = require('express');
+const upload = require('../middleware/imgUpload');
+const userImg = require('../controller/users');
+module.exports = (app) => {
 
-const router = express();
+    const user = express.Router();
 
-module.exports = router;
+    app.use('/user', user);
+
+    user.post('/', upload('/profile'), userImg)
+
+}
