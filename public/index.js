@@ -9,13 +9,13 @@ const routes = {
     home(events("/login"), events("/register"));
   },
   "/login": function () {
-    login(events("/"), events("/register"));
+    login(events("/"), events("/confirmation"), events("/register"));
   },
   "/register": function () {
-    register(events("/confirmation"), events("/"), events("/login"));
+    register(events("/"), events("/confirmation"), events("/login"));
   },
   "/confirmation": function () {
-    confirmation(events("/login"));
+    confirmation(events("/"), events("/login"));
   },
   "/404": function () {
     errorNotFound(events("/"), events("/login"));
