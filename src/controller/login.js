@@ -1,7 +1,8 @@
+require('dotenv').config()
 const { query } = require('../repositories');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const jwtSecret = require('../secret');
+const jwtSecret = process.env.SECRET_KEY;
 
 const loginUsuario = async (req, res) => {
   const { email, senha } = req.body;

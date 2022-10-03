@@ -21,7 +21,7 @@ const signUpCollector = async (req, res) => {
 
     const senhaCrypt = await bcrypt.hash(senha, 10);
 
-    const usuarioCadastrado = await query(`INSERT INTO usuarios (user_type, name, email, password) VALUES ('collectors', $1, $2, $3, $4)`,[nome, email, senhaCrypt, nome_loja]);
+    const usuarioCadastrado = await query(`INSERT INTO users (user_type, name, email, password) VALUES ('collectors', $1, $2, $3, $4)`,[nome, email, senhaCrypt, nome_loja]);
 
     if (usuarioCadastrado.rowCount === 0) return res.status(400).json({ mensagem: 'Não foi possível cadastrar o usuário' });
 

@@ -10,7 +10,7 @@ const verifyToken = async (req, res, next) => {
   try {
     const token = authorization.replace('Bearer', '').trim();
     const { id } = await jwt.verify(token, jwtSecret);
-    const { rows, rowCount } = await query (`SELECT * FROM usuarios WHERE id = $1`, [id]);
+    const { rows, rowCount } = await query (`SELECT * FROM users WHERE id = $1`, [id]);
 
     if(rowCount === 0) return res.status(404).json({ mensagem: 'O usuário não foi encontrado'});
 
