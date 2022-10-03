@@ -1,6 +1,7 @@
+require('dotenv').config()
 const { query } = require('../repositories');
 const jwt = require('jsonwebtoken');
-const jwtSecret = require('../secret');
+const jwtSecret = process.env.SECRET_KEY;
 
 const verifyToken = async (req, res, next) => {
   const { authorization } = req.headers;
