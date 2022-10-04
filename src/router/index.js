@@ -1,8 +1,9 @@
 const express = require('express');
 const upload = require('../middleware/imgUpload');
-const verifyToken = require('./middleware/verifyToken');
-const login = require('./controllers/login');
+const verifyToken = require('../middleware/verifyToken');
+const login = require('../controller/login');
 const userImg = require('../controller/users');
+const collectors = require('../controller/collectors');
 
 module.exports = (app) => {
 
@@ -15,5 +16,8 @@ module.exports = (app) => {
 
     //USUARIOS
     user.use(verifyToken);
-    user.post('/', upload('/profile'), userImg)
+    user.delete('/:email', collectors.deleteCollector);
+    user.put('/:email', collectors.updateCollector);
+    user.get('/:email',collectors.getCollector);
+    user.post('/', upload('/profile'), userImg);
 }

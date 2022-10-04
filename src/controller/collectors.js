@@ -1,6 +1,6 @@
 const { query } = require('../repositories');
 const bcrypt = require('bcrypt');
-
+const services = require('../services/collector');
 //validação de campos obrigatórios
 function validateData(body) {
   if (!body.nome) return "O campo 'nome' é obrigatório.";
@@ -32,9 +32,68 @@ const signUpCollector = async (req, res) => {
 }
 
 //READ
+const getCollector = async (req, res) => {
+  const email = req.params.email;
+  if (!email) res.status(400).json({mensagem: 'Informar usuário'})
+
+  try{
+    const userRes = await services.getCollector(email);
+    console.log(userRes);
+    if (userRes.error) throw userRes.error;
+    return res.status(200).send(userRes.result)
+  }catch (err){
+    if (err === 'Usuário não encontrado') return res.status(404).json({mensagem: err});
+    return res.status(500).json({mensagem: err});
+  }
+
+}
 
 
 //UPDATE
+const updateCollector = async (req, res) => {
+  const userInfos = req.body;
+  const email = req.params.email;
+
+  if (Object.keys(userInfos).length === 0) {
+    return res.status(400).json({mensagem: 'Nenhuma informação de alteração'});
+  }
+
+  if (!email) return res.status(400).json({mensagem: 'Email necessário'})
+
+  try{
+    const update = await services.updateCollector(email, userInfos);
+    if (update.error) throw update.error;
+
+    return res.status(200).json({mensagem: 'Usuário alterado'});
+
+  }catch(err){
+    console.log(err);
+    if (err === 'Usuário não encontrado') return res.status(404).json({mensagem: err});
+    if (err === 'Usuário deletado') return res.status(404).json({mensagem: err});
+    return res.status(500).json({mensagem: err});
+  }
+}
 
 
 //DELETE
+const deleteCollector = async (req,res) => {
+  const email = req.params.email;
+
+  if (!email) return res.status(400).json({mensagem: 'Email necessário como parametro'});
+  try{
+
+    const deletion = await services.deleteCollector(email);
+    if(deletion.error) throw deletion.error
+    
+    return res.status(200).json({mensagem: deletion.result});
+
+  }catch(err){
+
+    if (err === 'Usuário não encontrado') return res.status(404).json({mensagem: err});
+    if (err === 'Usuário já está deletado') return res.status(404).json({mensagem: err});
+    return res.status(500).json(err);
+
+  }
+}
+
+module.exports = {deleteCollector, updateCollector, getCollector};
