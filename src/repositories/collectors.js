@@ -17,6 +17,17 @@ const db = require('./index');
 // user register info
     //name, email, password, user type
 
+async function getUser(email){
+    const text = `SELECT * FROM users where email = $1`;
+    
+    try{
+        const dbRes = await db.query(text, [email]);
+        if (dbRes.rowCount === 0) throw 'Usuário não encontrado';
+        return {error: null, result: dbRes.rows[0]};
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
 async function register(userInfo){
 
     const values = [userInfo.name, userInfo.email, userInfo.password, userInfo.type];
@@ -43,7 +54,6 @@ async function login(email){
         const dbRes = await db.query(text, values);
         return {error: null, result: dbRes.rows[0].password};
     }catch(err){
-        console.log(err);
         return {error: err, result: null};
     }
 
@@ -61,8 +71,8 @@ async function remove(email){
 
     try {
         const dbRes = await db.query(text, values);
-        if (dbRes.rowCount === 0) throw 'user not found';
-        return {error: null, result: 'user deleted'};
+        if (dbRes.rowCount === 0) throw 'Usuário não encontrado';
+        return {error: null, result: 'Usuário deletado'};
     }catch (err){
         return {error: err, result: null};
     }
@@ -86,19 +96,15 @@ async function alter(email, infos){
         WHERE email = $${columns.length + 1}
     `
 
-    console.log(text);
-    console.log(values);
     try {
         const dbRes = await db.query(text, values);
-        if (dbRes.rowCount === 0) throw 'user not found';
-        return {error: null, result: 'user altered'};
+        console.log('dbRes:')
+        console.log(dbRes);
+        if (dbRes.rowCount === 0) throw 'Usuário não encontrado';
+        return {error: null, result: 'Usuário alterado com sucesso'};
     }catch (err){
         return {error: err, result: null};
     }
 
 }
-const infos = {cpf: '123451231', about: 'bla bla bla bla', address_street: 'esquina'};
-alter('teste1231@gmail', infos).then(res => console.log(res))
-
-
-module.exports = {register, login, remove, alter};
+module.exports = {register, login, remove, alter, getUser};
