@@ -10,7 +10,7 @@ const loginUsuario = async (req, res) => {
   if (!email || !senha) return res.status(400).json({ mensagem: 'Email e senha são obrigatórios' });
 
   try {
-    const { rows, rowCount } = await query(`SELECT * FROM usuarios WHERE email = $1`, [email]);
+    const { rows, rowCount } = await query(`SELECT * FROM users WHERE email = $1`, [email]);
     if (rowCount === 0) return res.status(404).json({ mensagem: 'Usuário não encontrado' });
 
     const usuario = rows[0];
