@@ -12,7 +12,7 @@ function validateData(body) {
 const signUpCollector = async (req, res) => {
   const { nome, email, senha } = req.body;
 
-  const incompleteData = validarDados(req.body);
+  const incompleteData = validateData(req.body);
   if (incompleteData) return res.status(404).json({ mensagem: incompleteData });
 
   try {
@@ -21,11 +21,11 @@ const signUpCollector = async (req, res) => {
 
     const senhaCrypt = await bcrypt.hash(senha, 10);
 
-    const usuarioCadastrado = await query(`INSERT INTO users (user_type, name, email, password) VALUES ('collectors', $1, $2, $3, $4)`,[nome, email, senhaCrypt, nome_loja]);
+    const usuarioCadastrado = await query(`INSERT INTO users (user_type, name, email, password) VALUES ('collectors', $1, $2, $3)`,[nome, email, senhaCrypt]);
 
     if (usuarioCadastrado.rowCount === 0) return res.status(400).json({ mensagem: 'Não foi possível cadastrar o usuário' });
 
-    return res.status(201).json();
+    return res.status(201).json({mensagem: 'Usuário cadastrado com sucesso'});
   } catch (error) {
     return res.status(400).json({ mensagem: error.message });
   }
@@ -33,12 +33,12 @@ const signUpCollector = async (req, res) => {
 
 //READ
 const getCollector = async (req, res) => {
+  
   const email = req.params.email;
   if (!email) res.status(400).json({mensagem: 'Informar usuário'})
 
   try{
     const userRes = await services.getCollector(email);
-    console.log(userRes);
     if (userRes.error) throw userRes.error;
     return res.status(200).send(userRes.result)
   }catch (err){
@@ -67,7 +67,6 @@ const updateCollector = async (req, res) => {
     return res.status(200).json({mensagem: 'Usuário alterado'});
 
   }catch(err){
-    console.log(err);
     if (err === 'Usuário não encontrado') return res.status(404).json({mensagem: err});
     if (err === 'Usuário deletado') return res.status(404).json({mensagem: err});
     return res.status(500).json({mensagem: err});
@@ -96,4 +95,4 @@ const deleteCollector = async (req,res) => {
   }
 }
 
-module.exports = {deleteCollector, updateCollector, getCollector};
+module.exports = {deleteCollector, updateCollector, getCollector, signUpCollector};
