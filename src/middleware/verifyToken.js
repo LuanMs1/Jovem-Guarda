@@ -15,7 +15,7 @@ const verifyToken = async (req, res, next) => {
     if(rowCount === 0) return res.status(404).json({ mensagem: 'O usuário não foi encontrado'});
 
     const { senha, ...usuario } = rows[0];
-    req.usuario = usuario;
+    req.user = usuario;
     next();
 
   } catch (error){

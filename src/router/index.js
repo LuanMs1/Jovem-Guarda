@@ -16,9 +16,9 @@ module.exports = (app) => {
     user.post('/signup', collectors.signUpCollector);
     //USUARIOS
     user.use(verifyToken);
-    user.delete('/:email', collectors.deleteCollector);
-    user.put('/:email', collectors.updateCollector);
-    user.get('/:email',collectors.getCollector);
-    user.post('/', upload('/profile'), userImg);
+    user.delete('/', collectors.deleteCollector);
+    user.put('/', collectors.updateCollector);
+    user.get('/',collectors.getCollector);
+    user.post('/img', upload('/profile'), userImg);
     
 }

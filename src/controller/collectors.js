@@ -25,7 +25,7 @@ const signUpCollector = async (req, res) => {
 
     if (usuarioCadastrado.rowCount === 0) return res.status(400).json({ mensagem: 'Não foi possível cadastrar o usuário' });
 
-    return res.status(201).json({mensagem: 'Usuário cadastrado com sucesso'});
+    return res.status(201).json();
   } catch (error) {
     return res.status(400).json({ mensagem: error.message });
   }
@@ -33,35 +33,25 @@ const signUpCollector = async (req, res) => {
 
 //READ
 const getCollector = async (req, res) => {
-  
-  const email = req.params.email;
-  if (!email) res.status(400).json({mensagem: 'Informar usuário'})
-
-  try{
-    const userRes = await services.getCollector(email);
-    if (userRes.error) throw userRes.error;
-    return res.status(200).send(userRes.result)
-  }catch (err){
-    if (err === 'Usuário não encontrado') return res.status(404).json({mensagem: err});
-    return res.status(500).json({mensagem: err});
-  }
+  // enviar usuario verificado do token
+  res.json(req.user);
 
 }
 
 
 //UPDATE
 const updateCollector = async (req, res) => {
+  // retirando infos da requisição
   const userInfos = req.body;
-  const email = req.params.email;
+  const id = req.user.id;
 
   if (Object.keys(userInfos).length === 0) {
     return res.status(400).json({mensagem: 'Nenhuma informação de alteração'});
   }
 
-  if (!email) return res.status(400).json({mensagem: 'Email necessário'})
-
   try{
-    const update = await services.updateCollector(email, userInfos);
+    //chamada de services, retorna {error: , result:}
+    const update = await services.updateCollector(id, userInfos);
     if (update.error) throw update.error;
 
     return res.status(200).json({mensagem: 'Usuário alterado'});
@@ -76,13 +66,12 @@ const updateCollector = async (req, res) => {
 
 //DELETE
 const deleteCollector = async (req,res) => {
-  const email = req.params.email;
+  const id = req.user.id;
 
-  if (!email) return res.status(400).json({mensagem: 'Email necessário como parametro'});
   try{
 
-    const deletion = await services.deleteCollector(email);
-    if(deletion.error) throw deletion.error
+    const deletion = await services.deleteCollector(id);
+    if(deletion.error) throw deletion.error;
     
     return res.status(200).json({mensagem: deletion.result});
 
