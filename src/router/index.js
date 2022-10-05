@@ -13,11 +13,12 @@ module.exports = (app) => {
 
     //Fazer Login
     user.post('/login', login.loginUsuario);
-
+    user.post('/signup', collectors.signUpCollector);
     //USUARIOS
     user.use(verifyToken);
     user.delete('/:email', collectors.deleteCollector);
     user.put('/:email', collectors.updateCollector);
     user.get('/:email',collectors.getCollector);
     user.post('/', upload('/profile'), userImg);
+    
 }
