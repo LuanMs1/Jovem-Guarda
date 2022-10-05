@@ -1,13 +1,14 @@
 const collector = require('../repositories/collectors');
 
-async function deleteCollector(email) {
+
+async function deleteCollector(id) {
     try{
-        const userRes = await collector.getUser(email);
+        const userRes = await collector.getUser(id);
         if (userRes.error) throw userRes.error;
         const user = userRes.result;
         if (user.deleted_at) throw 'Usuário já esta deletado';
 
-        const removeRes = await collector.remove(email);
+        const removeRes = await collector.remove(id);
         if (removeRes.error) throw removeRes.error;
 
         return {error: null, result: 'Usuário deletado'}
@@ -15,15 +16,14 @@ async function deleteCollector(email) {
         return {error: err, result: null};
     }
 }
-
-async function updateCollector(email,userInfos){
+async function updateCollector(id,userInfos){
     try{
-        const userRes = await collector.getUser(email);
+        const userRes = await collector.getUser(id);
         if(userRes.error) throw userRes.error;
         const user = userRes.result;
         if (user.deleted_at) throw 'Usuário deletado';
         
-        const alterRes = await collector.alter(email, userInfos);
+        const alterRes = await collector.alter(id, userInfos);
         if (alterRes.error) throw alterRes.error;
 
         return {error: null, result: 'Usuário alterado'};
