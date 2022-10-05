@@ -25,7 +25,7 @@ const signUpCollector = async (req, res) => {
 
     if (usuarioCadastrado.rowCount === 0) return res.status(400).json({ mensagem: 'Não foi possível cadastrar o usuário' });
 
-    return res.status(201).json({mensagem: 'Usuário cadastrado com sucesso'});
+    return res.status(201).json();
   } catch (error) {
     return res.status(400).json({ mensagem: error.message });
   }
