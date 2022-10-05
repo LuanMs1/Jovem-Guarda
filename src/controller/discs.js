@@ -1,20 +1,30 @@
-const discs = require('../repositories/discs');
+const services = require('../services/discs');
 const validateData = (infos) => {
     if (!infos.album) return 'Nome de album necessário';
     if (!infos.artist) return 'Nome do artistia necessário';
 }
 const postDisc = async (req,res) => {
+    console.log(req.user);
     const userId = req.user.id;
     const discInfos = req.body;
 
-
     try{
+        // chamada de serviço, retorna um {error: , response: }
+        const discRes = await services.registerUserDisc(userId, discInfos);
+
+        // checa por erro, e manda para o catch
+        if(discRes.error) throw discRes.error;
+        return res.status(201).json();
 
     }catch(err){
+        if(err === 'Nome do album necessário') return res.status(400).json({message: err});
+        if(err === 'Nome do artista necessário') return res.status(400).json({message: err});
+        if(err === 'Data de lançamente necessária') return res.status(400).json({message: err});
+
+        //caso o erro não bata com nenhum erro esperado, envia erro de servidor
         return res.status(500).send(err);
     }
 
-    return res.send('envio de disco');
 }
 
 module.exports = {postDisc}

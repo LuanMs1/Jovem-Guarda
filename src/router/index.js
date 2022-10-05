@@ -15,7 +15,7 @@ module.exports = (app) => {
     user.post('/login', login.loginUsuario);
     user.post('/signup', collectors.signUpCollector);
     //USUARIOS
-    // user.use(verifyToken);
+    user.use(verifyToken);
     user.post('/disc', discs.postDisc);
     user.delete('/:email', collectors.deleteCollector);
     user.put('/:email', collectors.updateCollector);

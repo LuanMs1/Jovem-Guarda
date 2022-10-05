@@ -40,8 +40,11 @@ const postDisc = async (infos,userId) => {
         disc_description: infos.disc_status || null,
         disc_status: infos.disc_status || null
     }
+    //extraindo dados para variáveis
     const values = Object.values(discInfos);
     const columns = Object.keys(discInfos);
+
+    //construindo o texto com as colunas retiradas do objeto
     const text = `
         INSERT INTO discs (${columns.toString('')})
         values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
@@ -54,5 +57,5 @@ const postDisc = async (infos,userId) => {
     }
 }
 
-postDisc({album:'algum', artist: 'fulano', release_year: 1999}, 7);
 
+module.exports = {postDisc};
