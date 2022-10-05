@@ -19,7 +19,7 @@ const signUpCollector = async (req, res) => {
     const { rowCount } = await query(`SELECT * FROM users WHERE email = $1`, [email]);
     if (rowCount > 0) return res.status(400).json({ mensagem: 'Já existe usuário cadastrado com o e-mail informado' });
 
-    const senhaCrypt = await bcrypt.hash(senha, 10);
+    const passwordCrypt = await bcrypt.hash(password, 10);
 
     const usuarioCadastrado = await query(`INSERT INTO users (user_type, name, email, password) VALUES ('collectors', $1, $2, $3)`,[nome, email, senhaCrypt]);
 
