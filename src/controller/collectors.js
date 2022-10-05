@@ -35,7 +35,7 @@ const signUpCollector = async (req, res) => {
 const getCollector = async (req, res) => {
   
   const email = req.params.email;
-  if (!email) res.status(400).json({mensagem: 'Informar usuário'})
+  if (!email) return res.status(400).json({mensagem: 'Informar usuário'})
 
   try{
     const userRes = await services.getCollector(email);
