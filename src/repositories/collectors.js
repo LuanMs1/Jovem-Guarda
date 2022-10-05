@@ -17,11 +17,11 @@ const db = require('./index');
 // user register info
     //name, email, password, user type
 
-async function getUser(email){
-    const text = `SELECT * FROM users where email = $1`;
+async function getUser(id){
+    const text = `SELECT * FROM users where id = $1`;
     
     try{
-        const dbRes = await db.query(text, [email]);
+        const dbRes = await db.query(text, [id]);
         if (dbRes.rowCount === 0) throw 'Usuário não encontrado';
         return {error: null, result: dbRes.rows[0]};
     }catch(err){
@@ -59,14 +59,14 @@ async function login(email){
 
 }
 
-async function remove(email){
+async function remove(id){
 
     const now = new Date();
-    const values = [now, email];
+    const values = [now, id];
     const text = `
         UPDATE users
         SET deleted_at = $1
-        WHERE email = $2
+        WHERE id = $2
     `;
 
     try {
@@ -78,11 +78,11 @@ async function remove(email){
     }
 }
 
-async function alter(email, infos){
+async function alter(id, infos){
     const columns = Object.keys(infos);
     const values = Object.values(infos);
     values.push(new Date());
-    values.push(email);
+    values.push(id);
 
     //fazendo a string do SET 
     for (let i in columns){
@@ -93,13 +93,11 @@ async function alter(email, infos){
     const text = `
         UPDATE users
         SET ${columns.toString()}
-        WHERE email = $${columns.length + 1}
+        WHERE id = $${columns.length + 1}
     `
 
     try {
         const dbRes = await db.query(text, values);
-        console.log('dbRes:')
-        console.log(dbRes);
         if (dbRes.rowCount === 0) throw 'Usuário não encontrado';
         return {error: null, result: 'Usuário alterado com sucesso'};
     }catch (err){
