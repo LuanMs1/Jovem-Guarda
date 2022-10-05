@@ -17,6 +17,7 @@ module.exports = (app) => {
     //USUARIOS
     user.use(verifyToken);
     user.post('/disc', upload('/discs'), discs.postDisc);
+    user.get('/disc', discs.getDiscs);
     user.delete('/:email', collectors.deleteCollector);
     user.put('/:email', collectors.updateCollector);
     user.get('/:email',collectors.getCollector);
