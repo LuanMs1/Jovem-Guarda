@@ -12,7 +12,7 @@ async function registerUserDisc(userId, discInfos){
 
     try{
         // Validações
-        if (!userId) throw 'Id de usuário necessária';
+        if (!userId) throw 'Id de usuário necessário';
 
         const missingData = validateDiscInfos(discInfos);
         if (missingData) throw missingData;
@@ -28,4 +28,17 @@ async function registerUserDisc(userId, discInfos){
     }
 }
 
-module.exports ={registerUserDisc}
+async function userDiscs(userId){
+    try{
+        //retorno de dados
+        const discsRes = await discsdb.selectUserDiscs(userId);
+        if (discsRes.error) throw discsRes.error;
+        return {error: null, result: discsRes.result.rows};
+
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
+
+
+module.exports ={registerUserDisc, userDiscs};

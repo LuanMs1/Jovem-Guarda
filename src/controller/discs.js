@@ -4,9 +4,11 @@ const validateData = (infos) => {
     if (!infos.artist) return 'Nome do artistia necessário';
 }
 const postDisc = async (req,res) => {
-    console.log(req.user);
     const userId = req.user.id;
     const discInfos = req.body;
+    if (req.file){
+        discInfos.img = req.file.filename;
+    }
 
     try{
         // chamada de serviço, retorna um {error: , response: }
@@ -27,4 +29,17 @@ const postDisc = async (req,res) => {
 
 }
 
-module.exports = {postDisc}
+const getDiscs = async (req,res) => {
+    const userId = req.user.id;
+
+    try {
+        const discs = await services.userDiscs(userId);
+        if (discs.error) throw discs.error;
+
+        return res.status(200).json(discs);
+    }catch(err){
+        return res.status(500).send(err);
+    }
+}
+
+module.exports = {postDisc, getDiscs};
