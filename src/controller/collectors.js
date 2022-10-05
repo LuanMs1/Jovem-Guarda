@@ -10,7 +10,7 @@ function validateData(body) {
 
 //CREATE
 const signUpCollector = async (req, res) => {
-  const { nome, email, senha } = req.body;
+  const { name, email, password} = req.body;
 
   const incompleteData = validateData(req.body);
   if (incompleteData) return res.status(404).json({ mensagem: incompleteData });
@@ -19,9 +19,9 @@ const signUpCollector = async (req, res) => {
     const { rowCount } = await query(`SELECT * FROM users WHERE email = $1`, [email]);
     if (rowCount > 0) return res.status(400).json({ mensagem: 'Já existe usuário cadastrado com o e-mail informado' });
 
-    const senhaCrypt = await bcrypt.hash(senha, 10);
+    const passwordCrypt = await bcrypt.hash(password, 10);
 
-    const usuarioCadastrado = await query(`INSERT INTO users (user_type, name, email, password) VALUES ('collectors', $1, $2, $3)`,[nome, email, senhaCrypt]);
+    const usuarioCadastrado = await query(`INSERT INTO users (user_type, name, email, password) VALUES ('collectors', $1, $2, $3)`,[name, email, passwordCrypt]);
 
     if (usuarioCadastrado.rowCount === 0) return res.status(400).json({ mensagem: 'Não foi possível cadastrar o usuário' });
 

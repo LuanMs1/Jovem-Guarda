@@ -7,7 +7,7 @@ const jwtSecret = process.env.SECRET_KEY;
 const loginUsuario = async (req, res) => {
   const { email, senha } = req.body;
 
-  if (!email || !senha) return res.status(400).json({ mensagem: 'Email e senha são obrigatórios' });
+  if (!email || !password) return res.status(400).json({ mensagem: 'Email e senha são obrigatórios' });
 
   try {
     const { rows, rowCount } = await query(`SELECT * FROM users WHERE email = $1`, [email]);
