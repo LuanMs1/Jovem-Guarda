@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const jwtSecret = process.env.SECRET_KEY;
 
 const loginUsuario = async (req, res) => {
-  const { email, senha } = req.body;
+  const { email, password} = req.body;
 
   if (!email || !password) return res.status(400).json({ mensagem: 'Email e senha são obrigatórios' });
 
@@ -15,7 +15,7 @@ const loginUsuario = async (req, res) => {
 
     const usuario = rows[0];
 
-    const senhaVerif = await bcrypt.compare(senha, usuario.password);
+    const senhaVerif = await bcrypt.compare(password, usuario.password);
     if (!senhaVerif) return res.status(401).json({ mensagem: 'Usuário e/ou senha inválido(s)' });
 
     const token = jwt.sign({ id: usuario.id }, jwtSecret, { expiresIn: "8h" });
