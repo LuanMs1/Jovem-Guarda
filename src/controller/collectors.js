@@ -10,7 +10,7 @@ function validateData(body) {
 
 //CREATE
 const signUpCollector = async (req, res) => {
-  const { nome, email, senha } = req.body;
+  const { name, email, password} = req.body;
 
   const incompleteData = validateData(req.body);
   if (incompleteData) return res.status(404).json({ mensagem: incompleteData });
