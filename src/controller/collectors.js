@@ -34,7 +34,9 @@ const signUpCollector = async (req, res) => {
 //READ
 const getCollector = async (req, res) => {
   // enviar usuario verificado do token
-  res.json(req.user);
+  const user = req.user;
+  delete user.password;
+  res.json(user);
 
 }
 
