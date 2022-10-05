@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const jwtSecret = process.env.SECRET_KEY;
 
 const loginUsuario = async (req, res) => {
-  const { email, senha } = req.body;
+  const { email, password } = req.body;
 
   if (!email || !password) return res.status(400).json({ mensagem: 'Email e senha são obrigatórios' });
 
