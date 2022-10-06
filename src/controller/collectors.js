@@ -1,7 +1,7 @@
 const { query } = require("../repositories");
 const bcrypt = require("bcrypt");
 const services = require("../services/collector");
-const discServices = require('../services/discs')
+const discServices = require("../services/discs");
 //validação de campos obrigatórios
 function validateData(body) {
   if (!body.name) return "O campo 'nome' é obrigatório.";
@@ -96,24 +96,23 @@ const deleteCollector = async (req, res) => {
   }
 };
 
-const getUserDiscs = async (req,res) => {
+const getUserDiscs = async (req, res) => {
   const userId = req.user.id;
 
   try {
-      const discs = await discServices.userDiscs(userId);
-      if (discs.error) throw discs.error;
+    const discs = await discServices.userDiscs(userId);
+    if (discs.error) throw discs.error;
 
-      return res.status(200).json(discs.result);
-  }catch(err){
-      console.log(err)
-      return res.status(500).json({message: err});
+    return res.status(200).json(discs.result);
+  } catch (err) {
+    return res.status(500).json({ message: err });
   }
-}
+};
 
 module.exports = {
   deleteCollector,
   updateCollector,
   getCollector,
   signUpCollector,
-  getUserDiscs
+  getUserDiscs,
 };

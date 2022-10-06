@@ -60,7 +60,6 @@ function loginService(evt) {
     elements[i].addEventListener("click", () => {
       window.dispatchEvent(evt[i]);
     });
-    console.log(elements);
   }
   document.title = "Meus discos";
 }

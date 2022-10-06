@@ -3,7 +3,7 @@ import { login } from "./modules/login.js";
 import { register } from "./modules/register.js";
 import { confirmation } from "./modules/confirmation.js";
 import { meusDiscos } from "./modules/meusDiscos.js";
-import { errorNotFound } from "./modules/errorNotFound.js";
+// import { errorNotFound } from "./modules/errorNotFound.js";
 
 const routes = {
   "/": function () {
