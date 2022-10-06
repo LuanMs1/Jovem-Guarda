@@ -1,11 +1,12 @@
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-require('./router/index')(app);
+app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static('public'));
+require("./router/index")(app);
+
+app.use(express.static("public"));
 
 app.listen(8000);
