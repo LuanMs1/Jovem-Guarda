@@ -8,10 +8,12 @@ function uploadImg(path){
 
         filename: function(req, file, cb){
 
-            const archiveExtension = file.originalname.split('.')[1];
+                const archiveExtension = file.originalname.split('.')[1];
+                const newName = require('crypto')
+                .randomBytes(64)
+                .toString('hex');
 
-            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-            cb(null, `atest.${archiveExtension}`);
+                cb(null, `${newName}.${archiveExtension}`);
             }
     });
     
