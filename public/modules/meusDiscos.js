@@ -1,7 +1,7 @@
 const app = document.querySelector("#app");
 
 export function meusDiscos(evtJoinMain, evtEnter, evtRegister) {
-  app.innerHTML = `
+    app.innerHTML = `
   <div id="container-main">
   <header>
     <a href="#">
@@ -50,16 +50,16 @@ export function meusDiscos(evtJoinMain, evtEnter, evtRegister) {
   </div>
 </main>
     `;
-  loginService([evtJoinMain, evtEnter, evtRegister]);
+    loginService([evtJoinMain, evtEnter, evtRegister]);
 }
 
 function loginService(evt) {
-  const elements = document.querySelectorAll(".link");
+    const elements = document.querySelectorAll(".link");
 
-  for (let i = 0; i <= elements.length; i++) {
-    elements[i].addEventListener("click", () => {
-      window.dispatchEvent(evt[i]);
-    });
-  }
-  document.title = "Meus discos";
+    for (let i = 0; i <= elements.length; i++) {
+        elements[i].addEventListener("click", () => {
+            window.dispatchEvent(evt[i]);
+        });
+    }
+    document.title = "Meus discos";
 }

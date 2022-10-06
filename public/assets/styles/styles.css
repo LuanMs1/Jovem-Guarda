@@ -1,322 +1,322 @@
 @import url("https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
 
 :root {
-  --main-bg-color: #030526;
-  --btn-bg-color: #a735f2;
-  --radial-bg-color: radial-gradient(
-      50% 50% at 50% 50%,
-      rgba(167, 53, 242, 0.35) 0%,
-      rgba(79, 57, 211, 0) 100%
-    ),
-    #030526;
+    --main-bg-color: #030526;
+    --btn-bg-color: #a735f2;
+    --radial-bg-color: radial-gradient(
+            50% 50% at 50% 50%,
+            rgba(167, 53, 242, 0.35) 0%,
+            rgba(79, 57, 211, 0) 100%
+        ),
+        #030526;
 }
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 body {
-  width: 100vw;
-  height: 100vh;
-  background: var(--radial-bg-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-family: "Inria Sans", sans-serif;
-  color: #d9d9d9;
+    width: 100vw;
+    height: 100vh;
+    background: var(--radial-bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Inria Sans", sans-serif;
+    color: #d9d9d9;
 }
 
 form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  color: #d9d9d9;
-  font-family: "Inria Sans", sans-serif;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #d9d9d9;
+    font-family: "Inria Sans", sans-serif;
+    align-items: center;
 }
 
 a img {
-  width: 160px;
-  margin-left: 18px;
+    width: 160px;
+    margin-left: 18px;
 }
 
 #container-center {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  color: #d9d9d9;
-  font-family: "Inria Sans", sans-serif;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  flex-direction: column;
-  max-width: 500px;
-  width: 90vw;
-  height: 500px;
-  border: solid 0.1px #d9d9d9;
-  border-radius: 8px;
-  padding-top: 35px;
-  gap: 45px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #d9d9d9;
+    font-family: "Inria Sans", sans-serif;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    max-width: 500px;
+    width: 90vw;
+    height: 500px;
+    border: solid 0.1px #d9d9d9;
+    border-radius: 8px;
+    padding-top: 35px;
+    gap: 45px;
 }
 
 #container-center-register {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  color: #d9d9d9;
-  font-family: "Inria Sans", sans-serif;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  flex-direction: column;
-  max-width: 500px;
-  width: 90vw;
-  border: solid 0.1px #d9d9d9;
-  border-radius: 8px;
-  padding-top: 35px;
-  padding-bottom: 20px;
-  gap: 45px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #d9d9d9;
+    font-family: "Inria Sans", sans-serif;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    max-width: 500px;
+    width: 90vw;
+    border: solid 0.1px #d9d9d9;
+    border-radius: 8px;
+    padding-top: 35px;
+    padding-bottom: 20px;
+    gap: 45px;
 }
 
 input {
-  max-width: 250px;
-  width: 80vw;
-  height: 35px;
-  color: #d9d9d9;
-  font-family: "Inria Sans", sans-serif;
-  font-size: 16px;
-  background: var(--main-bg-color);
-  border: none;
-  border-radius: 5px;
+    max-width: 250px;
+    width: 80vw;
+    height: 35px;
+    color: #d9d9d9;
+    font-family: "Inria Sans", sans-serif;
+    font-size: 16px;
+    background: var(--main-bg-color);
+    border: none;
+    border-radius: 5px;
 }
 
 ::placeholder {
-  display: flex;
-  /* justify-content: center; */
-  font-size: 13px;
-  padding-left: 10px;
-  color: #d9d9d9;
-  font-family: "Inria Sans", sans-serif;
+    display: flex;
+    /* justify-content: center; */
+    font-size: 13px;
+    padding-left: 10px;
+    color: #d9d9d9;
+    font-family: "Inria Sans", sans-serif;
 }
 
 #btn-submit {
-  max-width: 250px;
-  width: 80vw;
-  height: 35px;
-  background: var(--btn-bg-color);
-  border-radius: 5px;
-  color: #d9d9d9;
-  font-family: "Inria Sans", sans-serif;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
+    max-width: 250px;
+    width: 80vw;
+    height: 35px;
+    background: var(--btn-bg-color);
+    border-radius: 5px;
+    color: #d9d9d9;
+    font-family: "Inria Sans", sans-serif;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
 }
 
 #btn-submit:hover {
-  opacity: 0.85;
+    opacity: 0.85;
 }
 
 .title {
-  font-size: 20px;
+    font-size: 20px;
 }
 
 #message {
-  font-size: 28px;
-  text-align: center;
-  margin-top: 25px;
+    font-size: 28px;
+    text-align: center;
+    margin-top: 25px;
 }
 
 #create-acount {
-  display: flex;
-  margin-top: 5px;
+    display: flex;
+    margin-top: 5px;
 }
 
 #enter {
-  display: flex;
-  margin-top: 40px;
+    display: flex;
+    margin-top: 40px;
 }
 
 #enter a {
-  color: #a735f2;
-  font-family: "Inria Sans", sans-serif;
-  display: flex;
-  margin-top: 80px;
-  font-size: 15px;
+    color: #a735f2;
+    font-family: "Inria Sans", sans-serif;
+    display: flex;
+    margin-top: 80px;
+    font-size: 15px;
 }
 
 span a {
-  color: #d9d9d9;
-  font-family: "Inria Sans", sans-serif;
-  font-size: 14px;
+    color: #d9d9d9;
+    font-family: "Inria Sans", sans-serif;
+    font-size: 14px;
 }
 
 /* MEUS DISCOS */
 
 :root {
-  --main-bg-color: #030526;
-  --btn-bg-color: #a735f2;
-  --btn-search-colo: #321f75;
-  --radial-bg-color: radial-gradient(
-      50% 50% at 50% 50%,
-      rgba(167, 53, 242, 0.35) 0%,
-      rgba(79, 57, 211, 0) 100%
-    ),
-    #030526;
+    --main-bg-color: #030526;
+    --btn-bg-color: #a735f2;
+    --btn-search-colo: #321f75;
+    --radial-bg-color: radial-gradient(
+            50% 50% at 50% 50%,
+            rgba(167, 53, 242, 0.35) 0%,
+            rgba(79, 57, 211, 0) 100%
+        ),
+        #030526;
 }
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 body {
-  width: 100vw;
-  height: 95vh;
-  background: var(--radial-bg-color);
-  background-repeat: no-repeat;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  font-family: "Inria Sans", sans-serif;
-  color: #d9d9d9;
+    width: 100vw;
+    height: 95vh;
+    background: var(--radial-bg-color);
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Inria Sans", sans-serif;
+    color: #d9d9d9;
 }
 #container-main {
-  max-width: 1100px;
+    max-width: 1100px;
 }
 a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 header {
-  max-width: 1100px;
-  width: 100vw;
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+    max-width: 1100px;
+    width: 100vw;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 header span {
-  font-size: 20px;
+    font-size: 20px;
 }
 
 #title {
-  display: flex;
-  justify-content: center;
-  padding-top: 10px;
-  padding-bottom: 40px;
-  font-size: 40px;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 40px;
+    font-size: 40px;
 }
 #logo-img {
-  max-width: 150px;
-  width: 115px;
-  height: 115px;
+    max-width: 150px;
+    width: 115px;
+    height: 115px;
 }
 #userImg {
-  max-width: 130px;
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  border: dashed 2px var(--btn-bg-color);
+    max-width: 130px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: dashed 2px var(--btn-bg-color);
 }
 #containerUser {
-  width: 120px;
-  height: 100px;
-  display: flex;
-  padding-top: 10px;
-  gap: 3px;
-  /* padding-right:30px; */
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+    width: 120px;
+    height: 100px;
+    display: flex;
+    padding-top: 10px;
+    gap: 3px;
+    /* padding-right:30px; */
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 #nameUser {
-  font-size: 15px;
-  font-family: "Inria Sans", sans-serif;
-  font-weight: bold;
+    font-size: 15px;
+    font-family: "Inria Sans", sans-serif;
+    font-weight: bold;
 }
 #searchBar {
-  width: 140px;
-  height: 30px;
-  border-radius: 15px;
-  font-family: "Inria Sans", sans-serif;
-  border: none;
-  background: url("imgs/search.png") no-repeat;
-  background-color: var(--btn-search-colo);
-  background-size: 15px;
-  background-position: 115px;
-  cursor: pointer;
-  color: #d9d9d9;
-  /* padding-left: 10px; */
+    width: 140px;
+    height: 30px;
+    border-radius: 15px;
+    font-family: "Inria Sans", sans-serif;
+    border: none;
+    background: url("imgs/search.png") no-repeat;
+    background-color: var(--btn-search-colo);
+    background-size: 15px;
+    background-position: 115px;
+    cursor: pointer;
+    color: #d9d9d9;
+    /* padding-left: 10px; */
 }
 #searchBar:focus {
-  outline: none;
-  border: 1.5px solid var(--btn-bg-color);
+    outline: none;
+    border: 1.5px solid var(--btn-bg-color);
 }
 #searchBar:hover {
-  background-color: var(--btn-bg-color);
-  opacity: 0.9;
-  transition: ease-in-out 0.3s;
+    background-color: var(--btn-bg-color);
+    opacity: 0.9;
+    transition: ease-in-out 0.3s;
 }
 ::placeholder {
-  display: flex;
-  font-size: 13.3px;
-  padding-left: 10px;
-  color: #d9d9d9;
-  font-family: "Inria Sans", sans-serif;
+    display: flex;
+    font-size: 13.3px;
+    padding-left: 10px;
+    color: #d9d9d9;
+    font-family: "Inria Sans", sans-serif;
 }
 #container {
-  max-width: 1100px;
-  width: 90vw;
-  height: 50vh;
-  display: flex;
-  gap: 2vw;
-  align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
+    max-width: 1100px;
+    width: 90vw;
+    height: 50vh;
+    display: flex;
+    gap: 2vw;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 /* main {
   display: flex;
 } */
 .card-disc {
-  background-color: rgb(122, 122, 122, 0.5);
-  width: 185px;
-  height: 260px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    background-color: rgb(122, 122, 122, 0.5);
+    width: 185px;
+    height: 260px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .card-img {
-  width: 160px;
-  height: 170px;
+    width: 160px;
+    height: 170px;
 }
 .card-add {
-  background-color: #030526, 0.3;
-  width: 65px;
-  height: 65px;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0px 4px 20px 0px var(--btn-bg-color);
+    background-color: #030526, 0.3;
+    width: 65px;
+    height: 65px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 20px 0px var(--btn-bg-color);
 }
 .card-add-icon {
-  width: 45px;
+    width: 45px;
 }
 
 /* HOME */
 :root {
-  --main-bg-color: #030526;
-  --radial-bg-color: radial-gradient(
-      50% 50% at 50% 50%,
-      rgba(167, 53, 242, 0.35) 0%,
-      rgba(79, 57, 211, 0) 100%
-    ),
-    #030526;
+    --main-bg-color: #030526;
+    --radial-bg-color: radial-gradient(
+            50% 50% at 50% 50%,
+            rgba(167, 53, 242, 0.35) 0%,
+            rgba(79, 57, 211, 0) 100%
+        ),
+        #030526;
 }
 
 /* body {
@@ -328,96 +328,96 @@ header span {
   flex-direction: column;
 } */
 #main-disc {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 #main-header {
-  max-width: 900px;
-  width: 92vw;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+    max-width: 900px;
+    width: 92vw;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 #window-header {
-  max-width: 1100px;
-  width: 80vw;
-  height: 10vh;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 1.2rem;
+    max-width: 1100px;
+    width: 80vw;
+    height: 10vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.2rem;
 }
 #join-text {
-  font-family: "Inter", sans-serif;
-  font-size: 16px;
-  color: #a735f2;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    color: #a735f2;
 }
 #join-text:hover {
-  cursor: pointer;
-  color: #e0e0e0;
+    cursor: pointer;
+    color: #e0e0e0;
 }
 #registration-text {
-  font-family: "Inter", sans-serif;
-  font-size: 16px;
-  text-decoration: none;
-  width: 120px;
-  height: 25px;
-  border: none;
-  color: #ffffff;
-  background: rgba(167, 53, 242, 0.79);
-  border-radius: 20px;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    text-decoration: none;
+    width: 120px;
+    height: 25px;
+    border: none;
+    color: #ffffff;
+    background: rgba(167, 53, 242, 0.79);
+    border-radius: 20px;
 }
 #registration-text:hover {
-  color: #ffffff;
-  background: rgba(167, 53, 242, 0.79);
-  border: solid 1px #ffffffc9;
-  cursor: pointer;
+    color: #ffffff;
+    background: rgba(167, 53, 242, 0.79);
+    border: solid 1px #ffffffc9;
+    cursor: pointer;
 }
 #logo-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  justify-content: center;
-  width: 200px;
-  height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 120px;
 }
 #logo-img {
-  width: 200px;
-  height: 200px;
+    width: 200px;
+    height: 200px;
 }
 #main-home {
-  max-width: 1100px;
-  width: 92vw;
-  height: 65vh;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    max-width: 1100px;
+    width: 92vw;
+    height: 65vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 #window-main {
-  max-width: 1100px;
-  width: 92vw;
-  height: 76vh;
-  width: 80vw;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 30px;
+    max-width: 1100px;
+    width: 92vw;
+    height: 76vh;
+    width: 80vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
 }
 #title {
-  width: 550px;
+    width: 550px;
 }
 #victrola-div {
-  display: flex;
-  align-self: flex-end;
+    display: flex;
+    align-self: flex-end;
 }
 h1 {
-  color: rgb(255, 255, 255);
-  font-size: 50px;
-  font-family: "Martel", serif;
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    font-family: "Martel", serif;
 }
 #victrola-img {
-  width: 400px;
-  height: 400px;
+    width: 400px;
+    height: 400px;
 }

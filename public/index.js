@@ -6,57 +6,57 @@ import { meusDiscos } from "./modules/meusDiscos.js";
 // import { errorNotFound } from "./modules/errorNotFound.js";
 
 const routes = {
-  "/": function () {
-    home(events("/login"), events("/register"));
-  },
-  "/login": function () {
-    login(events("/"), events("/meusDiscos"), events("/register"));
-  },
-  "/register": function () {
-    register(events("/"), events("/confirmation"), events("/login"));
-  },
-  "/confirmation": function () {
-    confirmation(events("/"), events("/login"));
-  },
-  "/meusDiscos": function () {
-    meusDiscos(events("/"), events("/meusDiscos"));
-  },
-  "/404": function () {
-    errorNotFound(events("/"), events("/login"));
-  },
-  // "/main": function () {
-  //   register(events("/login"), events("/register"));
-  // },
+    "/": function () {
+        home(events("/login"), events("/register"));
+    },
+    "/login": function () {
+        login(events("/"), events("/meusDiscos"), events("/register"));
+    },
+    "/register": function () {
+        register(events("/"), events("/confirmation"), events("/login"));
+    },
+    "/confirmation": function () {
+        confirmation(events("/"), events("/login"));
+    },
+    "/meusDiscos": function () {
+        meusDiscos(events("/"), events("/meusDiscos"));
+    },
+    "/404": function () {
+        errorNotFound(events("/"), events("/login"));
+    },
+    // "/main": function () {
+    //   register(events("/login"), events("/register"));
+    // },
 };
 
 function events(prop) {
-  return new CustomEvent("onstatechange", {
-    detail: {
-      name: prop,
-    },
-  });
+    return new CustomEvent("onstatechange", {
+        detail: {
+            name: prop,
+        },
+    });
 }
 
 history.pushState({}, "", "/");
 
 function router() {
-  const adress = window.location.href.substring(8);
-  const url = adress.substring(adress.indexOf("/"));
-  const route = testUrlRoute(url);
-  route();
+    const adress = window.location.href.substring(8);
+    const url = adress.substring(adress.indexOf("/"));
+    const route = testUrlRoute(url);
+    route();
 }
 
 function testUrlRoute(route) {
-  try {
-    return routes[route];
-  } catch (e) {
-    throw "Not Fund " + e;
-  }
+    try {
+        return routes[route];
+    } catch (e) {
+        throw "Not Fund " + e;
+    }
 }
 
 window.addEventListener("onstatechange", (e) => {
-  history.pushState({}, "", e.detail.name);
-  router();
+    history.pushState({}, "", e.detail.name);
+    router();
 });
 
 window.addEventListener("popstate", router);
