@@ -2,20 +2,24 @@ import { home } from "./modules/home.js";
 import { login } from "./modules/login.js";
 import { register } from "./modules/register.js";
 import { confirmation } from "./modules/confirmation.js";
-// import { errorNotFound} from "./modules/errorNotFound.js";
+import { meusDiscos } from "./modules/meusDiscos.js";
+import { errorNotFound } from "./modules/errorNotFound.js";
 
 const routes = {
   "/": function () {
     home(events("/login"), events("/register"));
   },
   "/login": function () {
-    login(events("/"), events("/confirmation"), events("/register"));
+    login(events("/"), events("/meusDiscos"), events("/register"));
   },
   "/register": function () {
     register(events("/"), events("/confirmation"), events("/login"));
   },
   "/confirmation": function () {
     confirmation(events("/"), events("/login"));
+  },
+  "/meusDiscos": function () {
+    meusDiscos(events("/"), events("/meusDiscos"));
   },
   "/404": function () {
     errorNotFound(events("/"), events("/login"));
