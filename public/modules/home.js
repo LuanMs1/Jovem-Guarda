@@ -2,11 +2,29 @@ const app = document.querySelector("#app");
 
 export function home(evtJoin,evtRegister) {
     app.innerHTML = `
-    <h1>Página Home<h1>
-      <nav>
-            <a class="link"  id="login" >Entrar</a>
-            <a class="link"  id="register" >Cadastrar</a>
-        </nav>
+    <div id="main-disc">
+    <header id main-header>
+            <div id="window-header">
+                <a id="join-text" class="link">ENTRAR</a>
+                <button id="registration-text"class="link">CADASTRAR</button>
+             </div>
+        </header>
+        <div id="logo-div">
+            <img id="logo-img" src="./assets/images/LogoJovemGuarda.svg" alt="">
+        </div>
+        <main id="main-home">
+            <div id="window-main">
+                <div id="title">
+                    <h1>Colecione!<br>
+                        Troque! <br>
+                         Tudo em um só lugar.</h1>
+                </div>
+                <div id="victrola-div">
+                    <img id="victrola-img" src="./assets/images/vitrol.png" alt="">
+                </div>
+            </div>
+        </main>
+        <div>
     `;
     
     homeService([evtJoin,evtRegister])
