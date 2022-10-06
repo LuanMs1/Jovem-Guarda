@@ -1,10 +1,10 @@
 const app = document.querySelector("#app");
 
-export function login(evtJoinMain,evtEnter, evtRegister) {
-    app.innerHTML = `
+export function login(evtJoinMain, evtEnter, evtRegister) {
+  app.innerHTML = `
         <div id="container-center">
             <a href="#">
-                <img class="link" src="./public/assets/images/jovemGuarda.png">
+                <img class="link" src="./assets/images/jovemGuarda.png">
             </a>
             <form action="/action_page.php">
                 <span class="title">
@@ -24,18 +24,45 @@ export function login(evtJoinMain,evtEnter, evtRegister) {
                 <a href="#" class="link">Crie uma conta aqui</a>
             </span>
         </div>
-    `
-    loginService([evtJoinMain,evtEnter, evtRegister])
+    `;
+  loginService([evtJoinMain, evtEnter, evtRegister]);
 }
 
 function loginService(evt) {
-    const elements = document.querySelectorAll(".link");
-    
-    for (let i = 0; i <= elements.length; i++) {
-        console.log(elements.length)
-      elements[i].onclick = () => {
-        window.dispatchEvent(evt[i]);
-      };
-    }
-     document.title = "Login";
+  const elements = document.querySelectorAll(".link");
+
+  for (let i = 0; i <= elements.length; i++) {
+    elements[i].addEventListener("click", () => {
+      window.dispatchEvent(evt[i]);
+      fetch();
+    });
+    console.log(elements);
+  }
+  document.title = "Login";
+}
+
+function fetch() {
+  let myInit = {
+    method: "POST",
+    headers: myHeaders,
+    mode: "cors",
+    cache: "default",
+    body: JSON.stringify(data),
+  };
+  fetch("http://localhost:8000/singup", myInit)
+    .then(function (response) {
+      if (response.ok) {
+        response.blob().then(function (myBlob) {
+          var objectURL = URL.createObjectURL(myBlob);
+          myImage.src = objectURL;
+        });
+      } else {
+        console.log("Network response was not ok.");
+      }
+    })
+    .catch(function (error) {
+      console.log(
+        "There has been a problem with your fetch operation: " + error.message
+      );
+    });
 }
