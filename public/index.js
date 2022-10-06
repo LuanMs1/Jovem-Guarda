@@ -1,7 +1,7 @@
 import { home } from "./modules/home.js";
 import { login } from "./modules/login.js";
 import { register } from "./modules/register.js";
-import { confirmation} from "./modules/confirmation.js";
+import { confirmation } from "./modules/confirmation.js";
 // import { errorNotFound} from "./modules/errorNotFound.js";
 
 const routes = {
@@ -23,7 +23,6 @@ const routes = {
   // "/main": function () {
   //   register(events("/login"), events("/register"));
   // },
-  
 };
 
 function events(prop) {
@@ -56,6 +55,6 @@ window.addEventListener("onstatechange", (e) => {
   router();
 });
 
-window.addEventListener('popstate', router)
+window.addEventListener("popstate", router);
 
 window.addEventListener("load", router);
