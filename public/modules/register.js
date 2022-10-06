@@ -6,24 +6,24 @@ export function register(evtBack, evtJoin, evtConfirmation) {
         <a href="#">
             <img class="link" src="./assets/images/jovemGuarda.png">
         </a>
-        <form action="/user/singup" method="POST">
+        <form action="" method="POST">
             <span class="title">
                 CADASTRO
             </span>
             <div>
-              <input name="name" type="text" placeholder="NOME">
+              <input id="name" name="name" type="text" placeholder="NOME">
             </div>
             <div>
-                <input name="email" type="text" placeholder="EMAIL">
+                <input id="email" name="email" type="text" placeholder="EMAIL">
             </div>
             <div>
-                <input name="password" type="password" placeholder="SENHA">
+                <input id="password" name="password" type="password" placeholder="SENHA">
             </div>
             <div>
                 <input type="password" placeholder="CONFIRME SUA SENHA">
             </div>
             <div>
-                <input class="link" id="btn-submit" type="submit" value="CADASTRAR">
+                <input class="link" onsubmit="return false;" id="btn-submit" type="submit" value="CADASTRAR">
             </div>
         </form>
         <span id="create-acount">
@@ -33,16 +33,36 @@ export function register(evtBack, evtJoin, evtConfirmation) {
     `;
   registerService([evtBack, evtJoin, evtConfirmation]);
 }
+
 function registerService(evt) {
   const elements = document.querySelectorAll(".link");
   console.log(`elements: ${elements}`);
 
   for (let i = 0; i < elements.length; i++) {
     elements[i].onclick = () => {
+      if (evt[i].detail.name == "/confirmation") {
+        registerUser();
+      }
       window.dispatchEvent(evt[i]);
-      const name = document.querySelector("#name");
-      console.log(name);
     };
   }
   document.title = "Register";
+}
+
+ function registerUser() {
+  
+  const name = document.getElementById("name").value;
+  const email = document.querySelector("#email").value;
+  const password = document.querySelector("#password").value;
+
+  const data = { name: name, email: email, password: password };
+  
+  fetch(
+    "http://localhost:8000/user/signup",
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    })
+  ;
 }
