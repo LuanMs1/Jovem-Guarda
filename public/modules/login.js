@@ -34,35 +34,8 @@ function loginService(evt) {
   for (let i = 0; i <= elements.length; i++) {
     elements[i].addEventListener("click", () => {
       window.dispatchEvent(evt[i]);
-      fetch();
     });
     console.log(elements);
   }
   document.title = "Login";
-}
-
-function fetch() {
-  let myInit = {
-    method: "POST",
-    headers: myHeaders,
-    mode: "cors",
-    cache: "default",
-    body: JSON.stringify(data),
-  };
-  fetch("http://localhost:8000/singup", myInit)
-    .then(function (response) {
-      if (response.ok) {
-        response.blob().then(function (myBlob) {
-          var objectURL = URL.createObjectURL(myBlob);
-          myImage.src = objectURL;
-        });
-      } else {
-        console.log("Network response was not ok.");
-      }
-    })
-    .catch(function (error) {
-      console.log(
-        "There has been a problem with your fetch operation: " + error.message
-      );
-    });
 }
