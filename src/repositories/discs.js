@@ -72,4 +72,18 @@ const selectUserDiscs = async (userId) => {
     }
 }
 
-module.exports = {postDisc, selectUserDiscs};
+const getDisc = async (discId) => {
+    const text = `
+        SELECT * FROM discs
+        WHERE id = $1
+    `
+    try{
+        const dbRes = await db.query(text, [discId]);
+        return {error: null, result: dbRes};
+
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
+
+module.exports = {postDisc, selectUserDiscs, getDisc};

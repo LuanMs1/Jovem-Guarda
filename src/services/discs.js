@@ -40,5 +40,21 @@ async function userDiscs(userId){
     }
 }
 
+async function getDisc(discId){
+    try{
+        // validações
+        if (!discId) throw 'Necessário informar ID';
+        //retorno de dados
+        const discRes = await discsdb.getDisc(discId);
 
-module.exports ={registerUserDisc, userDiscs};
+        // validações
+        if (discRes.error) throw discRes.error;
+        if (discRes.result.rowCount === 0) throw 'Disco não encontrado';
+
+        return {error: null, result: discRes.result.rows[0]};
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
+
+module.exports ={registerUserDisc, userDiscs, getDisc};
