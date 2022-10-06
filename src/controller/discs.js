@@ -26,19 +26,6 @@ const postDisc = async (req,res) => {
 
 }
 
-const getUserDiscs = async (req,res) => {
-    const userId = req.user.id;
-
-    try {
-        const discs = await services.userDiscs(userId);
-        if (discs.error) throw discs.error;
-
-        return res.status(200).json(discs);
-    }catch(err){
-        return res.status(500).json({message: err});
-    }
-}
-
 const getDisc = async (req, res) => {
     const discId = req.param.id;
 
@@ -51,4 +38,4 @@ const getDisc = async (req, res) => {
     }
 }
 
-module.exports = {postDisc, getUserDiscs, getDisc};
+module.exports = {postDisc, getDisc};

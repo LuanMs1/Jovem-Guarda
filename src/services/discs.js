@@ -57,4 +57,17 @@ async function getDisc(discId){
     }
 }
 
-module.exports ={registerUserDisc, userDiscs, getDisc};
+async function getAllDiscs(){
+    try {
+        const discsRes = await discsdb.getAllDiscs();
+        if (discsRes.error) throw discsRes.error;
+
+        return {error: null, result: discsRes.result.rows};
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
+
+getAllDiscs().then(res => console.log(res));
+
+module.exports ={registerUserDisc, userDiscs, getDisc, getAllDiscs};
