@@ -1,23 +1,23 @@
 const app = document.querySelector("#app");
 
-export function register(evtBack,evtJoin,evtConfirmation) {
-    app.innerHTML = `
+export function register(evtBack, evtJoin, evtConfirmation) {
+  app.innerHTML = `
       <div id="container-center-register">
         <a href="#">
-            <img class="link" src="./public/assets/images/jovemGuarda.png">
+            <img class="link" src="./assets/images/jovemGuarda.png">
         </a>
-        <form action="/notification.html">
+        <form action="/user/singup" method="POST">
             <span class="title">
                 CADASTRO
             </span>
             <div>
-              <input type="text" placeholder="NOME">
+              <input name="name" type="text" placeholder="NOME">
             </div>
             <div>
-                <input type="text" placeholder="EMAIL">
+                <input name="email" type="text" placeholder="EMAIL">
             </div>
             <div>
-                <input type="password" placeholder="SENHA">
+                <input name="password" type="password" placeholder="SENHA">
             </div>
             <div>
                 <input type="password" placeholder="CONFIRME SUA SENHA">
@@ -30,16 +30,19 @@ export function register(evtBack,evtJoin,evtConfirmation) {
           <a href="#" class="link">Voltar</a>
         </span>
       </div>
-    `
-    registerService([evtBack,evtJoin,evtConfirmation])
+    `;
+  registerService([evtBack, evtJoin, evtConfirmation]);
 }
 function registerService(evt) {
-    const elements = document.querySelectorAll(".link");
-   
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].onclick = () => {
-        window.dispatchEvent(evt[i]);
-      };
-    }
-     document.title = "Register";
+  const elements = document.querySelectorAll(".link");
+  console.log(`elements: ${elements}`);
+
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].onclick = () => {
+      window.dispatchEvent(evt[i]);
+      const name = document.querySelector("#name");
+      console.log(name);
+    };
   }
+  document.title = "Register";
+}
