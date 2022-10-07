@@ -9,19 +9,25 @@ const discs = require('../controller/discs');
 module.exports = (app) => {
 
     const user = express.Router();
-
+    const disc = express.Router();
+    
+    app.use('/disc', disc);
     app.use('/user', user);
-
     //Fazer Login
     user.post('/login', login.loginUsuario);
     user.post('/signup', collectors.signUpCollector);
     //USUARIOS
     user.use(verifyToken);
     user.post('/disc', upload('/discs'), discs.postDisc);
-    user.get('/disc', collectors.getUserDiscs);
+    user.get('/alldiscs', collectors.getUserDiscs);
     user.delete('/', collectors.deleteCollector);
     user.put('/', collectors.updateCollector);
     user.get('/',collectors.getCollector);
-    user.post('/img', upload('/profile'), userImg);
+    // user.post('/img', upload('/profile'), userImg);
     
+    
+    //DISCOS
+    disc.put('/:id', discs.updateDisc);
+    disc.get('/genre', discs.genreFilter);
+
 }

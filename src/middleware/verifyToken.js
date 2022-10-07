@@ -5,7 +5,6 @@ const jwtSecret = process.env.SECRET_KEY;
 
 const verifyToken = async (req, res, next) => {
   const { authorization } = req.headers;
-  console.log(req.headers);
   if(!authorization) return res.status(401).json({ mensagem: 'Para acessar este recurso, um token de autenticação válido deve ser enviado' });
 
   try {

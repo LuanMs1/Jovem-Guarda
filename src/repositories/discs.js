@@ -47,20 +47,62 @@ const postDisc = async (infos,userId) => {
     //construindo o texto com as colunas retiradas do objeto
     const text = `
         INSERT INTO discs (${columns.toString('')})
-        values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        RETURNING id;
     `
     try{
         const dbRes = await db.query(text, values);
-        return {error: null, result: 'disc registration successful'}
+        return {error: null, result: dbRes}
     }catch(err){
+        return {error: err, result: null};
+    }
+}
+
+const updateDisc = async (infos, discId) => {
+    const discInfos = {
+        album: infos.album || null,
+        artist: infos.artist || null,
+        release_year: infos.release_year || null,
+        img: infos.img || null,
+        vynil_type: infos.vynil_type || null,
+        album_type: infos.album_type || null,
+        length: infos.length || null,
+        disc_description: infos.disc_status || null,
+        disc_status: infos.disc_status || null
+    }
+    //extraindo dados para variáveis
+    const values = Object.values(discInfos);
+    const columns = Object.keys(discInfos);
+    values.push(new Date());
+    values.push(discId);
+    
+    //fazendo a string do SET 
+    for (let i in columns){
+        columns[i] += ` = $` + (parseInt(i) + 1);
+    }
+    columns.push(`updated_at = $${columns.length + 1}`);
+    const text = `
+        UPDATE discs    
+        SET ${columns.toString()}
+        WHERE id = $${columns.length + 1}
+    `
+    console.log(text);
+    try{
+        const dbRes = await db.query(text,values);
+        return {error: null, result: dbRes};
+    }catch(err){
+        console.log(err);
         return {error: err, result: null};
     }
 }
 
 const selectUserDiscs = async (userId) => {
     const text = `
-        SELECT * FROM discs
+        SELECT discs.*, string_agg(music_genre_list.genre, ',') AS genre
+        FROM discs
+        LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
         WHERE user_id = $1
+        GROUP BY discs.id
     `;
 
     try{
@@ -74,8 +116,11 @@ const selectUserDiscs = async (userId) => {
 
 const getDisc = async (discId) => {
     const text = `
-        SELECT * FROM discs
+        SELECT discs.*, string_agg(music_genre_list.genre, ',') AS genre
+        FROM discs
+        LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
         WHERE id = $1
+        GROUP BY discs.id
     `
     try{
         const dbRes = await db.query(text, [discId]);
@@ -100,4 +145,54 @@ const getAllDiscs = async () => {
     }
 }
 
-module.exports = {postDisc, selectUserDiscs, getDisc, getAllDiscs};
+// genre is a vector
+const setGenre = async (discId, genre) => {
+    //fazendo a extrutura de vetores;
+    let values = [];
+    for (let i in genre){
+        i++
+        values.push(`(${discId}, $${i})`);
+    };
+
+    const text = `
+        INSERT INTO music_genre_list (album_id, genre)
+        VALUES ${values.toString()};
+    `
+    try{
+        const dbRes = await db.query(text, genre);
+        return {error: null, result: dbRes};
+
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
+
+const genreFilter = async (genre) => {
+    let conditions = [];
+    for (let i in genre){
+        i++
+        conditions.push(`(UPPER(genre) = UPPER($${i}))`);
+    };
+
+    const text = `
+        SELECT DISTINCT discs.*, music_genre_list.genre
+        FROM discs
+        LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
+        WHERE ${conditions.join(' OR ')} ;
+    `
+    try{
+        const dbRes = await db.query(text, genre);
+        return {error: null, result: dbRes};
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
+module.exports = {
+    postDisc, 
+    selectUserDiscs, 
+    getDisc, 
+    getAllDiscs,
+    setGenre,
+    updateDisc,
+    genreFilter
+};
