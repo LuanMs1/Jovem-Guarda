@@ -232,6 +232,22 @@ const filterOr = async (filterInfo) => {
     }
 }
 
+
+const remove = async(discId) => {
+    const values = [new Date(), discId];
+    const text = `
+        UPDATE discs
+        SET deleted_at = $1
+        WHERE id = $2
+    `;
+
+    try{
+        const dbRes = await db.query(text,values);
+        return {error: null, result: dbRes};
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
 module.exports = {
     postDisc, 
     selectUserDiscs, 
@@ -241,5 +257,6 @@ module.exports = {
     updateDisc,
     genreFilter,
     remove,
-    filterOr
+    filterOr,
+    remove
 };

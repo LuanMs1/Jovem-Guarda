@@ -1,7 +1,9 @@
+import { getSpotifyToken } from "./api-spotify/spotifyToken.js"
+
 const app = document.querySelector("#app");
 
 export function login(evtJoinMain, evtEnter, evtRegister) {
-    app.innerHTML = `
+  app.innerHTML = `
         <div id="container-center">
             <a href="#">
                 <img class="link" src="./assets/images/jovemGuarda.png">
@@ -26,7 +28,7 @@ export function login(evtJoinMain, evtEnter, evtRegister) {
             </span>
         </div>
     `;
-    loginService([evtJoinMain, evtEnter, evtRegister]);
+  loginService([evtJoinMain, evtEnter, evtRegister]);
 }
 
 function loginService(evt) {
@@ -51,19 +53,20 @@ function loginService(evt) {
 }
 
 async function loginUser() {
-    const email = document.querySelector("#email").value;
-    const password = document.querySelector("#password").value;
-    const messageError = document.querySelector("#messageError");
+  const email = document.querySelector("#email").value;
+  const password = document.querySelector("#password").value;
+  const messageError = document.querySelector("#messageError");
 
-    const data = { email: email, password: password };
+  const data = { email: email, password: password };
 
-    const res = await fetch("http://localhost:8000/user/login", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-    });
+  const res = await fetch("http://localhost:8000/user/login", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: { "Content-type": "application/json; charset=UTF-8" },
+  });
 
   if (res.status == 200) {
+    getSpotifyToken();
     return true;
   } else {
     const msgError = await res.json();

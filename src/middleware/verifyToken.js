@@ -4,7 +4,8 @@ const jwt = require("jsonwebtoken");
 const jwtSecret = process.env.SECRET_KEY;
 
 const verifyToken = async (req, res, next) => {
-    const { authorization } = req.headers;
+    // const { authorization } = req.headers;
+    const authorization = req.cookies['authorization'] ;
     if (!authorization)
         return res.status(401).json({
             mensagem:

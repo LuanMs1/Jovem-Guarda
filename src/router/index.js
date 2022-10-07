@@ -22,11 +22,12 @@ module.exports = (app) => {
     user.delete('/', collectors.deleteCollector);
     user.put('/', collectors.updateCollector);
     user.get('/',collectors.getCollector);
+    user.delete('/disc/:id', discs.deleteDisc);
+    user.put('/disc/:id', discs.updateDisc);
     // user.post('/img', upload('/profile'), userImg);
     
     
     //DISCOS
-    disc.put('/:id', discs.updateDisc);
     disc.get('/filter', discs.filter);
 
 }
