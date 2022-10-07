@@ -18,7 +18,7 @@ export function login(evtJoinMain, evtEnter, evtRegister) {
                 </div>
                 <p id="messageError"></p>
                 <div>
-                    <input class="link" id="btn-submit" onsubmit="return false;" type="submit" value="ENTRAR">
+                    <input class="link" id="btn-submit" onsubmit="return false;" type="button" value="ENTRAR">
                 </div>
             </form>
             <span id="create-acount">
@@ -31,20 +31,17 @@ export function login(evtJoinMain, evtEnter, evtRegister) {
 
 function loginService(evt) {
   const elements = document.querySelectorAll(".link");
-  console.log(elements);
 
   for (let i = 0; i <= elements.length; i++) {
     elements[i].addEventListener("click", () => {
       const logged = loginUser();
       console.log(logged);
-      if (logged.then((value) => value)) {
-        window.dispatchEvent(evt[i]);
-        console.log("testee");
-      }
-
-      // console.log(logged.then((value) => console.log(value)));
+      logged.then((value) => {
+        if (value == true) {
+          window.dispatchEvent(evt[i]);
+        }
+      });
     });
-    // console.log(elements);
   }
   document.title = "Login";
 }
@@ -63,12 +60,11 @@ async function loginUser() {
   });
 
   if (res.status == 200) {
-    console.log("login bem sucedido, pensar na logica de controle de acesso");
     return true;
   } else {
     const msgError = await res.json();
-    console.log(`Erro: ${msgError}`);
-    messageError.innerHTML = msgError;
+    const msgFormated = await msgError.mensagem;
+    messageError.innerHTML = msgFormated;
     return false;
   }
 }
