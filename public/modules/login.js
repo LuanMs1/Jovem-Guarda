@@ -42,6 +42,7 @@ function loginService(evt) {
           window.dispatchEvent(evt[i]);
         } else if (evt[i].detail.name == "/register") {
           window.dispatchEvent(evt[i]);
+
         }
       });
     });
@@ -70,4 +71,3 @@ async function loginUser() {
     messageError.innerHTML = msgFormated;
     return false;
   }
-}
