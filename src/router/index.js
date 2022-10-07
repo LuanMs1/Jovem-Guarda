@@ -22,6 +22,7 @@ module.exports = (app) => {
     user.delete('/', collectors.deleteCollector);
     user.put('/', collectors.updateCollector);
     user.get('/',collectors.getCollector);
+    user.delete('/disc/:id', discs.deleteDisc);
     // user.post('/img', upload('/profile'), userImg);
     
     
