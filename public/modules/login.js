@@ -71,3 +71,4 @@ async function loginUser() {
     messageError.innerHTML = msgFormated;
     return false;
   }
+}
