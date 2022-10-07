@@ -39,6 +39,8 @@ function loginService(evt) {
       logged.then((value) => {
         if (value == true) {
           window.dispatchEvent(evt[i]);
+        } else if (evt[i].detail.name == "/register") {
+          window.dispatchEvent(evt[i]);
         }
       });
     });
