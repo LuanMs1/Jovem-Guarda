@@ -20,8 +20,8 @@ async function registerUserDisc(userId, discInfos) {
         const registration = await discsdb.postDisc(discInfos, userId);
         if (registration.error) throw registration.error;
 
-        return { error: null, result: "Disco cadastrado" };
-    } catch (err) {
+        return {error: null, result: registration.result.rows};
+    }catch(err){
         // caso encontre erro
         return { error: err, result: null };
     }
@@ -66,4 +66,57 @@ async function getAllDiscs() {
     }
 }
 
-module.exports = { registerUserDisc, userDiscs, getDisc, getAllDiscs };
+async function setDiscGenre(discId, genre){
+    try{        
+        if (!genre) throw {error: 'Informar gênero', result: null};
+        if (!discId) throw {error: 'Informar ID de disco', result: null};
+
+        const discRes = await discsdb.setGenre(discId, genre);
+        if (discRes.error) throw discRes.error;
+        
+        return {error: null, result: 'Gênero cadastrado'};
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
+
+async function putDisc (infos, discId){
+    try{
+        // Validações
+        if (!discId) throw 'Id de disco necessário';
+        // console.log(infos);
+        const missingData = validateDiscInfos(infos);
+        if (missingData) throw missingData;
+
+        //dados validados, passar para a requisição ao banco
+        const registration = await discsdb.updateDisc(infos, discId);
+        if (registration.error) throw registration.error;
+
+        return {error: null, result: registration.result.rows};
+    }catch(err){
+        // caso encontre erro
+        return {error: err, result: null};
+    }
+}
+
+async function filterByGenre (genre){
+    try{
+        if (!genre) return 'Necessário designar generos';
+
+        const filter = await discsdb.genreFilter(genre);
+        if (filter.error) throw filter.error;
+
+        return {error: null, result: filter.result.rows};
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
+module.exports ={
+    registerUserDisc, 
+    userDiscs, 
+    getDisc, 
+    getAllDiscs, 
+    setDiscGenre,
+    putDisc,
+    filterByGenre
+};
