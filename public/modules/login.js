@@ -30,6 +30,7 @@ export function login(evtJoinMain, evtEnter, evtRegister) {
 }
 
 function loginService(evt) {
+
   const elements = document.querySelectorAll(".link");
 
   for (let i = 0; i <= elements.length; i++) {
@@ -39,6 +40,9 @@ function loginService(evt) {
       logged.then((value) => {
         if (value == true) {
           window.dispatchEvent(evt[i]);
+        } else if (evt[i].detail.name == "/register") {
+          window.dispatchEvent(evt[i]);
+
         }
       });
     });
@@ -67,5 +71,3 @@ async function loginUser() {
     messageError.innerHTML = msgFormated;
     return false;
   }
-
-}
