@@ -1,7 +1,6 @@
-const { json } = require('express');
-const services = require('../services/discs');
+const services = require("../services/discs");
 
-const postDisc = async (req,res) => {
+const postDisc = async (req, res) => {
     const userId = req.user.id;
     const discInfos = req.body;
     //discGenres 
@@ -11,7 +10,7 @@ const postDisc = async (req,res) => {
         discInfos.img = req.file.filename;
     }
 
-    try{
+    try {
         // chamada de serviço, retorna um {error: , response: }
         const discRes = await services.registerUserDisc(userId, discInfos);
         // checa por erro, e manda para o catch
@@ -36,20 +35,20 @@ const postDisc = async (req,res) => {
         console.log(err);
         return res.status(500).json({message: err});
     }
-
-}
+};
 
 const getDisc = async (req, res) => {
     const discId = req.param.id;
 
-    try{
+    try {
         const discRes = await services.getDisc(discId);
         if (discRes.error) throw discRes.error;
-    }catch(err){
-
-        return res.status(500).json({message: err})
+    } catch (err) {
+        return res.status(500).json({ message: err });
     }
-}
+};
+
+module.exports = { postDisc, getDisc };
 
 const updateDisc = async (req, res) => {
     const discId = req.params.id;

@@ -1,6 +1,6 @@
 const app = document.querySelector("#app");
 
-export function home(evtJoin,evtRegister) {
+export function home(evtJoin, evtRegister) {
     app.innerHTML = `
     <div id="main-disc">
     <header id main-header>
@@ -26,17 +26,17 @@ export function home(evtJoin,evtRegister) {
         </main>
         <div>
     `;
-    
-    homeService([evtJoin,evtRegister])
+
+    homeService([evtJoin, evtRegister]);
 }
 
 function homeService(evt) {
     const elements = document.querySelectorAll(".link");
-   
+
     for (let i = 0; i < elements.length; i++) {
-      elements[i].onclick = () => {
-        window.dispatchEvent(evt[i]);
-      };
+        elements[i].onclick = () => {
+            window.dispatchEvent(evt[i]);
+        };
     }
-     document.title = "Home";
-  }
+    document.title = "Home";
+}

@@ -1,4 +1,4 @@
-const db = require('./index');
+const db = require("./index");
 
 // CREATE TABLE discs (
 //   id serial NOT NULL PRIMARY KEY,
@@ -27,7 +27,7 @@ const db = require('./index');
 // );
 // ALTER TABLE music_genre_list ADD CONSTRAINT music_genre_list_pk PRIMARY KEY (genre, album_id);
 
-const postDisc = async (infos,userId) => {
+const postDisc = async (infos, userId) => {
     const discInfos = {
         user_id: userId,
         album: infos.album,
@@ -38,8 +38,8 @@ const postDisc = async (infos,userId) => {
         album_type: infos.album_type || null,
         length: infos.length || null,
         disc_description: infos.disc_status || null,
-        disc_status: infos.disc_status || null
-    }
+        disc_status: infos.disc_status || null,
+    };
     //extraindo dados para variáveis
     const values = Object.values(discInfos);
     const columns = Object.keys(discInfos);
@@ -96,6 +96,7 @@ const updateDisc = async (infos, discId) => {
     }
 }
 
+
 const selectUserDiscs = async (userId) => {
     const text = `
         SELECT discs.*, string_agg(music_genre_list.genre, ',') AS genre
@@ -105,14 +106,13 @@ const selectUserDiscs = async (userId) => {
         GROUP BY discs.id
     `;
 
-    try{
-        const dbRes = await db.query(text,[userId]);
-        return {error: null, result: dbRes};
-
-    }catch(err){
-        return {error: err, result: null};
+    try {
+        const dbRes = await db.query(text, [userId]);
+        return { error: null, result: dbRes };
+    } catch (err) {
+        return { error: err, result: null };
     }
-}
+};
 
 const getDisc = async (discId) => {
     const text = `
@@ -124,26 +124,24 @@ const getDisc = async (discId) => {
     `
     try{
         const dbRes = await db.query(text, [discId]);
-        return {error: null, result: dbRes};
-
-    }catch(err){
-        return {error: err, result: null};
+        return { error: null, result: dbRes };
+    } catch (err) {
+        return { error: err, result: null };
     }
-}
+};
 
 const getAllDiscs = async () => {
-    const text =`
+    const text = `
         SELECT * FROM discs
     `;
 
-    try{
+    try {
         const dbRes = await db.query(text);
-        return {error: null, result: dbRes};
-
-    }catch(err){
-        return {error: err, result: null};
+        return { error: null, result: dbRes };
+    } catch (err) {
+        return { error: err, result: null };
     }
-}
+};
 
 // genre is a vector
 const setGenre = async (discId, genre) => {

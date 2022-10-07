@@ -1,7 +1,7 @@
 const app = document.querySelector("#app");
 
 export function login(evtJoinMain, evtEnter, evtRegister) {
-  app.innerHTML = `
+    app.innerHTML = `
         <div id="container-center">
             <a href="#">
                 <img class="link" src="./assets/images/jovemGuarda.png">
@@ -18,7 +18,7 @@ export function login(evtJoinMain, evtEnter, evtRegister) {
                 </div>
                 <p id="messageError"></p>
                 <div>
-                    <input class="link" id="btn-submit" onsubmit="return false;" type="submit" value="ENTRAR">
+                    <input class="link" id="btn-submit" onsubmit="return false;" type="button" value="ENTRAR">
                 </div>
             </form>
             <span id="create-acount">
@@ -26,49 +26,48 @@ export function login(evtJoinMain, evtEnter, evtRegister) {
             </span>
         </div>
     `;
-  loginService([evtJoinMain, evtEnter, evtRegister]);
+    loginService([evtJoinMain, evtEnter, evtRegister]);
 }
 
 function loginService(evt) {
+
   const elements = document.querySelectorAll(".link");
-  console.log(elements);
 
   for (let i = 0; i <= elements.length; i++) {
     elements[i].addEventListener("click", () => {
       const logged = loginUser();
       console.log(logged);
-      if (logged.then((value) => value)) {
-        window.dispatchEvent(evt[i]);
-        console.log("testee");
-      }
+      logged.then((value) => {
+        if (value == true) {
+          window.dispatchEvent(evt[i]);
+        } else if (evt[i].detail.name == "/register") {
+          window.dispatchEvent(evt[i]);
 
-      // console.log(logged.then((value) => console.log(value)));
+        }
+      });
     });
-    // console.log(elements);
   }
   document.title = "Login";
 }
 
 async function loginUser() {
-  const email = document.querySelector("#email").value;
-  const password = document.querySelector("#password").value;
-  const messageError = document.querySelector("#messageError");
+    const email = document.querySelector("#email").value;
+    const password = document.querySelector("#password").value;
+    const messageError = document.querySelector("#messageError");
 
-  const data = { email: email, password: password };
+    const data = { email: email, password: password };
 
-  const res = await fetch("http://localhost:8000/user/login", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: { "Content-type": "application/json; charset=UTF-8" },
-  });
+    const res = await fetch("http://localhost:8000/user/login", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+    });
 
   if (res.status == 200) {
-    console.log("login bem sucedido, pensar na logica de controle de acesso");
     return true;
   } else {
     const msgError = await res.json();
-    console.log(`Erro: ${msgError}`);
-    messageError.innerHTML = msgError;
+    const msgFormated = await msgError.mensagem;
+    messageError.innerHTML = msgFormated;
     return false;
   }
-}
