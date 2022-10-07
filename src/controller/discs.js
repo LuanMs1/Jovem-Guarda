@@ -48,8 +48,6 @@ const getDisc = async (req, res) => {
     }
 };
 
-module.exports = { postDisc, getDisc };
-
 const updateDisc = async (req, res) => {
     const discId = req.params.id;
     const discInfos = req.body;
