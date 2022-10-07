@@ -28,6 +28,6 @@ module.exports = (app) => {
     
     
     //DISCOS
-    disc.get('/genre', discs.genreFilter);
+    disc.get('/genre', discs.filter);
 
 }

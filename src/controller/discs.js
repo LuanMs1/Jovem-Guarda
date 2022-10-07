@@ -125,5 +125,6 @@ module.exports = {
     getDisc, 
     updateDisc, 
     genreFilter,
-    deleteDisc
+    deleteDisc,
+    filter
 };
