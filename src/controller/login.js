@@ -32,6 +32,7 @@ const loginUsuario = async (req, res) => {
             expiresIn: "8h",
         });
 
+        res.cookie('authorization', token, { httpOnly: true});
         return res.status(200).json({ token });
     } catch (error) {
         return res.status(400).json({ message: error.message });
