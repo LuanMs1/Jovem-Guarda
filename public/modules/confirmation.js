@@ -1,7 +1,7 @@
 const app = document.querySelector("#app");
 
 export function confirmation(evtJoinMain, evtLogin) {
-    app.innerHTML = `
+  app.innerHTML = `
       <div id="container-center">
         <a href="#">
             <img class="link" src="./assets/images/jovemGuarda.png">
@@ -15,16 +15,16 @@ export function confirmation(evtJoinMain, evtLogin) {
         </span>
       </div>
     `;
-    confirmationService([evtJoinMain, evtLogin]);
+  confirmationService([evtJoinMain, evtLogin]);
 }
 
 function confirmationService(evt) {
-    const elements = document.querySelectorAll(".link");
+  const elements = document.querySelectorAll(".link");
 
-    for (let i = 0; i < elements.length; i++) {
-        elements[i].onclick = () => {
-            window.dispatchEvent(evt[i]);
-        };
-    }
-    document.title = "Confirmation";
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].onclick = () => {
+      window.dispatchEvent(evt[i]);
+    };
+  }
+  document.title = "Confirmation";
 }
