@@ -142,6 +142,21 @@ async function filter(filterInfo){
         return {error: err, result: null};
     }
 }
+
+async function deleteDisc(discId){
+    if (!discId) return "ID de disco necessário";
+
+    try{
+        const deleteRes = await discsdb.remove(discId);
+        if(deleteRes.error) throw filter.error;
+
+        if (deleteRes.result.rowCount === 0) throw 'Disco não encontrado';
+        return {error: null, result: 'Disco deletado'};
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
+
 module.exports ={
     registerUserDisc, 
     userDiscs, 
@@ -150,5 +165,5 @@ module.exports ={
     setDiscGenre,
     putDisc,
     filterByGenre,
-    filter
+    deleteDisc
 };
