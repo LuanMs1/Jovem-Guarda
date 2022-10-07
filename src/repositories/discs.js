@@ -102,7 +102,7 @@ const selectUserDiscs = async (userId) => {
         SELECT discs.*, string_agg(music_genre_list.genre, ',') AS genre
         FROM discs
         LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
-        WHERE user_id = $1
+        WHERE user_id = $1 AND deleted_at is NULL
         GROUP BY discs.id
     `;
 
@@ -133,6 +133,7 @@ const getDisc = async (discId) => {
 const getAllDiscs = async () => {
     const text = `
         SELECT * FROM discs
+        WHERE deleted_at is NULL
     `;
 
     try {
@@ -176,10 +177,26 @@ const genreFilter = async (genre) => {
         SELECT DISTINCT discs.*, music_genre_list.genre
         FROM discs
         LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
-        WHERE ${conditions.join(' OR ')} ;
+        WHERE deleted_at is null AND ${conditions.join(' OR ')} ;
     `
     try{
         const dbRes = await db.query(text, genre);
+        return {error: null, result: dbRes};
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
+
+const remove = async(discId) => {
+    const values = [new Date(), discId];
+    const text = `
+        UPDATE discs
+        SET deleted_at = $1
+        WHERE id = $2
+    `;
+
+    try{
+        const dbRes = await db.query(text,values);
         return {error: null, result: dbRes};
     }catch(err){
         return {error: err, result: null};
@@ -192,5 +209,6 @@ module.exports = {
     getAllDiscs,
     setGenre,
     updateDisc,
-    genreFilter
+    genreFilter,
+    remove
 };

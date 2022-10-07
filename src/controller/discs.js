@@ -48,8 +48,6 @@ const getDisc = async (req, res) => {
     }
 };
 
-module.exports = { postDisc, getDisc };
-
 const updateDisc = async (req, res) => {
     const discId = req.params.id;
     const discInfos = req.body;
@@ -96,4 +94,36 @@ const genreFilter = async (req, res) => {
 
 }
 
-module.exports = {postDisc, getDisc, updateDisc, genreFilter};
+const deleteDisc = async (req, res) => {
+    const discId = req.params.id;
+    const userId = req.user.id;
+    
+    try{
+        //pegando informações de disco
+        const discRes = await services.getDisc(discId);
+        if (discRes.error) throw discRes.error;
+
+        const disc = discRes.result;
+        // comparando se o usuário é dono do disco
+        if (disc.user_id !== userId) throw 'Disco não pertence ao usuário';
+        const deleteRes = await services.deleteDisc(discId);
+        if (deleteRes.error) throw deleteRes.error;
+
+        return res.status(200).json({message: 'Disco deletado'});
+    }catch(err){
+        if(err === 'Disco não encontrado') res.json(404).json();
+        if(err === 'Disco não pertence ao usuário') res.status(403).json({message: err});
+
+        // se o erro não for reconhecido:
+        console.log(err);
+        return res.status(500).json({message: err});
+    }
+}
+
+module.exports = {
+    postDisc, 
+    getDisc, 
+    updateDisc, 
+    genreFilter,
+    deleteDisc
+};
