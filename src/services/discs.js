@@ -3,10 +3,25 @@ const discsdb = require("../repositories/discs");
 //         album: infos.album,
 //         artist: infos.artist,
 //         release_year: infos.release_year
+const discColumns = [
+    'user_id', 'album', 
+    'artist', 'release_year', 
+    'img', 'vynil_type', 
+    'album_type', 'length', 
+    'disc_description', 'disc_status'
+]
+
 function validateDiscInfos(infos) {
     if (!infos?.album) return "Nome do album necessário";
     if (!infos?.artist) return "Nome do artista necessário";
     if (!infos?.release_year) return "Data de lançamente necessária";
+}
+
+function validateAtributes(infos) {
+    const infomedAtributes = Object.keys(infos);
+    for (element of infomedAtributes){
+        if(!discColumns.includes(element)) return 'Atributo inválido';
+    };
 }
 async function registerUserDisc(userId, discInfos) {
     try {
@@ -111,6 +126,22 @@ async function filterByGenre (genre){
         return {error: err, result: null};
     }
 }
+
+async function filter(filterInfo){
+    try{
+        const columns = Object.keys(filterInfo);
+        if(!columns) throw 'Informar filtro';
+        const invalidAtribute = validateAtributes(filterInfo);
+        if(invalidAtribute) return 'Atributo inválido';
+
+        const filter = await discsdb.filterOr(filterInfo);
+        if (filter.error) throw filter.error;
+
+        return {error: null, result: filter.result.rows};
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
 module.exports ={
     registerUserDisc, 
     userDiscs, 
@@ -118,5 +149,6 @@ module.exports ={
     getAllDiscs, 
     setDiscGenre,
     putDisc,
-    filterByGenre
+    filterByGenre,
+    filter
 };

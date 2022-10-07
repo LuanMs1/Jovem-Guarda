@@ -27,6 +27,6 @@ module.exports = (app) => {
     
     //DISCOS
     disc.put('/:id', discs.updateDisc);
-    disc.get('/genre', discs.genreFilter);
+    disc.get('/filter', discs.filter);
 
 }
