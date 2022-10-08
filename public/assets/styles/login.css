@@ -1,0 +1,97 @@
+#form-login {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #d9d9d9;
+    font-family: "Inria Sans", sans-serif;
+    align-items: center;
+}
+
+#logo-login {
+    width: 160px;
+    margin-left: 18px;
+}
+
+#container-center-login {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    color: #d9d9d9;
+    font-family: "Inria Sans", sans-serif;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    max-width: 500px;
+    width: 90vw;
+    height: 520px;
+    border: solid 0.1px #d9d9d9;
+    border-radius: 8px;
+    padding-top: 35px;
+    gap: 45px;
+}
+
+::placeholder {
+    display: flex;
+    /* justify-content: center; */
+    font-size: 13px;
+    padding-left: 10px;
+    color: #d9d9d9;
+    font-family: "Inria Sans", sans-serif;
+}
+
+#btn-submit-login {
+    max-width: 250px;
+    width: 80vw;
+    height: 35px;
+    background: var(--btn-bg-color);
+    border-radius: 5px;
+    color: #ffffff;
+    font-family: "Inria Sans", sans-serif;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+}
+
+.title-login {
+    font-size: 20px;
+}
+
+#email-login {
+    max-width: 250px;
+    width: 80vw;
+    height: 35px;
+    color: #d9d9d9;
+    font-family: "Inria Sans", sans-serif;
+    font-size: 16px;
+    background: var(--main-bg-color);
+    border: none;
+    border-radius: 5px;
+}
+
+#password-login {
+    max-width: 250px;
+    width: 80vw;
+    height: 35px;
+    color: #d9d9d9;
+    font-family: "Inria Sans", sans-serif;
+    font-size: 16px;
+    background: var(--main-bg-color);
+    border: none;
+    border-radius: 5px;
+}
+
+#create-acount {
+    display: flex;
+    margin-top: 5px;
+}
+
+span a {
+    color: #d9d9d9;
+    font-family: "Inria Sans", sans-serif;
+    font-size: 14px;
+}
+
+#messageError-login {
+    color: #ff0000;
+}

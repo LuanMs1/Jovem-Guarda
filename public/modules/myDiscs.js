@@ -1,25 +1,24 @@
 const app = document.querySelector("#app");
 
-export function meusDiscos(evtJoinMain, evtEnter, evtRegister) {
+export function myDiscs(x, y, z) {
     app.innerHTML = `
-  <div id="container-main">
+  <div id="container-main-myDiscs">
   <header>
-    <a href="#">
-      <img id="logo-img" src="./assets/images/LogoJovemGuarda.svg" alt="" />
+    <a id="container-logo-myDiscs" href="#">
+      <img id="logo-img-all" src="./assets/images/LogoJovemGuarda.svg" alt="" />
     </a>
-    <span>DISCOS</span>
-    <span>ESTILOS</span>
-    <span>ARTISTAS</span>
-    <input id="searchBar" type="text" placeholder="PESQUISAR" />
-    <div id="containerUser">
-      <img id="userImg" src="./assets/images/userAlpha.jpg" />
-      <span id="nameUser">Alpha Edtech</span>
+    <span class="link">DISCOS</span>
+    <span class="link">ESTILOS</span>
+    <span class="link">ARTISTAS</span>
+    <div id="container-user-all">
+      <img id="user-img-all" src="./assets/images/userAlpha.jpg" />
+      <span id="name-user-all">Alpha Edtech</span>
     </div>
   </header>
-  <span id="title">MEUS DISCOS</span>
+  <span id="title-myDisc">MEUS DISCOS</span>
 </div>
-<main>
-  <div id="container">
+<section>
+  <div id="container-center-myDisc">
     <div class="card-disc">
       <img class="card-img" src="./assets/images/disc2.jfif" alt="" />
       <span id="name-disc"> Matriz - PITTY </span>
@@ -48,9 +47,9 @@ export function meusDiscos(evtJoinMain, evtEnter, evtRegister) {
       <img class="card-add-icon" src="./assets/images/mais (3).png" alt="" />
     </div>
   </div>
-</main>
+</section>
     `;
-    loginService([evtJoinMain, evtEnter, evtRegister]);
+    loginService([x, y, z]);
 }
 
 function loginService(evt) {

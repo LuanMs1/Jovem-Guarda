@@ -1,0 +1,95 @@
+#container-main-myDiscs {
+    max-width: 1100px;
+}
+
+#container-logo-myDiscs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#title-myDisc {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 40px;
+    font-size: 40px;
+}
+
+#searchBar {
+    width: 140px;
+    height: 30px;
+    border-radius: 15px;
+    font-family: "Inria Sans", sans-serif;
+    border: none;
+    background: url("imgs/search.png") no-repeat;
+    background-color: var(--btn-search-colo);
+    background-size: 15px;
+    background-position: 115px;
+    cursor: pointer;
+    color: #d9d9d9;
+    /* padding-left: 10px; */
+}
+#searchBar:focus {
+    outline: none;
+    border: 1.5px solid var(--btn-bg-color);
+}
+#searchBar:hover {
+    background-color: var(--btn-bg-color);
+    opacity: 0.9;
+    transition: ease-in-out 0.3s;
+}
+::placeholder {
+    display: flex;
+    font-size: 13.3px;
+    padding-left: 10px;
+    color: #d9d9d9;
+    font-family: "Inria Sans", sans-serif;
+}
+#container-center-myDisc {
+    max-width: 1100px;
+    width: 90vw;
+    height: 50vh;
+    display: flex;
+    gap: 2vw;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+/* main {
+  display: flex;
+} */
+.card-disc {
+    background-color: rgb(122, 122, 122, 0.5);
+    width: 185px;
+    height: 260px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.card-disc:hover {
+    scale: 1.1;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.card-img {
+    width: 160px;
+    height: 170px;
+}
+.card-add {
+    background-color: #030526, 0.3;
+    width: 65px;
+    height: 65px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 20px 0px var(--btn-bg-color);
+    cursor: pointer;
+}
+.card-add-icon {
+    width: 45px;
+}
