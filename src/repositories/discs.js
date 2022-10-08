@@ -202,27 +202,33 @@ const remove = async(discId) => {
 }
 
 const filterOr = async (filterInfo) => {
-    console.log(filterInfo)
-    let conditions = []
     let values = []
+    let conditionText = [];
     let param = 1;
-    // constructing conditions
     for (atribute in filterInfo){
+        let conditions = []
         values.push(... filterInfo[atribute]);
         for (let i in filterInfo[atribute]){
-            conditions.push(`(UPPER(${atribute}) = UPPER($${param}))`);
+            if (atribute === 'release_year') {
+                conditions
+                    .push(`(release_year BETWEEN $${param} AND $${param + 1})`);
+                param += 2;
+                break;
+            }else{
+                conditions.push(`(UPPER(${atribute}) = UPPER($${param}))`);
+            }
             param++
-        };
+        }
+        conditionText.push(conditions.join(' OR '));
     }
-
+    conditionText = '(' + conditionText.join(') AND (') + ')';
     const text = `
         SELECT DISTINCT discs.*, string_agg(music_genre_list.genre, ',') AS genre
         FROM discs
         LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
-        WHERE deleted_at is null AND ${conditions.join(' OR ')}
+        WHERE deleted_at is NULL AND ${conditionText}
         GROUP BY discs.id
     `
-    console.log(text);
     try{
         const dbRes = await db.query(text, values);
         return {error: null, result: dbRes};
