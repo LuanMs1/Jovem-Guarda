@@ -77,17 +77,17 @@ const updateDisc = async (req, res) => {
     }
 }
 
-const genreFilter = async (req, res) => {
-    const genre = req.body.genre;
+const filter = async (req, res) => {
+    const filterInfos = req.body;
 
     try{
-        const filterRes = await services.filterByGenre(genre);
+        const filterRes = await services.filter(filterInfos);
         if (filterRes.error) throw filterRes.error;
 
         return res.status(200).json(filterRes.result);
     }catch(err){
-        if (err === 'Necessário designar generos') return res.status(400).json({message: err});
-
+        if (err === 'Atributo inválido') return res.status(400).json({message: err});
+        if (err === 'Informar filtro') return res.status(400).json({message: err});
         console.log(err);
         return res.status(500).json({message: err})
     }
@@ -123,7 +123,7 @@ const deleteDisc = async (req, res) => {
 module.exports = {
     postDisc, 
     getDisc, 
-    updateDisc, 
-    genreFilter,
-    deleteDisc
+    updateDisc,
+    deleteDisc,
+    filter
 };

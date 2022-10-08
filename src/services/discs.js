@@ -3,10 +3,45 @@ const discsdb = require("../repositories/discs");
 //         album: infos.album,
 //         artist: infos.artist,
 //         release_year: infos.release_year
+const discColumns = [
+    'user_id', 'album', 
+    'artist', 'release_year', 
+    'img', 'vynil_type', 
+    'album_type', 'length', 
+    'disc_description', 'disc_status'
+]
+
 function validateDiscInfos(infos) {
     if (!infos?.album) return "Nome do album necessário";
     if (!infos?.artist) return "Nome do artista necessário";
     if (!infos?.release_year) return "Data de lançamente necessária";
+}
+
+function validateAtributes(infos) {
+    const infomedAtributes = Object.keys(infos);
+    for (element of infomedAtributes){
+        if(!discColumns.includes(element)) return 'Atributo inválido';
+    };
+}
+
+function checkConstraint(atribute,value){
+    if (!value) return;
+    let allowed;
+    switch (atribute){
+        case 'vynil_type':
+            allowed = ['transparent', 'glossy', 'matte', 'collor', 'metallic'];
+            if (!allowed.includes(value)) return 'Tipo de vynil inválido';
+            break;
+
+        case 'disc_status':
+            allowed = ['own', 'available to trade', 'wishlist'];
+            if (!allowed.includes(value)) return 'Status de disco inválido';
+            break;
+        case 'album_type':
+            allowed = ['single', 'ep', 'lp'];
+            if (!allowed.includes(value)) return 'Tipo de album inválido';
+            break;
+    }
 }
 async function registerUserDisc(userId, discInfos) {
     try {
@@ -126,6 +161,45 @@ async function deleteDisc(discId){
     }
 }
 
+
+async function filter(filterInfo){
+    try{
+        //validando colunas
+        const columns = Object.keys(filterInfo);
+        if(!columns) throw 'Informar filtro';
+        const invalidAtribute = validateAtributes(filterInfo);
+        if(invalidAtribute) return 'Atributo inválido';
+
+        //Validando dados de tempo se existirem;
+        if (filterInfo.release_year){
+            if(filterInfo.release_year.length !== 2) throw 'Filtro por lançamento espera intervalo'
+        }
+        //Validando constraints
+        const invalidVynilType = checkConstraint('vynil_type', filterInfo.vynil_type)
+        if (invalidVynilType) return invalidVynilType;
+
+        const invalidDiscStatus = checkConstraint('disc_status', filterInfo.disc_status);
+        if (invalidDiscStatus) return invalidDiscStatus;
+
+        const invalidAlbumType = checkConstraint('album_type', filterInfo.disc_status);
+        if  (invalidAlbumType) return invalidAlbumType;
+
+        //fazendo filtro
+        const filter = await discsdb.filterOr(filterInfo);
+        if (filter.error) throw filter.error;
+
+        return {error: null, result: filter.result.rows};
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
+const filterText = {
+	"artist": ["tom jobim", "alterador"],
+    'release_year': ['1999'],
+	"album": ["Alterando"]
+};
+filter(filterText).then(res => console.log(res));
+
 module.exports ={
     registerUserDisc, 
     userDiscs, 
@@ -134,5 +208,6 @@ module.exports ={
     setDiscGenre,
     putDisc,
     filterByGenre,
+    filter,
     deleteDisc
 };
