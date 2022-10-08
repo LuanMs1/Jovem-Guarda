@@ -193,12 +193,20 @@ async function filter(filterInfo){
         return {error: err, result: null};
     }
 }
-const filterText = {
-	"artist": ["tom jobim", "alterador"],
-    'release_year': ['1999'],
-	"album": ["Alterando"]
-};
-filter(filterText).then(res => console.log(res));
+
+async function deleteDisc(discId){
+    if (!discId) return "ID de disco necessário";
+
+    try{
+        const deleteRes = await discsdb.remove(discId);
+        if(deleteRes.error) throw filter.error;
+
+        if (deleteRes.result.rowCount === 0) throw 'Disco não encontrado';
+        return {error: null, result: 'Disco deletado'};
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
 
 module.exports ={
     registerUserDisc, 

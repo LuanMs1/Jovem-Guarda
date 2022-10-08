@@ -1,4 +1,5 @@
-import { getSpotifyToken } from "./api-spotify/spotifyToken.js";
+// import { spotifyGetArtist } from "./api-spotify/spotifyGetArtist.js";
+// import { spotifyGetAlbum } from "./api-spotify/spotifyGetAlbum.js";
 
 const app = document.querySelector("#app");
 
@@ -63,7 +64,6 @@ async function loginUser() {
     });
 
     if (res.status == 200) {
-        getSpotifyToken();
         return true;
     } else {
         const msgError = await res.json();
