@@ -20,7 +20,7 @@ module.exports = (app) => {
     user.post('/disc', upload('/discs'), discs.postDisc);
     user.get('/alldiscs', collectors.getUserDiscs);
     user.delete('/', collectors.deleteCollector);
-    user.put('/', collectors.updateCollector);
+    user.put('/', upload('/profile'), collectors.updateCollector);
     user.get('/',collectors.getCollector);
     user.delete('/disc/:id', discs.deleteDisc);
     user.put('/disc/:id', discs.updateDisc);

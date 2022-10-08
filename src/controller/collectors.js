@@ -2,6 +2,7 @@ const { query } = require("../repositories");
 const bcrypt = require("bcrypt");
 const services = require("../services/collector");
 const discServices = require("../services/discs");
+const imgs = require('../services/img');
 //validação de campos obrigatórios
 function validateData(body) {
     if (!body.name) return "O campo 'nome' é obrigatório.";
@@ -56,14 +57,20 @@ const getCollector = async (req, res) => {
 //UPDATE
 const updateCollector = async (req, res) => {
     // retirando infos da requisição
+    console.log('aqui');
     const userInfos = req.body;
     const id = req.user.id;
+    if (req.file){
+        if(req.user.picture) imgs.removeImg(`profile/${req.user.picture}`)
+        userInfos.picture = req.file.filename;
+    }
 
     if (Object.keys(userInfos).length === 0) {
         return res
             .status(400)
             .json({ mensagem: "Nenhuma informação de alteração" });
     }
+
 
     try {
         //chamada de services, retorna {error: , result:}
