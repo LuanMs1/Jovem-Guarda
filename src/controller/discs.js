@@ -123,7 +123,7 @@ const deleteDisc = async (req, res) => {
 module.exports = {
     postDisc, 
     getDisc, 
-    updateDisc, 
-    genreFilter,
-    deleteDisc
+    updateDisc,
+    deleteDisc,
+    filter
 };
