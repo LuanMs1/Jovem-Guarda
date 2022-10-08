@@ -1,4 +1,5 @@
 const collector = require("../repositories/collectors");
+const fs = require('fs').promises;
 
 async function deleteCollector(id) {
     try {
@@ -41,4 +42,5 @@ async function getCollector(email) {
         return { error: err, result: null };
     }
 }
+
 module.exports = { deleteCollector, updateCollector, getCollector };

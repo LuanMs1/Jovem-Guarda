@@ -2,7 +2,7 @@ function uploadImg(path) {
     const multer = require("multer");
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, `src/uploads/${path}`);
+            cb(null, `public/uploads/${path}`);
         },
 
         filename: function (req, file, cb) {
@@ -13,6 +13,17 @@ function uploadImg(path) {
         },
     });
 
-    return multer({ storage }).single("image");
+    const fileFilter = function (req, file, cb){
+        const ext = file.originalname.split('.')[1];
+        console.log(ext);
+        if (ext !== 'jpg' && ext !== 'jpeg') {
+            cb(new Error('apenas .jpg ou .jpeg'));
+            cb(null, false);
+        }
+        cb(null, true);
+    }
+
+    return multer({ storage, fileFilter }).single("img");
 }
+
 module.exports = uploadImg;
