@@ -23,6 +23,26 @@ function validateAtributes(infos) {
         if(!discColumns.includes(element)) return 'Atributo inválido';
     };
 }
+
+function checkConstraint(atribute,value){
+    if (!value) return;
+    let allowed;
+    switch (atribute){
+        case 'vynil_type':
+            allowed = ['transparent', 'glossy', 'matte', 'collor', 'metallic'];
+            if (!allowed.includes(value)) return 'Tipo de vynil inválido';
+            break;
+
+        case 'disc_status':
+            allowed = ['own', 'available to trade', 'wishlist'];
+            if (!allowed.includes(value)) return 'Status de disco inválido';
+            break;
+        case 'album_type':
+            allowed = ['single', 'ep', 'lp'];
+            if (!allowed.includes(value)) return 'Tipo de album inválido';
+            break;
+    }
+}
 async function registerUserDisc(userId, discInfos) {
     try {
         // Validações
@@ -127,22 +147,6 @@ async function filterByGenre (genre){
     }
 }
 
-async function filter(filterInfo){
-    try{
-        const columns = Object.keys(filterInfo);
-        if(!columns) throw 'Informar filtro';
-        const invalidAtribute = validateAtributes(filterInfo);
-        if(invalidAtribute) return 'Atributo inválido';
-
-        const filter = await discsdb.filterOr(filterInfo);
-        if (filter.error) throw filter.error;
-
-        return {error: null, result: filter.result.rows};
-    }catch(err){
-        return {error: err, result: null};
-    }
-}
-
 async function deleteDisc(discId){
     if (!discId) return "ID de disco necessário";
 
@@ -157,6 +161,39 @@ async function deleteDisc(discId){
     }
 }
 
+
+async function filter(filterInfo){
+    try{
+        //validando colunas
+        const columns = Object.keys(filterInfo);
+        if(!columns) throw 'Informar filtro';
+        const invalidAtribute = validateAtributes(filterInfo);
+        if(invalidAtribute) return 'Atributo inválido';
+
+        //Validando dados de tempo se existirem;
+        if (filterInfo.release_year){
+            if(filterInfo.release_year.length !== 2) throw 'Filtro por lançamento espera intervalo'
+        }
+        //Validando constraints
+        const invalidVynilType = checkConstraint('vynil_type', filterInfo.vynil_type)
+        if (invalidVynilType) return invalidVynilType;
+
+        const invalidDiscStatus = checkConstraint('disc_status', filterInfo.disc_status);
+        if (invalidDiscStatus) return invalidDiscStatus;
+
+        const invalidAlbumType = checkConstraint('album_type', filterInfo.disc_status);
+        if  (invalidAlbumType) return invalidAlbumType;
+
+        //fazendo filtro
+        const filter = await discsdb.filterOr(filterInfo);
+        if (filter.error) throw filter.error;
+
+        return {error: null, result: filter.result.rows};
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
+
 module.exports ={
     registerUserDisc, 
     userDiscs, 
@@ -165,5 +202,6 @@ module.exports ={
     setDiscGenre,
     putDisc,
     filterByGenre,
+    filter,
     deleteDisc
 };
