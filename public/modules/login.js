@@ -1,4 +1,5 @@
-import { getSpotifyToken } from "./api-spotify/spotifyToken.js"
+// import { spotifyGetArtist } from "./api-spotify/spotifyGetArtist.js";
+// import { spotifyGetAlbum } from "./api-spotify/spotifyGetAlbum.js";
 
 const app = document.querySelector("#app");
 
@@ -32,7 +33,6 @@ export function login(evtJoinMain, evtEnter, evtRegister) {
 }
 
 function loginService(evt) {
-
   const elements = document.querySelectorAll(".link");
 
   for (let i = 0; i <= elements.length; i++) {
@@ -44,7 +44,6 @@ function loginService(evt) {
           window.dispatchEvent(evt[i]);
         } else if (evt[i].detail.name == "/register") {
           window.dispatchEvent(evt[i]);
-
         }
       });
     });
@@ -66,7 +65,6 @@ async function loginUser() {
   });
 
   if (res.status == 200) {
-    getSpotifyToken();
     return true;
   } else {
     const msgError = await res.json();
