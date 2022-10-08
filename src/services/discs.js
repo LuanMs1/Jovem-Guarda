@@ -164,10 +164,16 @@ async function deleteDisc(discId){
 
 async function filter(filterInfo){
     try{
+        //validando colunas
         const columns = Object.keys(filterInfo);
         if(!columns) throw 'Informar filtro';
         const invalidAtribute = validateAtributes(filterInfo);
         if(invalidAtribute) return 'Atributo inválido';
+
+        //Validando dados de tempo se existirem;
+        if (filterInfo.release_year){
+            if(filterInfo.release_year.length !== 2) throw 'Filtro por lançamento espera intervalo'
+        }
         //Validando constraints
         const invalidVynilType = checkConstraint('vynil_type', filterInfo.vynil_type)
         if (invalidVynilType) return invalidVynilType;
@@ -187,6 +193,12 @@ async function filter(filterInfo){
         return {error: err, result: null};
     }
 }
+const filterText = {
+	"artist": ["tom jobim", "alterador"],
+    'release_year': ['1999'],
+	"album": ["Alterando"]
+};
+filter(filterText).then(res => console.log(res));
 
 module.exports ={
     registerUserDisc, 

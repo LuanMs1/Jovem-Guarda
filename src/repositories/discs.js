@@ -202,17 +202,18 @@ const remove = async(discId) => {
 }
 
 const filterOr = async (filterInfo) => {
-    console.log(filterInfo)
     let values = []
     let conditionText = [];
     let param = 1;
-    // constructing conditions
     for (atribute in filterInfo){
         let conditions = []
         values.push(... filterInfo[atribute]);
         for (let i in filterInfo[atribute]){
             if (atribute === 'release_year') {
-                conditions.push(`(${atribute} = $${param})`);
+                conditions
+                    .push(`(release_year BETWEEN $${param} AND $${param + 1})`);
+                param += 2;
+                break;
             }else{
                 conditions.push(`(UPPER(${atribute}) = UPPER($${param}))`);
             }
@@ -228,7 +229,6 @@ const filterOr = async (filterInfo) => {
         WHERE deleted_at is NULL AND ${conditionText}
         GROUP BY discs.id
     `
-    console.log(text);
     try{
         const dbRes = await db.query(text, values);
         return {error: null, result: dbRes};
@@ -236,12 +236,6 @@ const filterOr = async (filterInfo) => {
         return {error: err, result: null};
     }
 }
-const filterText = {
-	"artist": ["tom jobim", "alterador"],
-	"album": ["Alterando"],
-    'release_year': ['1999']
-};
-filterOr(filterText).then(res => console.log(res.result.rows));
 module.exports = {
     postDisc, 
     selectUserDiscs, 
