@@ -11,6 +11,7 @@
     align-items: center;
     gap: 0.3vw;
     margin-left: 2vw;
+    cursor: pointer;
 }
 
 #img-filter {
@@ -297,4 +298,7 @@ strong {
 #container-left-exchange {
     display: flex;
     align-items: center;
+}
+#discs-span {
+    color: #a735f2;
 }
