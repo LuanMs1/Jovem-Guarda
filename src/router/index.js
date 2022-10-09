@@ -23,7 +23,8 @@ module.exports = (app) => {
     user.put('/', upload('/profile'), collectors.updateCollector);
     user.get('/',collectors.getCollector);
     user.post('/disc', upload('/discs'), discs.postDisc);
-    user.get('/alldiscs', collectors.getUserDiscs);
+    user.get('/disc', discs.getUserDisc);
+    user.get('/alldiscs', collectors.getAllUserDiscs);
     user.delete('/disc/:id', discs.deleteDisc);
     user.put('/disc/:id', discs.updateDisc);
     
@@ -35,6 +36,7 @@ module.exports = (app) => {
     user.put('/exchanges/cancel/:id', exchanges.cancel);
     user.post('/exchanges/complete/:id', exchanges.complete);    
     //DISCOS
+    disc.get("/one/:id", discs.getDisc);
     disc.get("/filter", discs.filter);
 
 
