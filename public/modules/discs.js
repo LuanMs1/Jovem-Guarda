@@ -167,11 +167,11 @@ export function discs(evtJoinmyDisc, evtGenres, evtArtists, proposeExchange) {
     const profileMenuContainer = document.querySelector("#container-menu");
 
     profilePic.addEventListener("click", () => {
-        profileMenu.style.display === "none"
-            ? ((profileMenu.style.display = "flex"),
-              (profileMenuContainer.style.display = "flex"))
-            : ((profileMenu.style.display = "none"),
-              (profileMenuContainer.style.display = "none"));
+        profileMenu.style.display === "flex"
+            ? ((profileMenu.style.display = "none"),
+              (profileMenuContainer.style.display = "none"))
+            : ((profileMenu.style.display = "flex"),
+              (profileMenuContainer.style.display = "flex"));
     });
 }
 
