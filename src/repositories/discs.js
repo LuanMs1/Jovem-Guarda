@@ -112,6 +112,11 @@ const selectUserDiscs = async (userId) => {
     }
 };
 
+/**
+ * 
+ * @param {integer} discId 
+ * @returns dbRes
+ */
 const getDisc = async (discId) => {
     const text = `
         SELECT discs.*, string_agg(music_genre_list.genre, ',') AS genre
