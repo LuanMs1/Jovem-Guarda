@@ -136,7 +136,6 @@ async function putDisc (infos, discId){
     try{
         // Validações
         if (!discId) throw 'Id de disco necessário';
-        // console.log(infos);
         const missingData = validateDiscInfos(infos);
         if (missingData) throw missingData;
 
@@ -192,14 +191,11 @@ async function filter(filterInfo){
             if(filterInfo.release_year.length !== 2) throw 'Filtro por lançamento espera intervalo'
         }
         //Validando constraints
-        const invalidVynilType = checkConstraint('vynil_type', filterInfo.vynil_type)
-        if (invalidVynilType) return invalidVynilType;
+        for (let constraint of ['vynil_type', 'disc_status', 'album_type']){
 
-        const invalidDiscStatus = checkConstraint('disc_status', filterInfo.disc_status);
-        if (invalidDiscStatus) return invalidDiscStatus;
-
-        const invalidAlbumType = checkConstraint('album_type', filterInfo.disc_status);
-        if  (invalidAlbumType) return invalidAlbumType;
+            const invalidConstraint = checkConstraint(constraint, filterInfo[constraint])
+            if (invalidConstraint) return invalidConstraint;
+        }
 
         //fazendo filtro
         const filter = await discsdb.filterOr(filterInfo);
