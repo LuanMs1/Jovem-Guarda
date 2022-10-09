@@ -54,9 +54,19 @@ async function exchangeProposal(userIdFrom, discsFromList, discsToList){
     }
 };
 
-async function userExchanges(userId){
+async function userActiveExchanges(userId){
     try{
         const exchangesRes = await exchangedb.userActiveExchanges(userId);
+        if (exchangesRes.error) throw exchangesRes.error
+
+        return {error: null, result: exchangesRes.result.rows};
+    }catch(err){
+        return {error: err, result: null};
+    }
+}
+async function userInactiveExchanges(userId){
+    try{
+        const exchangesRes = await exchangedb.userInactiveExchanges(userId);
         if (exchangesRes.error) throw exchangesRes.error
 
         return {error: null, result: exchangesRes.result.rows};
@@ -131,11 +141,31 @@ async function cancelExchange(exchangeId,userId){
     }
 };
 
+async function completeExchange(exchangeId, avaliation){
+    try{
+        const exchangeRes = await exchangedb.getExchange(exchangeId);
+        const exchangeStatus = exchangeRes.result.rows[0].status;
+        if (exchangeStatus !== 'pending_exchange') throw 'Troca não esta acontecendo';
+
+        const completeRes = await exchangedb.complete(exchangeId,avaliation);
+        if (completeRes.error) throw completeRes.error;
+
+        return {error: null, result: 'Troca concluida'};
+
+    }catch(err){
+
+        return {error: err, result: null};
+
+    }
+}
+
 module.exports = {
     exchangeProposal,
-    userExchanges,
+    userActiveExchanges,
+    userInactiveExchanges,
     getExchange,
     acceptExchange,
     rejectExchange,
-    cancelExchange
+    cancelExchange,
+    completeExchange
 }

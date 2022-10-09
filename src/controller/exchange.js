@@ -22,10 +22,22 @@ async function proposeExchange(req,res) {
     }
 }
 
-async function userExchanges(req,res){
+async function userActiveExchanges(req,res){
     const userId = req.user.id;
     try{
-        const exchangesRes = await services.userExchanges(userId);
+        const exchangesRes = await services.userActiveExchanges(userId);
+        if (exchangesRes.error) throw exchangesRes.error;
+        
+        return res.status(200).json(exchangesRes.result);
+    }catch(err){
+        return res.status(500).json({message: err.message});
+    }
+}
+
+async function userInactiveExchanges(req,res){
+    const userId = req.user.id;
+    try{
+        const exchangesRes = await services.userInactiveExchanges(userId);
         if (exchangesRes.error) throw exchangesRes.error;
         
         return res.status(200).json(exchangesRes.result);
@@ -97,11 +109,28 @@ async function cancel(req,res){
     }
 };
 
+async function complete(req,res){
+    const exchangeId = req.params.id;
+    const avaliations = req.body;
+    try{
+        const completeRes = await services.completeExchange(exchangeId,avaliations);
+        if (completeRes.error) throw completeRes.error;
+
+        return res.status(201).json();
+    }catch(err){
+        if (err === 'Troca não esta acontecendo') res.status(404).json({message: err});
+
+        return {error: err, result: null};
+    }
+}
+
 module.exports = {
     proposeExchange,
-    userExchanges,
+    userActiveExchanges,
+    userInactiveExchanges,
     getExchange,
     accept,
     reject,
-    cancel
+    cancel,
+    complete
 };
