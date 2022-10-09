@@ -91,12 +91,12 @@ async function complete(exchangeId, avaliation){
         const userFrom = exchange[0].user_from;
         const userTo = exchange[0].user_to;
         //changing exchange status
-        // const statusText = `
-        //     UPDATE exchange
-        //     SET status = 'complete'
-        //     WHERE id = $1
-        // `;
-        // await client.query(statusText,[exchangeId]);
+        const statusText = `
+            UPDATE exchange
+            SET status = 'complete'
+            WHERE id = $1
+        `;
+        await client.query(statusText,[exchangeId]);
 
         //altering discId
         const alterOwnerText = `
@@ -305,6 +305,20 @@ async function getExchange(exchangeId){
         return {error: err, result: null}
     }
 };
+
+async function getUnformatedExchange(exchangeId){
+    const text = `
+        SELECT * FROM exchange
+        WHERE id = $1;
+    `;
+    try{
+        const exchangesRes = await db.query(text,[exchangeId]);
+        return {error: null, result: exchangesRes};
+    }catch(err){
+
+        return {error: err, result: null}
+    }
+}
 async function accept(exchangeId){
     const text = `
         UPDATE exchange
@@ -358,5 +372,6 @@ module.exports = {
     accept,
     reject,
     cancel,
-    complete
+    complete,
+    getUnformatedExchange
 }

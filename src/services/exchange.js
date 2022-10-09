@@ -88,10 +88,11 @@ async function getExchange(exchangeId){
 }
 async function acceptExchange(exchangeId,userId){
     try{
-        const exchangeRes = await exchangedb.getExchange(exchangeId);
+        const exchangeRes = await exchangedb.getUnformatedExchange(exchangeId);
         const exchangeStatus = exchangeRes.result.rows[0].status;
-        const userOfering = exchangeRes.result.rows[0].user_from;
-        if(userOfering !== userId) throw 'Usuário não é dono da troca'
+        const userAcepting = exchangeRes.result.rows[0].user_to;
+        console.log(userAcepting, exchangeRes.result.rows[0].user_to);
+        if(userAcepting !== userId) throw 'Usuário não é dono da troca'
         if(exchangeStatus !== 'pending_approval') throw 'Aprovação não pendente';
         
 
@@ -107,7 +108,7 @@ async function acceptExchange(exchangeId,userId){
 
 async function rejectExchange(exchangeId, userId){
     try{
-        const exchangeRes = await exchangedb.getExchange(exchangeId);
+        const exchangeRes = await exchangedb.getUnformatedExchange(exchangeId);
         const exchangeStatus = exchangeRes.result.rows[0].status;
         const userOfering = exchangeRes.result.rows[0].user_from;
         if(userOfering !== userId) throw 'Usuário não é dono da troca'
@@ -125,7 +126,7 @@ async function rejectExchange(exchangeId, userId){
 
 async function cancelExchange(exchangeId,userId){
     try{
-        const exchangeRes = await exchangedb.getExchange(exchangeId);
+        const exchangeRes = await exchangedb.getUnformatedExchange(exchangeId);
         const exchangeStatus = exchangeRes.result.rows[0].status;
         const userOfering = exchangeRes.result.rows[0].user_from;
         if(userOfering !== userId) throw 'Usuário não é dono da troca'
@@ -143,7 +144,7 @@ async function cancelExchange(exchangeId,userId){
 
 async function completeExchange(exchangeId, avaliation){
     try{
-        const exchangeRes = await exchangedb.getExchange(exchangeId);
+        const exchangeRes = await exchangedb.getUnformatedExchange(exchangeId);
         const exchangeStatus = exchangeRes.result.rows[0].status;
         if (exchangeStatus !== 'pending_exchange') throw 'Troca não esta acontecendo';
 
