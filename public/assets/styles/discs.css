@@ -21,8 +21,7 @@
     display: flex;
     justify-content: start;
     width: 95vw;
-    padding: 10px;
-    padding-left: 135px;
+    padding-left: 200px;
 }
 .btn-filter {
     width: 8vw;
@@ -37,6 +36,13 @@
     margin-top: 8px;
     cursor: pointer;
 }
+#container-btn-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .btn-filter:hover {
     opacity: 0.8;
 }

@@ -71,7 +71,7 @@ export function myDiscs(evtJoinDiscs, evtGenres, evtArtists, evtAddDisc) {
     <section id="container-menu">
     <div id="menu">
         <div id="container-img-name">
-            <img id="img-menu" src="./imgs/userAlpha.jpg" />
+            <img id="img-menu" src="./assets/images/userAlpha.jpg" />
             <span>NAME</span>
         </div>
         <div id="menu-options">
