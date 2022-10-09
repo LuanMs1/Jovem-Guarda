@@ -39,11 +39,13 @@ const postDisc = async (req, res) => {
 };
 
 const getUserDisc = async (req,res) => {
-    const albumName = req.param.album;
+    const albumName = req.body.album;
     const userId = req.user.id;
     try {
         const discRes = await services.getUserDisc(userId, albumName);
         if (discRes.error) throw discRes.error;
+
+        return res.status(200).json(discRes.result)
     } catch (err) {
         if (err === "Necessário informar nome do album") return res.status(400).json({message: err});
         if (err === "Disco não encontrado") return res.status(404).json({message: err});
@@ -54,7 +56,7 @@ const getUserDisc = async (req,res) => {
 
 const getDisc = async (req, res) => {
     const discId = req.param.id;
-
+    console.log('usando controller getDisc')
     try {
         const discRes = await services.getDisc(discId);
         if (discRes.error) throw discRes.error;

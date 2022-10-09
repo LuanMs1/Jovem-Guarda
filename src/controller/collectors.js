@@ -105,7 +105,7 @@ const deleteCollector = async (req, res) => {
     }
 };
 
-const getUserDiscs = async (req, res) => {
+const getAllUserDiscs = async (req, res) => {
     const userId = req.user.id;
 
     try {
@@ -123,5 +123,5 @@ module.exports = {
     updateCollector,
     getCollector,
     signUpCollector,
-    getUserDiscs,
+    getAllUserDiscs,
 };
