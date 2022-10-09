@@ -9,7 +9,7 @@ const pool = new Pool({
     port: process.env.DB_PORT,
 });
 
-const getClient = async () => pool.connect();
+const getClient = async () => await pool.connect();
 
 const query = async (text, param) => {
     return await pool.query(text, param);
