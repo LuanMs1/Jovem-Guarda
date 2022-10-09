@@ -1,4 +1,5 @@
 const services = require("../services/discs");
+const imgs = require('../services/img');
 
 const postDisc = async (req, res) => {
     const userId = req.user.id;
@@ -54,6 +55,10 @@ const updateDisc = async (req, res) => {
     const discGenres = discInfos.genre;
 
     try{
+        if(req.file) {
+            if(discInfos.img) imgs.removeImg(`discs/${discInfos.img}`);
+            discInfos.img = req.file.filename;
+        }
         const discRes = await services.putDisc(discInfos, discId);
         if (discRes.error) throw discRes.error;
 

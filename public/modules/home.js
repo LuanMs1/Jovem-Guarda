@@ -3,14 +3,14 @@ const app = document.querySelector("#app");
 export function home(evtJoin, evtRegister) {
     app.innerHTML = `
     <div id="main-disc">
-    <header id main-header>
+    <header id= main-header>
             <div id="window-header">
                 <a id="join-text" class="link">ENTRAR</a>
                 <button id="registration-text"class="link">CADASTRAR</button>
              </div>
         </header>
         <div id="logo-div">
-            <img id="logo-img" src="./assets/images/LogoJovemGuarda.svg" alt="">
+            <img id="logo-img-home" src="./assets/images/LogoJovemGuarda.svg" alt="">
         </div>
         <main id="main-home">
             <div id="window-main">

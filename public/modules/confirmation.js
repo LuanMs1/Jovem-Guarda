@@ -2,16 +2,16 @@ const app = document.querySelector("#app");
 
 export function confirmation(evtJoinMain, evtLogin) {
     app.innerHTML = `
-      <div id="container-center">
+      <div id="container-center-confirmation">
         <a href="#">
-            <img class="link" src="./assets/images/jovemGuarda.png">
+            <img id="logo-confirmation" class="link" src="./assets/images/jovemGuarda.png">
         </a>
-        <span id="message">
+        <span id="message-confirmation">
             Obrigado por se cadastrar,<br>
-            faça seu login!
+            entre em sua conta!
         </span>
-        <span id="enter">
-          <input class="link" id="btn-submit" type="submit" value="ENTRAR">
+        <span id="enter-confirmation">
+          <input class="link" id="btn-submit-confirmation" type="submit" value="ENTRAR">
         </span>
       </div>
     `;
