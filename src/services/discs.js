@@ -90,6 +90,23 @@ async function getDisc(discId) {
     }
 }
 
+async function getUserDisc(userId, albumName){
+    try {
+        // validações
+        if (!albumName) throw "Necessário informar nome do album";
+        //retorno de dados
+        const discRes = await discsdb.getUserDiscByAlbum(albumName, userId);
+
+        // validações
+        if (discRes.error) throw discRes.error;
+        if (discRes.result.rowCount === 0) throw "Disco não encontrado";
+
+        return { error: null, result: discRes.result.rows[0] };
+    } catch (err) {
+        return { error: err, result: null };
+    }
+}
+
 async function getAllDiscs() {
     try {
         const discsRes = await discsdb.getAllDiscs();
@@ -217,5 +234,6 @@ module.exports ={
     putDisc,
     filterByGenre,
     filter,
-    deleteDisc
+    deleteDisc,
+    getUserDisc
 };

@@ -26,5 +26,6 @@ module.exports = (app) => {
     // user.post('/img', upload('/profile'), userImg);
 
     //DISCOS
+    disc.get("/:id", discs.getDisc);
     disc.get("/filter", discs.filter);
 };
