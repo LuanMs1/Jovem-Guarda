@@ -22,16 +22,36 @@ const routes = {
         confirmation(events("/"), events("/login"));
     },
     "/myDiscs": function () {
-        myDiscs(events("/discs"), events("/genre"), events("/artists"));
+        myDiscs(
+            events("/discs"),
+            events("/genre"),
+            events("/artists"),
+            events("/addDisc")
+        );
     },
     "/discs": function () {
-        discs(events("/myDiscs"), events("/genres"), events("/artists"));
+        discs(
+            events("/myDiscs"),
+            events("/genres"),
+            events("/artists"),
+            events("/exchange")
+        );
     },
     "/genres": function () {
-        genres(events("/myDiscs"), events("/discs"), events("/artists"));
+        genres(
+            events("/myDiscs"),
+            events("/discs"),
+            events("/artists"),
+            events("/exchange")
+        );
     },
     "/artists": function () {
-        artists(events("/myDiscs"), events("/discs"), events("/genres"));
+        artists(
+            events("/myDiscs"),
+            events("/discs"),
+            events("/genres"),
+            events("/exchange")
+        );
     },
     "/404": function () {
         errorNotFound(events("/"), events("/login"));
