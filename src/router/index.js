@@ -35,7 +35,11 @@ module.exports = (app) => {
     user.put('/exchanges/cancel/:id', exchanges.cancel);
     user.post('/exchanges/complete/:id', exchanges.complete);    
     //DISCOS
-    disc.get('/filter', discs.filter);
+    disc.get("/filter", discs.filter);
+
+
+    //EXCHANGE
+    exchange.get('/:id', exchanges.getExchange);
 
     //EXCHANGE
     exchange.get('/:id', exchanges.getExchange);
