@@ -6,6 +6,7 @@ import { myDiscs } from "./modules/myDiscs.js";
 import { discs } from "./modules/discs.js";
 import { genres } from "./modules/genres.js";
 import { registerDisc } from "./modules/registerDisc.js";
+import { myProfile } from "./modules/myProfile.js";
 // import { errorNotFound } from "./modules/errorNotFound.js";
 
 const routes = {
@@ -45,6 +46,9 @@ const routes = {
     },
     "/genres": function () {
         genres(events("/myDiscs"), events("/discs"), events("/exchange"));
+    },
+    "/myProfile": function () {
+        myProfile(events("/myDiscs"), events("/discs"), events("/exchange"));
     },
     "/404": function () {
         errorNotFound(events("/"), events("/login"));
