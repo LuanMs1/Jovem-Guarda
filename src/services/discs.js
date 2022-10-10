@@ -197,6 +197,14 @@ async function filter(filterInfo, offset = 0){
             if (invalidConstraint) return invalidConstraint;
         }
 
+        //removendo espaço em branco e adicionando % para pegar padrão
+        for (let fil in filterInfo){
+            if (fil !== 'release_year'){
+                for (let i in filterInfo[fil]){
+                    filterInfo[fil][i] ='%' + filterInfo[fil][i].trim().toUpperCase() + '%'
+                }
+            }
+        }
         //fazendo filtro
         const filter = await discsdb.filterOr(filterInfo, offset);
         if (filter.error) throw filter.error;
