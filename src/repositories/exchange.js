@@ -117,7 +117,8 @@ async function complete(exchangeId, avaliation){
 
         //creating avaliation
         const avaliationQueryText = `
-            INSERT INTO avaliations (user_id, rate, description, exchange_id, created_at)
+            INSERT INTO 
+                avaliations (user_id, rate, description, exchange_id, created_at)
             VALUES ($1, $2, $3, $4, $5)
         `
         for (let user of avaliation){
@@ -138,6 +139,41 @@ async function complete(exchangeId, avaliation){
     }
 
 }
+
+async function markExchangeUserComplete(userId, exchangeId, avaliation){
+    const client = await db.getClient();
+    const completeText = `
+        UPDATE exchange
+        SET user_completed = $1
+        WHERE id = $2
+    `
+
+    const avaliationText = `
+        INSERT INTO 
+            avaliations (user_id, rate, description, exchange_id, created_at)
+        VALUES ($1, $2, $3, $4, $5)
+    `
+    try{
+        await client.query('BEGIN');
+        await client.query(completeText, [userId, exchangeId]);
+        const avaliationValues = [
+            avaliation.id, 
+            avaliation.rate, 
+            avaliation.text,
+            exchangeId,
+            new Date()
+        ];
+        await client.query(avaliationText, avaliationValues)
+        await client.query('COMMIT');
+        return {error: null, result: 'complete'};
+    }catch(err){
+        await client.query('ROLLBACK');
+        return {error: err, result: null}
+    }finally{
+        client.release();
+    }
+}
+
 async function exchangeProposal(userTo, userFrom, discs){
     const client = await db.getClient();
     try{
@@ -189,11 +225,11 @@ async function userActiveExchanges(userId){
         INNER JOIN discs ON discs.id = exchange_disc_list.disc_id
         INNER JOIN users AS userOwner
             ON userOwner.id = discs.user_id
-        WHERE user_from = $1 AND (status = 'pending_approval' OR status = 'pending_exchange');
+        WHERE (user_from = $1 OR user_to = $2) AND (status = 'pending_approval' OR status = 'pending_exchange');
     `
 
     try{
-        const exchangesRes = await db.query(text,[userId]);
+        const exchangesRes = await db.query(text,[userId, userId]);
         return {error: null, result: exchangesRes};
     }catch(err){
 
@@ -203,7 +239,7 @@ async function userActiveExchanges(userId){
 };
 async function userInactiveExchanges(userId){
     const text = `
-        SELECT  exchange.id, exchange.status, userFrom.name As user_from, 
+        SELECT exchange.id, exchange.status, userFrom.name As user_from, 
                 userTo.name AS user_to, discs.album AS disc_name, 
                 userOwner.name As disc_onwer, discs.img
         FROM exchange
@@ -215,11 +251,11 @@ async function userInactiveExchanges(userId){
         INNER JOIN discs ON discs.id = exchange_disc_list.disc_id
         INNER JOIN users AS userOwner
             ON userOwner.id = discs.user_id
-        WHERE user_from = $1 AND NOT (status = 'pending_approval' OR status = 'pending_exchange');
+        WHERE (user_from = $1 OR user_to = $2) AND NOT (status = 'pending_approval' OR status = 'pending_exchange');
     `
 
     try{
-        const exchangesRes = await db.query(text,[userId]);
+        const exchangesRes = await db.query(text,[userId,userId]);
         return {error: null, result: exchangesRes};
     }catch(err){
 
@@ -373,5 +409,6 @@ module.exports = {
     reject,
     cancel,
     complete,
-    getUnformatedExchange
+    getUnformatedExchange,
+    markExchangeUserComplete
 }

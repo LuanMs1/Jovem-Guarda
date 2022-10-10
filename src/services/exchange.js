@@ -91,7 +91,6 @@ async function acceptExchange(exchangeId,userId){
         const exchangeRes = await exchangedb.getUnformatedExchange(exchangeId);
         const exchangeStatus = exchangeRes.result.rows[0].status;
         const userAcepting = exchangeRes.result.rows[0].user_to;
-        console.log(userAcepting, exchangeRes.result.rows[0].user_to);
         if(userAcepting !== userId) throw 'Usuário não é dono da troca'
         if(exchangeStatus !== 'pending_approval') throw 'Aprovação não pendente';
         
@@ -142,19 +141,38 @@ async function cancelExchange(exchangeId,userId){
     }
 };
 
-async function completeExchange(exchangeId, avaliation){
+async function completeExchange(exchangeId, avaliation, loggedUser){
     try{
+        // get exchange
         const exchangeRes = await exchangedb.getUnformatedExchange(exchangeId);
-        const exchangeStatus = exchangeRes.result.rows[0].status;
-        if (exchangeStatus !== 'pending_exchange') throw 'Troca não esta acontecendo';
+        if (exchangeRes.error) throw exchangeRes.error;
 
-        const completeRes = await exchangedb.complete(exchangeId,avaliation);
-        if (completeRes.error) throw completeRes.error;
+        // separando informações úteis
+        const exchangeStatus = exchangeRes.result.rows[0].status;
+        const exchangeCompleted = exchangeRes.result.rows[0].user_completed;
+        const userFrom = exchangeRes.result.rows[0].user_from;
+        const userTo = exchangeRes.result.rows[0].user_to;
+
+        // Fazendo validações
+        if (loggedUser !== userFrom && loggedUser !== userTo) throw 'Usuário não pertence à troca';
+        if (exchangeStatus !== 'pending_exchange') throw 'Troca não esta acontecendo';
+        if (exchangeCompleted === loggedUser) throw 'Usuário já marcou a troca como completa'
+
+        // Caso ngm tenha marcado como concluida, registrar o primeiro a marcar
+        if (!exchangeCompleted){
+            const setCompleted = await exchangedb.markExchangeUserComplete(loggedUser, exchangeId, avaliation[0]);
+            if (setCompleted.error) throw setCompleted.error;
+            return {error: null, result: `Usuário ${loggedUser} marcou troca como completa`};
+        };
+
+        // Aqui, o usuário tentando marcar pertence à troca e o outro já marcou como completa
+        // Falta completar a troca e enviar a ultima avaliação
+        const completeExchange = await exchangedb.complete(exchangeId, avaliation);
+        if (completeExchange.error) throw completeExchange.error;
 
         return {error: null, result: 'Troca concluida'};
 
     }catch(err){
-
         return {error: err, result: null};
 
     }
