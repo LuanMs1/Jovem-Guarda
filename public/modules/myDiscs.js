@@ -1,6 +1,16 @@
 const app = document.querySelector("#app");
 
-export function myDiscs(evtJoinmyDisc1, evtJoinmyDisc, evtArtists) {
+export function myDiscs(
+    evtJoinmyDisc1,
+    evtJoinmyDisc,
+    evtArtists,
+    x1,
+    x2,
+    x3,
+    x4,
+    x5,
+    x6
+) {
     app.innerHTML = `
       <section id="container-centralized-myDyscs">
           <header>
@@ -58,7 +68,7 @@ export function myDiscs(evtJoinmyDisc1, evtJoinmyDisc, evtArtists) {
                 <span id="info-disc"> info info </span>
             </div>
             <div class="card-add">
-                <img class="card-add-icon" src="./assets/images/mais (3).png" alt="" />
+                <img id="card-add-icon" class="link" src="./assets/images/mais (3).png" alt="" />
             </div>
 
         </div>
@@ -72,29 +82,39 @@ export function myDiscs(evtJoinmyDisc1, evtJoinmyDisc, evtArtists) {
                 <div id="menu-options">
                     <div>
                         <img class="icons" src="./assets/images/icons/add.png" />
-                        <span>CADASTRE SEUS DISCOS</span>
+                        <span class="link">CADASTRE SEUS DISCOS</span>
                     </div>
                     <div>
                         <img
                             class="icons"
                             src="./assets/images/icons/profile-user.png"
                         />
-                        <span>MEU PERFIL</span>
+                        <span class="link">MEU PERFIL</span>
                     </div>
                     <div>
                         <img class="icons" src="./assets/images/icons/heart.png" />
-                        <span>LISTA DE DESEJOS</span>
+                        <span class="link">LISTA DE DESEJOS</span>
                     </div>
                     <div>
                         <img class="icons" src="./assets/images/icons/star.png" />
-                        <span>AVALIAÇÕES</span>
+                        <span class="link">AVALIAÇÕES</span>
                     </div>
                 </div>
-                <u>Desconectar</u>
+                <u class="link">Desconectar</u>
             </div>
         </section>
     `;
-    discsService([evtJoinmyDisc1, evtJoinmyDisc, evtArtists]);
+    discsService([
+        evtJoinmyDisc1,
+        evtJoinmyDisc,
+        evtArtists,
+        x1,
+        x2,
+        x3,
+        x4,
+        x5,
+        x6,
+    ]);
 
     const profilePic = document.querySelector("#container-user-all");
     const profileMenu = document.querySelector("#menu");

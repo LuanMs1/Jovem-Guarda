@@ -26,7 +26,12 @@ const routes = {
             events("/discs"),
             events("/genres"),
             events("/artists"),
-            events("/addDisc")
+            events("/registerDisc"),
+            events("/registerDisc"),
+            events("/myProfile"),
+            events("/wishlist"),
+            events("/evaluation"),
+            events("/login")
         );
     },
     "/discs": function () {
