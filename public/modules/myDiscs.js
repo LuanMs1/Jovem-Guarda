@@ -1,7 +1,7 @@
 const app = document.querySelector("#app");
 
 export function myDiscs(evtJoinDiscs, evtGenres, evtArtists, evtAddDisc) {
-    app.innerHTML = `
+  app.innerHTML = `
     <section id="container-centralized-myDisc">
     <header>
       <a id="container-logo-myDiscs" href="#">
@@ -18,55 +18,8 @@ export function myDiscs(evtJoinDiscs, evtGenres, evtArtists, evtAddDisc) {
 
     <span id="genres-title">MEUS DISCOS</span>
 </section>
-    <div id="container-center-myDisc">
-        <div class="card-disc">
-            <img
-                class="card-img"
-                src="./assets/images/disc2.jfif"
-                alt=""
-            />
-            <span id="name-disc"> Matriz - PITTY </span>
-            <span id="year-disc"> 2019 </span>
-            <span id="info-disc"> info info </span>
-        </div>
-        <div class="card-disc">
-            <img
-                class="card-img"
-                src="./assets/images/disc3.jpg"
-                alt=""
-            />
-            <span id="name-disc"> Admirável - PITTY </span>
-            <span id="year-disc"> 2003 </span>
-            <span id="info-disc"> info info </span>
-        </div>
-        <div class="card-disc">
-            <img
-                class="card-img"
-                src="./assets/images/disc4.webp"
-                alt=""
-            />
-            <span id="name-disc"> Imorrível - Di Melo </span>
-            <span id="year-disc"> 2016 </span>
-            <span id="info-disc"> info info </span>
-        </div>
-        <div class="card-disc">
-            <img
-                class="card-img"
-                src="./assets/images/disco1.jpeg"
-                alt=""
-            />
-            <span id="name-disc"> Di Melo - Di Melo </span>
-            <span id="year-disc"> 1975 </span>
-            <span id="info-disc"> info info </span>
-        </div>
-        <div class="card-add">
-            <img
-                id="card-add-icon"
-                class="link"
-                src="./assets/images/mais (3).png"
-                alt=""
-            />
-        </div>
+    <div id="container-center-myDisc">   
+        
     </div>
     <section id="container-menu">
     <div id="menu">
@@ -85,16 +38,65 @@ export function myDiscs(evtJoinDiscs, evtGenres, evtArtists, evtAddDisc) {
 </section>
 
     `;
-    loginService([evtJoinDiscs, evtGenres, evtArtists, evtAddDisc]);
+  loginService([evtJoinDiscs, evtGenres, evtArtists, evtAddDisc]);
 }
 
 function loginService(evt) {
-    const elements = document.querySelectorAll(".link");
+  const elements = document.querySelectorAll(".link");
+  loadMyDiscs();
+  for (let i = 0; i <= elements.length; i++) {
+    elements[i].addEventListener("click", () => {
+      window.dispatchEvent(evt[i]);
+    });
+  }
+  document.title = "Meus discos";
+}
 
-    for (let i = 0; i <= elements.length; i++) {
-        elements[i].addEventListener("click", () => {
-            window.dispatchEvent(evt[i]);
-        });
-    }
-    document.title = "Meus discos";
+async function loadMyDiscs() {
+  const res = await fetch("http://localhost:8000/user/alldiscs", {
+    method: "GET",
+  });
+
+  const dataAllUserDiscs = await res.json();
+
+  const containerCenterMyDisc = document.getElementById(
+    "container-center-myDisc"
+  );
+
+  for (let c = 0; c < dataAllUserDiscs.length; c++) {
+    const cardDisc = document.createElement("div");
+    cardDisc.className = "card-myDiscs";
+
+    const imgCard = document.createElement("img");
+    imgCard.className = "card-img";
+    imgCard.setAttribute("src", `${dataAllUserDiscs[c].img}`);
+
+    const spanNameDisc = document.createElement("span");
+    spanNameDisc.className = "name-disc";
+    spanNameDisc.innerHTML = `${dataAllUserDiscs[c].album}`;
+
+    const spanYearDisc = document.createElement("span");
+    spanYearDisc.className = "year-disc";
+    spanYearDisc.innerHTML = `${dataAllUserDiscs[c].release_year}`;
+
+    const spanArtisDisc = document.createElement("span");
+    spanArtisDisc.className = "info-disc";
+    spanArtisDisc.innerHTML = `${dataAllUserDiscs[c].artist}`;
+
+    containerCenterMyDisc.appendChild(cardDisc);
+    cardDisc.appendChild(imgCard);
+    cardDisc.appendChild(spanNameDisc);
+    cardDisc.appendChild(spanYearDisc);
+    cardDisc.appendChild(spanArtisDisc);
+  }
+
+  const divImgAddCar = document.createElement("div");
+  divImgAddCar.className = "card-add"
+
+  const imgAddCard = document.createElement("img");
+  imgAddCard.className = "link";
+  imgAddCard.id ="card-add-icon"
+  imgAddCard.setAttribute("src", "./assets/images/mais (3).png");
+  divImgAddCar.appendChild(imgAddCard)
+  containerCenterMyDisc.appendChild(divImgAddCar);
 }
