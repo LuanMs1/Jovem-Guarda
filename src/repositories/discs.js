@@ -125,7 +125,7 @@ const getDisc = async (discId) => {
         FROM discs
         LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
         LEFT JOIN users ON users.id = discs.user_id
-        WHERE id = $1
+        WHERE discs.id = $1
         GROUP BY discs.id
     `
     try{

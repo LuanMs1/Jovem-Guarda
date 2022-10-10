@@ -112,15 +112,20 @@ async function cancel(req,res){
 async function complete(req,res){
     const exchangeId = req.params.id;
     const avaliations = req.body;
+    const userId = req.user.id;
+
     try{
-        const completeRes = await services.completeExchange(exchangeId,avaliations);
+        const completeRes = await services.completeExchange(exchangeId,avaliations,userId);
         if (completeRes.error) throw completeRes.error;
 
         return res.status(201).json();
     }catch(err){
         if (err === 'Troca não esta acontecendo') res.status(404).json({message: err});
-
-        return {error: err, result: null};
+        if (err === 'Usuário não pertence à troca') res.status(403).json({message: err});
+        if (err === 'Troca não está acontecento') res.status(400).json({message: err});
+        if (err === 'Usuário já marcou a troca como completa') res.status(400).json({message: err});
+        
+        return res.status(500).json({message: err});
     }
 }
 
