@@ -121,9 +121,10 @@ const selectUserDiscs = async (userId, offset = 0) => {
  */
 const getDisc = async (discId) => {
     const text = `
-        SELECT discs.*, string_agg(music_genre_list.genre, ',') AS genre
+        SELECT discs.*, string_agg(DISTINCT users.name, ',') AS owner, string_agg(music_genre_list.genre, ',') AS genre
         FROM discs
         LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
+        LEFT JOIN users ON users.id = discs.user_id
         WHERE id = $1
         GROUP BY discs.id
     `
