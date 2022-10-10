@@ -35,12 +35,12 @@ const routes = {
             events("/login")
         );
     },
-    "/addDisc": function () {
+    "/registerDisc": function () {
         registerDisc(
             events("/discs"),
             events("/genre"),
             events("/artists"),
-            events("/addDisc")
+            events("/registerDisc")
         );
     },
     "/discs": function () {
