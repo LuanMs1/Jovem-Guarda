@@ -21,6 +21,7 @@ export function registerDisc(evtBack, evtJoin, evtConfirmation) {
 
     <section id="individual-disc">
         <input id="list-albums" list="albums" type="text" placeholder="PESQUISAR">
+        <p id="msg-error"></p>
         <select name="" id="select-albums"></select>
         <span id="name-album">Album</span>
         <span id="name-artist">Artista</span>
@@ -80,9 +81,10 @@ export function registerDisc(evtBack, evtJoin, evtConfirmation) {
         </div>
     </section>
     <section id="register-album-section" >
+      <p id="msg-error-register"></p>
         <button id="register-album">CADASTRAR</button>
     </section>
-    <section id="musics-disc">
+    <section id="musics-disc-register">
         <div id="all-tracks"></div>
     </section>
     <section id="section-imgs-disc">
@@ -96,11 +98,11 @@ export function registerDisc(evtBack, evtJoin, evtConfirmation) {
             <div class="imgs-disc-user"></div>
         </div>
     </section>`;
-
   registerDiscService([evtBack, evtJoin, evtConfirmation]);
 }
 
 function registerDiscService(evt) {
+  document.getElementById("register-album").style.display = "none";
   const elements = document.querySelectorAll(".link");
   debounceRegisterApi();
 
@@ -121,7 +123,7 @@ function debounceRegisterApi() {
       const listAlbumsValue = listAlbums.value;
       spotifyGetAlbum(listAlbumsValue);
       console.log(listAlbumsValue);
-    }, 1000)
+    }, 500)
   );
 
   function debounce(func, wait) {
@@ -134,7 +136,25 @@ function debounceRegisterApi() {
 }
 
 export async function spotifyGetAlbum(artistAlbum) {
+
+  const selectAlbuns = document.getElementById("select-albums");
+
+  const createSelect = document.createElement("select");
+
+  const msgError = document.getElementById("msg-error");
+
   const tokenSpotify = await getSpotifyToken();
+
+  document.querySelector("#select-albums").innerHTML = "";
+
+  const inputValue = document.querySelector("#list-albums").value
+
+  msgError.innerHTML = "";
+
+  if (inputValue == "") {
+    selectAlbuns.style.display = "none";
+    msgError.innerHTML = "Por favor, insira um valor válido";
+  }
 
   const urlSpotifyAlbum = `https://api.spotify.com/v1/search?q=${artistAlbum}&type=album&type=single&limit=50`;
 
@@ -148,40 +168,48 @@ export async function spotifyGetAlbum(artistAlbum) {
     });
 
     const albums = await res.json();
-   
-    const selectAlbuns = document.getElementById("select-albums");
-
-    const createSelect = document.createElement("select");
 
     for (let i = 0; i < albums.albums.items.length; i++) {
-      
+
       const createOption = document.createElement("option");
+      
+
       selectAlbuns.setAttribute(
         "size",
-        `${albums.albums.items[i].album_type.length}`
+        `${albums.albums.items.length}`
       );
       createSelect.classList.add("selected-albums");
       createOption.innerHTML = `${albums.albums.items[i].name}`;
       createOption.setAttribute("value", `${albums.albums.items[i].id}`);
       selectAlbuns.appendChild(createOption);
     }
+
     selectAlbuns.addEventListener("change", getElementsToRegister);
 
     function getElementsToRegister() {
+      
       const idAlbum = selectAlbuns.options[selectAlbuns.selectedIndex].value;
       selectAlbuns.style.display = "none";
       spotifyGetAlbumToRegister(idAlbum);
+      document.querySelector("#select-albums").innerHTML = "";
+      document.querySelector("#list-albums").value = "";
+      
     }
 
     selectAlbuns.style.display = "block";
+
+    const test = selectAlbuns.options[selectAlbuns.selectedIndex];
+
   } catch (error) {
     console.log(error);
   }
+
 }
 
 const dataToDataBase = [];
 
 export async function spotifyGetAlbumToRegister(idAlbum) {
+
   const tokenSpotify = await getSpotifyToken();
 
   const urlSpotifyAlbum = `https://api.spotify.com/v1/albums/${idAlbum}`;
@@ -260,6 +288,8 @@ function createRegisterData(registerData) {
 
   const registerAlbum = document.getElementById("register-album");
 
+  document.getElementById("register-album").style.display = "block";
+
   registerAlbum.addEventListener("click", createRegisterDataToDataBase);
 
   imgAlbum.setAttribute("src", `${registerData.imgAlbum}`);
@@ -280,6 +310,9 @@ function createRegisterData(registerData) {
 }
 
 function createRegisterDataToDataBase() {
+
+  const msgErrorRegister = document.getElementById("msg-error-register");
+
   const selectAlbumType = document.getElementById("select-album-type");
 
   const selectvinilType = document.getElementById("select-vinil-type");
@@ -317,13 +350,17 @@ function createRegisterDataToDataBase() {
   };
 
   if (!dataDisc.disc_description == "" ) {
+    msgErrorRegister.style.color = "green"
+    msgErrorRegister.innerHTML = "Disco cadastro com sucesso!"
+
     fetch("http://localhost:8000/user/disc", {
         method: "POST",
         body: JSON.stringify(dataDisc),
         headers: { "Content-type": "application/json; charset=UTF-8" },
       });
+
+  } else {
+    msgErrorRegister.innerHTML = "Por favor, insira uma descrição válida."
   }
   
-
- 
 }

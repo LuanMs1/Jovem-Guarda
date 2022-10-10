@@ -60,7 +60,7 @@ export function myDiscs( evtJoinmyDisc1,
             </div>
         </section>
     `;
-
+    loadMyDiscs();
   discsService([
         evtJoinmyDisc1,
         evtJoinmyDisc,
@@ -88,7 +88,6 @@ export function myDiscs( evtJoinmyDisc1,
 
 
 function discsService(evt) {
-    loadMyDiscs();
     const elements = document.querySelectorAll(".link");
     for (let i = 0; i < elements.length; i++) {
         elements[i].onclick = () => {
