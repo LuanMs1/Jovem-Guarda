@@ -62,7 +62,6 @@ export function myDiscs(evtJoinmyDisc1, evtJoinmyDisc, x1, x2, x3, x4, x5, x6) {
   discsService([
         evtJoinmyDisc1,
         evtJoinmyDisc,
-        evtArtists,
         x1,
         x2,
         x3,
