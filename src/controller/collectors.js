@@ -105,11 +105,12 @@ const deleteCollector = async (req, res) => {
     }
 };
 
-const getUserDiscs = async (req, res) => {
+const getAllUserDiscs = async (req, res) => {
     const userId = req.user.id;
+    const offset = req.params.offset;
 
     try {
-        const discs = await discServices.userDiscs(userId);
+        const discs = await discServices.userDiscs(userId, offset);
         if (discs.error) throw discs.error;
 
         return res.status(200).json(discs.result);
@@ -123,5 +124,5 @@ module.exports = {
     updateCollector,
     getCollector,
     signUpCollector,
-    getUserDiscs,
+    getAllUserDiscs,
 };

@@ -17,13 +17,15 @@ module.exports = (app) => {
     //Fazer Login
     user.post("/login", login.loginUsuario);
     user.post("/signup", collectors.signUpCollector);
+    
     //USUARIOS
     user.use(verifyToken);
     user.delete('/', collectors.deleteCollector);
     user.put('/', upload('/profile'), collectors.updateCollector);
     user.get('/',collectors.getCollector);
     user.post('/disc', upload('/discs'), discs.postDisc);
-    user.get('/alldiscs', collectors.getUserDiscs);
+    user.get('/disc', discs.getUserDisc);
+    user.get('/alldiscs/:offset?', collectors.getAllUserDiscs);
     user.delete('/disc/:id', discs.deleteDisc);
     user.put('/disc/:id', discs.updateDisc);
     
@@ -33,9 +35,11 @@ module.exports = (app) => {
     user.put('/exchanges/accept/:id', exchanges.accept);
     user.put('/exchanges/reject/:id', exchanges.reject);
     user.put('/exchanges/cancel/:id', exchanges.cancel);
-    user.post('/exchanges/complete/:id', exchanges.complete);    
+    user.post('/exchanges/complete/:id', exchanges.complete);
+
     //DISCOS
-    disc.get("/filter", discs.filter);
+    disc.get("/one/:id", discs.getDisc);
+    disc.get("/filter/:offset?", discs.filter);
 
 
     //EXCHANGE

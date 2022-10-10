@@ -95,17 +95,19 @@ const updateDisc = async (infos, discId) => {
 }
 
 
-const selectUserDiscs = async (userId) => {
+const selectUserDiscs = async (userId, offset = 0) => {
+    offset *=15;
+
     const text = `
         SELECT discs.*, string_agg(music_genre_list.genre, ',') AS genre
         FROM discs
         LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
         WHERE user_id = $1 AND deleted_at is NULL
-        GROUP BY discs.id
+        GROUP BY discs.id LIMIT 15 OFFSET $2
     `;
 
     try {
-        const dbRes = await db.query(text, [userId]);
+        const dbRes = await db.query(text, [userId, offset]);
         return { error: null, result: dbRes };
     } catch (err) {
         return { error: err, result: null };
@@ -133,14 +135,32 @@ const getDisc = async (discId) => {
     }
 };
 
-const getAllDiscs = async () => {
+const getUserDiscByAlbum = async (albumName, userId) => {
+    const text = `
+        SELECT discs.*, string_agg(music_genre_list.genre, ',') AS genre
+        FROM discs
+        LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
+        WHERE user_id = $1 AND UPPER(album) = UPPER($2)
+        GROUP BY discs.id
+    `
+    try{
+        const dbRes = await db.query(text, [userId, albumName]);
+        return { error: null, result: dbRes };
+    } catch (err) {
+        return { error: err, result: null };
+    }
+}
+
+const getAllDiscs = async (offset = 0) => {
+    offset *= 15;
     const text = `
         SELECT * FROM discs
         WHERE deleted_at is NULL
+        LIMIT 15 OFFSET $1
     `;
 
     try {
-        const dbRes = await db.query(text);
+        const dbRes = await db.query(text, [offset]);
         return { error: null, result: dbRes };
     } catch (err) {
         return { error: err, result: null };
@@ -206,7 +226,8 @@ const remove = async(discId) => {
     }
 }
 
-const filterOr = async (filterInfo) => {
+const filterOr = async (filterInfo, offset = 0) => {
+    offset *= 15
     let values = []
     let conditionText = [];
     let param = 1;
@@ -233,7 +254,9 @@ const filterOr = async (filterInfo) => {
         LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
         WHERE deleted_at is NULL AND ${conditionText}
         GROUP BY discs.id
+        LIMIT 15 OFFSET $${param}
     `
+    values.push(offset);
     try{
         const dbRes = await db.query(text, values);
         return {error: null, result: dbRes};
@@ -250,5 +273,6 @@ module.exports = {
     updateDisc,
     genreFilter,
     remove,
-    filterOr
+    filterOr,
+    getUserDiscByAlbum
 };

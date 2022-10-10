@@ -38,5 +38,5 @@ function homeService(evt) {
             window.dispatchEvent(evt[i]);
         };
     }
-    document.title = "Home";
+    document.title = "Página inicial";
 }

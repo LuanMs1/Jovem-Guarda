@@ -1,6 +1,14 @@
 const app = document.querySelector("#app");
 
-export function myDiscs(evtJoinDiscs, evtGenres, evtArtists, evtAddDisc) {
+export function myDiscs( evtJoinmyDisc1,
+    evtJoinmyDisc,
+    evtArtists,
+    x1,
+    x2,
+    x3,
+    x4,
+    x5,
+    x6) {
   app.innerHTML = `
     <section id="container-centralized-myDisc">
     <header>
@@ -19,37 +27,76 @@ export function myDiscs(evtJoinDiscs, evtGenres, evtArtists, evtAddDisc) {
     <span id="genres-title">MEUS DISCOS</span>
 </section>
     <div id="container-center-myDisc">   
-        
+     
     </div>
     <section id="container-menu">
-    <div id="menu">
-        <div id="container-img-name">
-            <img id="img-menu" src="./imgs/userAlpha.jpg" />
-            <span>NAME</span>
-        </div>
-        <div id="menu-options">
-            <span>CADASTRE SEUS DISCOS</span>
-            <span>MEU PERFIL</span>
-            <span>LISTA DE DESEJO</span>
-            <span>AVALIAÇÕES</span>
-        </div>
-        <span>Desconectar</span>
-    </div>
-</section>
-
+            <div id="menu">
+                <div id="container-img-name">
+                    <img id="img-menu" src="./assets/images/userAlpha.jpg" />
+                    <span>Alpha Edtech</span>
+                </div>
+                <div id="menu-options">
+                    <div>
+                        <img class="icons" src="./assets/images/icons/add.png" />
+                        <span class="link">CADASTRE SEUS DISCOS</span>
+                    </div>
+                    <div>
+                        <img
+                            class="icons"
+                            src="./assets/images/icons/profile-user.png"
+                        />
+                        <span class="link">MEU PERFIL</span>
+                    </div>
+                    <div>
+                        <img class="icons" src="./assets/images/icons/heart.png" />
+                        <span class="link">LISTA DE DESEJOS</span>
+                    </div>
+                    <div>
+                        <img class="icons" src="./assets/images/icons/star.png" />
+                        <span class="link">AVALIAÇÕES</span>
+                    </div>
+                </div>
+                <u class="link">Desconectar</u>
+            </div>
+        </section>
     `;
-  loginService([evtJoinDiscs, evtGenres, evtArtists, evtAddDisc]);
+
+  discsService([
+        evtJoinmyDisc1,
+        evtJoinmyDisc,
+        evtArtists,
+        x1,
+        x2,
+        x3,
+        x4,
+        x5,
+        x6,
+    ]);
 }
 
-function loginService(evt) {
-  const elements = document.querySelectorAll(".link");
-  loadMyDiscs();
-  for (let i = 0; i <= elements.length; i++) {
-    elements[i].addEventListener("click", () => {
-      window.dispatchEvent(evt[i]);
+const profilePic = document.querySelector("#container-user-all");
+    const profileMenu = document.querySelector("#menu");
+    const profileMenuContainer = document.querySelector("#container-menu");
+
+    profilePic.addEventListener("click", () => {
+        profileMenu.style.display === "flex"
+            ? ((profileMenu.style.display = "none"),
+              (profileMenuContainer.style.display = "none"))
+            : ((profileMenu.style.display = "flex"),
+              (profileMenuContainer.style.display = "flex"));
     });
-  }
-  document.title = "Meus discos";
+}
+
+function discsService(evt) {
+    const elements = document.querySelectorAll(".link");
+    loadMyDiscs();
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].onclick = () => {
+            window.dispatchEvent(evt[i]);
+        };
+    }
+    document.title = "Estilos";
+
 }
 
 async function loadMyDiscs() {
@@ -100,3 +147,4 @@ async function loadMyDiscs() {
   divImgAddCar.appendChild(imgAddCard)
   containerCenterMyDisc.appendChild(divImgAddCar);
 }
+
