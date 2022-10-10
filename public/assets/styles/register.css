@@ -107,3 +107,7 @@
     border: none;
     border-radius: 5px;
 }
+
+#message-error-register {
+    color: #ff0000;
+}

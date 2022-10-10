@@ -5,7 +5,6 @@ import { confirmation } from "./modules/confirmation.js";
 import { myDiscs } from "./modules/myDiscs.js";
 import { discs } from "./modules/discs.js";
 import { genres } from "./modules/genres.js";
-import { artists } from "./modules/artists.js";
 import { registerDisc } from "./modules/registerDisc.js";
 // import { errorNotFound } from "./modules/errorNotFound.js";
 
@@ -26,7 +25,6 @@ const routes = {
         myDiscs(
             events("/discs"),
             events("/genres"),
-            events("/artists"),
             events("/registerDisc"),
             events("/registerDisc"),
             events("/myProfile"),
@@ -39,33 +37,14 @@ const routes = {
         registerDisc(
             events("/discs"),
             events("/genre"),
-            events("/artists"),
             events("/registerDisc")
         );
     },
     "/discs": function () {
-        discs(
-            events("/myDiscs"),
-            events("/genres"),
-            events("/artists"),
-            events("/exchange")
-        );
+        discs(events("/myDiscs"), events("/genres"), events("/exchange"));
     },
     "/genres": function () {
-        genres(
-            events("/myDiscs"),
-            events("/discs"),
-            events("/artists"),
-            events("/exchange")
-        );
-    },
-    "/artists": function () {
-        artists(
-            events("/myDiscs"),
-            events("/discs"),
-            events("/genres"),
-            events("/exchange")
-        );
+        genres(events("/myDiscs"), events("/discs"), events("/exchange"));
     },
     "/404": function () {
         errorNotFound(events("/"), events("/login"));
