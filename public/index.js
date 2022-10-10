@@ -6,6 +6,7 @@ import { myDiscs } from "./modules/myDiscs.js";
 import { discs } from "./modules/discs.js";
 import { genres } from "./modules/genres.js";
 import { artists } from "./modules/artists.js";
+import { registerDisc } from "./modules/registerDisc.js";
 // import { errorNotFound } from "./modules/errorNotFound.js";
 
 const routes = {
@@ -26,7 +27,20 @@ const routes = {
             events("/discs"),
             events("/genres"),
             events("/artists"),
-            events("/addDisc")
+            events("/registerDisc"),
+            events("/registerDisc"),
+            events("/myProfile"),
+            events("/wishlist"),
+            events("/evaluation"),
+            events("/login")
+        );
+    },
+    "/registerDisc": function () {
+        registerDisc(
+            events("/discs"),
+            events("/genre"),
+            events("/artists"),
+            events("/registerDisc")
         );
     },
     "/discs": function () {

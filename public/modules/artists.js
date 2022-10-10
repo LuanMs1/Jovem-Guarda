@@ -20,19 +20,34 @@ export function artists(x, y, z) {
           <span id="disc-title">ARTISTAS</span>
 
           <section id="container-menu">
-          <div id="menu">
-            <div id="container-img-name">
-              <img id="img-menu" src="./assets/images/userAlpha.jpg">
-              <span>NAME</span>
+            <div id="menu">
+                <div id="container-img-name">
+                    <img id="img-menu" src="./assets/images/userAlpha.jpg" />
+                    <span>Alpha Edtech</span>
+                </div>
+                <div id="menu-options">
+                    <div>
+                        <img class="icons" src="./assets/images/icons/add.png" />
+                        <span>CADASTRE SEUS DISCOS</span>
+                    </div>
+                    <div>
+                        <img
+                            class="icons"
+                            src="./assets/images/icons/profile-user.png"
+                        />
+                        <span>MEU PERFIL</span>
+                    </div>
+                    <div>
+                        <img class="icons" src="./assets/images/icons/heart.png" />
+                        <span>LISTA DE DESEJOS</span>
+                    </div>
+                    <div>
+                        <img class="icons" src="./assets/images/icons/star.png" />
+                        <span>AVALIAÇÕES</span>
+                    </div>
+                </div>
+                <u>Desconectar</u>
             </div>
-            <div id="menu-options">
-              <img class="img-options" src="./imgs/adicionar-botao.png"><span>CADASTRE SEUS DISCOS</span>
-              <span>MEU PERFIL</span>
-              <span>LISTA DE DESEJO</span>
-              <span>AVALIAÇÕES</span>
-            </div>
-            <span>Desconectar</span>
-          </div>
         </section>
     
           
