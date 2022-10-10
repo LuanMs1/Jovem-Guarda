@@ -26,5 +26,5 @@ function confirmationService(evt) {
             window.dispatchEvent(evt[i]);
         };
     }
-    document.title = "Confirmation";
+    document.title = "Tela de confirmação";
 }

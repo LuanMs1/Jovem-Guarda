@@ -25,7 +25,7 @@ const routes = {
     "/myDiscs": function () {
         myDiscs(
             events("/discs"),
-            events("/genre"),
+            events("/genres"),
             events("/artists"),
             events("/addDisc")
         );

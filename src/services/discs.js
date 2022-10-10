@@ -62,10 +62,10 @@ async function registerUserDisc(userId, discInfos) {
     }
 }
 
-async function userDiscs(userId) {
+async function userDiscs(userId, offset = 0) {
     try {
         //retorno de dados
-        const discsRes = await discsdb.selectUserDiscs(userId);
+        const discsRes = await discsdb.selectUserDiscs(userId, offset);
         if (discsRes.error) throw discsRes.error;
         return { error: null, result: discsRes.result.rows };
     } catch (err) {
@@ -90,9 +90,26 @@ async function getDisc(discId) {
     }
 }
 
-async function getAllDiscs() {
+async function getUserDisc(userId, albumName){
     try {
-        const discsRes = await discsdb.getAllDiscs();
+        // validações
+        if (!albumName) throw "Necessário informar nome do album";
+        //retorno de dados
+        const discRes = await discsdb.getUserDiscByAlbum(albumName, userId);
+
+        // validações
+        if (discRes.error) throw discRes.error;
+        if (discRes.result.rowCount === 0) throw "Disco não encontrado";
+
+        return { error: null, result: discRes.result.rows[0] };
+    } catch (err) {
+        return { error: err, result: null };
+    }
+}
+
+async function getAllDiscs(offset) {
+    try {
+        const discsRes = await discsdb.getAllDiscs(offset);
         if (discsRes.error) throw discsRes.error;
 
         return { error: null, result: discsRes.result.rows };
@@ -119,7 +136,6 @@ async function putDisc (infos, discId){
     try{
         // Validações
         if (!discId) throw 'Id de disco necessário';
-        // console.log(infos);
         const missingData = validateDiscInfos(infos);
         if (missingData) throw missingData;
 
@@ -162,7 +178,7 @@ async function deleteDisc(discId){
 }
 
 
-async function filter(filterInfo){
+async function filter(filterInfo, offset = 0){
     try{
         //validando colunas
         const columns = Object.keys(filterInfo);
@@ -175,17 +191,14 @@ async function filter(filterInfo){
             if(filterInfo.release_year.length !== 2) throw 'Filtro por lançamento espera intervalo'
         }
         //Validando constraints
-        const invalidVynilType = checkConstraint('vynil_type', filterInfo.vynil_type)
-        if (invalidVynilType) return invalidVynilType;
+        for (let constraint of ['vynil_type', 'disc_status', 'album_type']){
 
-        const invalidDiscStatus = checkConstraint('disc_status', filterInfo.disc_status);
-        if (invalidDiscStatus) return invalidDiscStatus;
-
-        const invalidAlbumType = checkConstraint('album_type', filterInfo.disc_status);
-        if  (invalidAlbumType) return invalidAlbumType;
+            const invalidConstraint = checkConstraint(constraint, filterInfo[constraint])
+            if (invalidConstraint) return invalidConstraint;
+        }
 
         //fazendo filtro
-        const filter = await discsdb.filterOr(filterInfo);
+        const filter = await discsdb.filterOr(filterInfo, offset);
         if (filter.error) throw filter.error;
 
         return {error: null, result: filter.result.rows};
@@ -217,5 +230,6 @@ module.exports ={
     putDisc,
     filterByGenre,
     filter,
-    deleteDisc
+    deleteDisc,
+    getUserDisc
 };
