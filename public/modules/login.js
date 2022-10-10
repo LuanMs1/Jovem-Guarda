@@ -47,7 +47,7 @@ function loginService(evt) {
             });
         });
     }
-    document.title = "Login";
+    document.title = "Entrar";
 }
 
 async function loginUser() {
