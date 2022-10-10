@@ -8,7 +8,8 @@ export function myDiscs(
     x2,
     x3,
     x4,
-    x5
+    x5,
+    x6
 ) {
     app.innerHTML = `
       <section id="container-centralized-myDyscs">
@@ -67,7 +68,7 @@ export function myDiscs(
                 <span id="info-disc"> info info </span>
             </div>
             <div class="card-add">
-                <img class="card-add-icon" src="./assets/images/mais (3).png" alt="" />
+                <img id="card-add-icon" class="link" src="./assets/images/mais (3).png" alt="" />
             </div>
 
         </div>
@@ -112,6 +113,7 @@ export function myDiscs(
         x3,
         x4,
         x5,
+        x6,
     ]);
 
     const profilePic = document.querySelector("#container-user-all");
