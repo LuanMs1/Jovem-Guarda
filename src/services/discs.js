@@ -62,10 +62,10 @@ async function registerUserDisc(userId, discInfos) {
     }
 }
 
-async function userDiscs(userId) {
+async function userDiscs(userId, offset = 0) {
     try {
         //retorno de dados
-        const discsRes = await discsdb.selectUserDiscs(userId);
+        const discsRes = await discsdb.selectUserDiscs(userId, offset);
         if (discsRes.error) throw discsRes.error;
         return { error: null, result: discsRes.result.rows };
     } catch (err) {
@@ -107,9 +107,9 @@ async function getUserDisc(userId, albumName){
     }
 }
 
-async function getAllDiscs() {
+async function getAllDiscs(offset) {
     try {
-        const discsRes = await discsdb.getAllDiscs();
+        const discsRes = await discsdb.getAllDiscs(offset);
         if (discsRes.error) throw discsRes.error;
 
         return { error: null, result: discsRes.result.rows };
@@ -178,7 +178,7 @@ async function deleteDisc(discId){
 }
 
 
-async function filter(filterInfo){
+async function filter(filterInfo, offset = 0){
     try{
         //validando colunas
         const columns = Object.keys(filterInfo);
@@ -198,7 +198,7 @@ async function filter(filterInfo){
         }
 
         //fazendo filtro
-        const filter = await discsdb.filterOr(filterInfo);
+        const filter = await discsdb.filterOr(filterInfo, offset);
         if (filter.error) throw filter.error;
 
         return {error: null, result: filter.result.rows};

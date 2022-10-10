@@ -100,9 +100,10 @@ const updateDisc = async (req, res) => {
 
 const filter = async (req, res) => {
     const filterInfos = req.body;
+    const offset = req.params.offset;
 
     try{
-        const filterRes = await services.filter(filterInfos);
+        const filterRes = await services.filter(filterInfos,offset);
         if (filterRes.error) throw filterRes.error;
 
         return res.status(200).json(filterRes.result);
