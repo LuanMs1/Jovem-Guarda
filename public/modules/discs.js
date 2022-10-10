@@ -7,7 +7,7 @@ export function discs(evtJoinmyDisc, evtGenres, evtArtists, proposeExchange) {
           <a id="container-logo-myDiscs" href="#">
             <img id="logo-img-all" class="link" src="./assets/images/LogoJovemGuarda.svg" alt="" />
           </a>
-          <span id="discs-span">DISCOS</span>
+          <span class="selected-page">DISCOS</span>
           <span class="link">ESTILOS</span>
           <span class="link">ARTISTAS</span>
           <div id="container-user-all">
@@ -135,7 +135,7 @@ export function discs(evtJoinmyDisc, evtGenres, evtArtists, proposeExchange) {
     
         </section>
 
-      <div id="container-menu">
+      <section id="container-menu">
         <div id="menu">
           <div id="container-img-name">
             <img id="img-menu" src="./assets/images/userAlpha.jpg">
@@ -149,7 +149,7 @@ export function discs(evtJoinmyDisc, evtGenres, evtArtists, proposeExchange) {
           </div>
           <span>Desconectar</span>
         </div>
-      </div>
+      </section>
 `;
 
     discsService([evtJoinmyDisc, evtGenres, evtArtists, proposeExchange]);
@@ -183,5 +183,5 @@ function discsService(evt) {
             window.dispatchEvent(evt[i]);
         };
     }
-    document.title = "Confirmation";
+    document.title = "Discos";
 }

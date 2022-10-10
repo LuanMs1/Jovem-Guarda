@@ -86,7 +86,7 @@ function registerService(evt) {
             }
         };
     }
-    document.title = "Register";
+    document.title = "Cadastro";
 }
 
 function registerUser() {
