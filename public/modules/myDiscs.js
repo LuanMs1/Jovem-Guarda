@@ -24,7 +24,7 @@ export function myDiscs( evtJoinmyDisc1,
       </div>
     </header>
 
-    <span id="genres-title">MEUS DISCOS</span>
+    <span id="title-myDiscs">MEUS DISCOS</span>
 </section>
     <div id="container-center-myDisc">   
      
@@ -72,9 +72,8 @@ export function myDiscs( evtJoinmyDisc1,
         x5,
         x6,
     ]);
-}
 
-const profilePic = document.querySelector("#container-user-all");
+    const profilePic = document.querySelector("#container-user-all");
     const profileMenu = document.querySelector("#menu");
     const profileMenuContainer = document.querySelector("#container-menu");
 
@@ -87,9 +86,10 @@ const profilePic = document.querySelector("#container-user-all");
     });
 }
 
+
 function discsService(evt) {
-    const elements = document.querySelectorAll(".link");
     loadMyDiscs();
+    const elements = document.querySelectorAll(".link");
     for (let i = 0; i < elements.length; i++) {
         elements[i].onclick = () => {
             window.dispatchEvent(evt[i]);

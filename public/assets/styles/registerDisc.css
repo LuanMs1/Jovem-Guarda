@@ -151,7 +151,7 @@ header span {
     cursor: pointer;
 }
 
-#description-disc {
+#description-disc-register {
     background-color: rgb(217, 217, 217,0.2);
     max-width: 1100px;
     width: 95vw;
@@ -169,7 +169,7 @@ label {
     width: 1px;
     height: 230px;
 }
-#description-disc-left {
+#description-disc-left-register{
     margin-left: 30px;
     width: 500px;
     display: flex;

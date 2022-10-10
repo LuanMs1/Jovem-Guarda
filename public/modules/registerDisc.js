@@ -27,8 +27,8 @@ export function registerDisc(evtBack, evtJoin, evtConfirmation) {
         <span id="year-album">Ano</span>
         <img id="img-album" src="imgregisterDisc.png" alt="">
     </section>
-    <section id="description-disc">
-        <div id="description-disc-left">
+    <section id="description-disc-register">
+        <div id="description-disc-left-register">
             <label for="select-album-type">TIPO DO ALBUM:
                 <select class="style-select" name="album-type" id="select-album-type">
                   <option value="single">Single</option>
