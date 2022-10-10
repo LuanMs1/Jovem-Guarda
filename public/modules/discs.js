@@ -1,6 +1,6 @@
 const app = document.querySelector("#app");
 
-export function discs(evtJoinmyDisc, evtGenres, evtArtists, proposeExchange) {
+export function discs(evtJoinmyDisc, evtGenres, proposeExchange) {
     app.innerHTML = `
       <section id="container-centralized">
         <header>
@@ -9,7 +9,6 @@ export function discs(evtJoinmyDisc, evtGenres, evtArtists, proposeExchange) {
           </a>
           <span class="selected-page">DISCOS</span>
           <span class="link">ESTILOS</span>
-          <span class="link">ARTISTAS</span>
           <div id="container-user-all">
             <img id="user-img-all" src="./assets/images/userAlpha.jpg" />
             <span id="name-user-all">Alpha Edtech</span>
@@ -167,7 +166,7 @@ export function discs(evtJoinmyDisc, evtGenres, evtArtists, proposeExchange) {
     </section>
 `;
 
-    discsService([evtJoinmyDisc, evtGenres, evtArtists, proposeExchange]);
+    discsService([evtJoinmyDisc, evtGenres, proposeExchange]);
 
     const filterBtn = document.querySelector("#btn-filter-main");
     const filterModal = document.querySelector("#container-modal-filter");

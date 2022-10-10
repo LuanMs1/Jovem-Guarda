@@ -1,6 +1,6 @@
 const app = document.querySelector("#app");
 
-export function genres(evtJoinmyDisc1, evtJoinmyDisc, evtArtists) {
+export function genres(evtJoinmyDisc1, evtJoinmyDisc) {
     app.innerHTML = `
       <section id="container-centralized-genre">
         <header>
@@ -9,7 +9,6 @@ export function genres(evtJoinmyDisc1, evtJoinmyDisc, evtArtists) {
           </a>
           <span class="link">DISCOS</span>
           <span class="selected-page">ESTILOS</span>
-          <span class="link">ARTISTAS</span>
           <div id="container-user-all">
             <img id="user-img-all" src="./assets/images/userAlpha.jpg" />
             <span id="name-user-all">Alpha Edtech</span>
@@ -186,7 +185,7 @@ export function genres(evtJoinmyDisc1, evtJoinmyDisc, evtArtists) {
             </div>
         </section>
     `;
-    discsService([evtJoinmyDisc1, evtJoinmyDisc, evtArtists]);
+    discsService([evtJoinmyDisc1, evtJoinmyDisc]);
 
     const profilePic = document.querySelector("#container-user-all");
     const profileMenu = document.querySelector("#menu");

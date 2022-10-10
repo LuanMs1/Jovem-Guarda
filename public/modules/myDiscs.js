@@ -1,15 +1,7 @@
 const app = document.querySelector("#app");
 
-export function myDiscs( evtJoinmyDisc1,
-    evtJoinmyDisc,
-    evtArtists,
-    x1,
-    x2,
-    x3,
-    x4,
-    x5,
-    x6) {
-  app.innerHTML = `
+export function myDiscs(evtJoinmyDisc1, evtJoinmyDisc, x1, x2, x3, x4, x5, x6) {
+    app.innerHTML = `
     <section id="container-centralized-myDisc">
     <header>
       <a id="container-logo-myDiscs" href="#">
@@ -17,7 +9,6 @@ export function myDiscs( evtJoinmyDisc1,
       </a>
       <span class="link">DISCOS</span>
       <span class="link">ESTILOS</span>
-      <span class="link">ARTISTAS</span>
       <div id="container-user-all">
         <img id="user-img-all" src="./assets/images/userAlpha.jpg" />
         <span id="name-user-all">Alpha Edtech</span>
@@ -26,9 +17,16 @@ export function myDiscs( evtJoinmyDisc1,
 
     <span id="title-myDiscs">MEUS DISCOS</span>
 </section>
-    <div id="container-center-myDisc">   
-     
+
+    <div id="container-center-myDisc">     
+
+      <div class="card-add">
+        <img id="card-add-icon" class="link" src="./assets/images/mais (3).png" alt="" />
+      </div>
+
     </div>
+
+  
     <section id="container-menu">
             <div id="menu">
                 <div id="container-img-name">
@@ -60,11 +58,10 @@ export function myDiscs( evtJoinmyDisc1,
             </div>
         </section>
     `;
-
+    loadMyDiscs();
   discsService([
         evtJoinmyDisc1,
         evtJoinmyDisc,
-        evtArtists,
         x1,
         x2,
         x3,
@@ -86,9 +83,7 @@ export function myDiscs( evtJoinmyDisc1,
     });
 }
 
-
 function discsService(evt) {
-    loadMyDiscs();
     const elements = document.querySelectorAll(".link");
     for (let i = 0; i < elements.length; i++) {
         elements[i].onclick = () => {
@@ -96,55 +91,53 @@ function discsService(evt) {
         };
     }
     document.title = "Estilos";
-
 }
 
 async function loadMyDiscs() {
-  const res = await fetch("http://localhost:8000/user/alldiscs", {
-    method: "GET",
-  });
+    const res = await fetch("http://localhost:8000/user/alldiscs", {
+        method: "GET",
+    });
 
-  const dataAllUserDiscs = await res.json();
+    const dataAllUserDiscs = await res.json();
 
-  const containerCenterMyDisc = document.getElementById(
-    "container-center-myDisc"
-  );
+    const containerCenterMyDisc = document.getElementById(
+        "container-center-myDisc"
+    );
 
-  for (let c = 0; c < dataAllUserDiscs.length; c++) {
-    const cardDisc = document.createElement("div");
-    cardDisc.className = "card-myDiscs";
+    for (let c = 0; c < dataAllUserDiscs.length; c++) {
+        const cardDisc = document.createElement("div");
+        cardDisc.className = "card-myDiscs";
 
-    const imgCard = document.createElement("img");
-    imgCard.className = "card-img";
-    imgCard.setAttribute("src", `${dataAllUserDiscs[c].img}`);
+        const imgCard = document.createElement("img");
+        imgCard.className = "card-img";
+        imgCard.setAttribute("src", `${dataAllUserDiscs[c].img}`);
 
-    const spanNameDisc = document.createElement("span");
-    spanNameDisc.className = "name-disc";
-    spanNameDisc.innerHTML = `${dataAllUserDiscs[c].album}`;
+        const spanNameDisc = document.createElement("span");
+        spanNameDisc.className = "name-disc";
+        spanNameDisc.innerHTML = `${dataAllUserDiscs[c].album}`;
 
-    const spanYearDisc = document.createElement("span");
-    spanYearDisc.className = "year-disc";
-    spanYearDisc.innerHTML = `${dataAllUserDiscs[c].release_year}`;
+        const spanYearDisc = document.createElement("span");
+        spanYearDisc.className = "year-disc";
+        spanYearDisc.innerHTML = `${dataAllUserDiscs[c].release_year}`;
 
-    const spanArtisDisc = document.createElement("span");
-    spanArtisDisc.className = "info-disc";
-    spanArtisDisc.innerHTML = `${dataAllUserDiscs[c].artist}`;
+        const spanArtisDisc = document.createElement("span");
+        spanArtisDisc.className = "info-disc";
+        spanArtisDisc.innerHTML = `${dataAllUserDiscs[c].artist}`;
 
-    containerCenterMyDisc.appendChild(cardDisc);
-    cardDisc.appendChild(imgCard);
-    cardDisc.appendChild(spanNameDisc);
-    cardDisc.appendChild(spanYearDisc);
-    cardDisc.appendChild(spanArtisDisc);
-  }
+        containerCenterMyDisc.appendChild(cardDisc);
+        cardDisc.appendChild(imgCard);
+        cardDisc.appendChild(spanNameDisc);
+        cardDisc.appendChild(spanYearDisc);
+        cardDisc.appendChild(spanArtisDisc);
+    }
 
-  const divImgAddCar = document.createElement("div");
-  divImgAddCar.className = "card-add"
+    // const divImgAddCar = document.createElement("div");
+    // divImgAddCar.className = "card-add"
 
-  const imgAddCard = document.createElement("img");
-  imgAddCard.className = "link";
-  imgAddCard.id ="card-add-icon"
-  imgAddCard.setAttribute("src", "./assets/images/mais (3).png");
-  divImgAddCar.appendChild(imgAddCard)
-  containerCenterMyDisc.appendChild(divImgAddCar);
+    // const imgAddCard = document.createElement("img");
+    // imgAddCard.className = "link";
+    // imgAddCard.id ="card-add-icon"
+    // imgAddCard.setAttribute("src", "./assets/images/mais (3).png");
+    // divImgAddCar.appendChild(imgAddCard)
+    // containerCenterMyDisc.appendChild(divImgAddCar);
 }
-
