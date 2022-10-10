@@ -135,6 +135,22 @@ const getDisc = async (discId) => {
     }
 };
 
+const getUserDiscByAlbum = async (albumName, userId) => {
+    const text = `
+        SELECT discs.*, string_agg(music_genre_list.genre, ',') AS genre
+        FROM discs
+        LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
+        WHERE user_id = $1 AND UPPER(album) = UPPER($2)
+        GROUP BY discs.id
+    `
+    try{
+        const dbRes = await db.query(text, [userId, albumName]);
+        return { error: null, result: dbRes };
+    } catch (err) {
+        return { error: err, result: null };
+    }
+}
+
 const getAllDiscs = async (offset = 0) => {
     offset *= 15;
     const text = `
@@ -258,5 +274,6 @@ module.exports = {
     updateDisc,
     genreFilter,
     remove,
-    filterOr
+    filterOr,
+    getUserDiscByAlbum
 };
