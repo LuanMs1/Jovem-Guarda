@@ -4,6 +4,7 @@
     align-items: center;
     flex-direction: column;
     gap: 15px;
+    margin-bottom: 20px;
 }
 
 #img-center-myProfile {
@@ -31,18 +32,17 @@
     display: flex;
     max-width: 75vw;
     width: 75vw;
-    height: 40vh;
+    /* height: 50vh; */
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding-bottom: 57vh;
+    padding-bottom: 2vw;
     padding-right: 2vw;
     margin-bottom: 2vh;
 }
 #modal-profile-left {
     width: 33%;
-    height: 40vh;
-    /* text-align: center; */
+    height: 52vh;
     padding-top: 20px;
     display: flex;
     align-items: center;
@@ -51,8 +51,8 @@
 }
 #modal-profile-center {
     width: 33%;
-    height: 40vh;
-    text-align: center;
+    height: 52vh;
+    justify-content: start;
     padding-top: 20px;
     display: flex;
     align-items: center;
@@ -61,25 +61,29 @@
 }
 #modal-profile-right {
     width: 33%;
-    height: 40vh;
-    text-align: center;
     padding-top: 20px;
+    height: 52vh;
     display: flex;
+    justify-content: start;
     align-items: center;
     flex-direction: column;
     gap: 20px;
 }
 .input-edit-profile {
     width: 12vw;
-    height: 2.7vh;
+    height: 5vh;
     background: #030526;
     border-radius: 5px;
+    color: #d9d9d9;
+    padding-left: 10px;
 }
 .input-edit-profile-adress {
     width: 12vw;
-    height: 10vh;
+    height: 5vh;
     background: #030526;
     border-radius: 5px;
+    color: #d9d9d9;
+    padding-left: 10px;
 }
 ::placeholder {
     display: flex;

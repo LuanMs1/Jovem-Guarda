@@ -27,7 +27,6 @@ const routes = {
             events("/discs"),
             events("/genres"),
             events("/registerDisc"),
-            events("/registerDisc"),
             events("/myProfile"),
             events("/wishlist"),
             events("/evaluation"),
