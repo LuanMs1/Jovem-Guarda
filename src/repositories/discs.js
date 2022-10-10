@@ -37,8 +37,8 @@ const postDisc = async (infos, userId) => {
         vynil_type: infos.vynil_type || null,
         album_type: infos.album_type || null,
         length: infos.length || null,
-        disc_description: infos.disc_status || null,
-        disc_status: infos.disc_status || null,
+        disc_description: infos.disc_description || null,
+        disc_status: infos.disc_status || null, 
     };
     //extraindo dados para variáveis
     const values = Object.values(discInfos);
