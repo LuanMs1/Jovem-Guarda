@@ -55,11 +55,12 @@ const getUserDisc = async (req,res) => {
 }
 
 const getDisc = async (req, res) => {
-    const discId = req.param.id;
+    const discId = req.params.id;
     console.log('usando controller getDisc')
     try {
         const discRes = await services.getDisc(discId);
         if (discRes.error) throw discRes.error;
+        res.status(200).json(discRes.result);
     } catch (err) {
         return res.status(500).json({ message: err });
     }
@@ -92,7 +93,6 @@ const updateDisc = async (req, res) => {
         if(err === 'Data de lançamente necessária') return res.status(400).json({message: err});
 
         // caso nenhum erro previsto ocorra
-        console.log(res);
         return res.status(500).json({message: err});
         
     }
@@ -110,7 +110,6 @@ const filter = async (req, res) => {
     }catch(err){
         if (err === 'Atributo inválido') return res.status(400).json({message: err});
         if (err === 'Informar filtro') return res.status(400).json({message: err});
-        console.log(err);
         return res.status(500).json({message: err})
     }
 
@@ -137,7 +136,6 @@ const deleteDisc = async (req, res) => {
         if(err === 'Disco não pertence ao usuário') res.status(403).json({message: err});
 
         // se o erro não for reconhecido:
-        console.log(err);
         return res.status(500).json({message: err});
     }
 }
