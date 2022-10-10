@@ -16,7 +16,7 @@
     box-sizing: border-box;
 }
 body {
-    width: 100vw;
+    width: 95vw;
     background: var(--radial-bg-color);
     display: flex;
     justify-content: center;

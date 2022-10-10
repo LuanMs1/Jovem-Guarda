@@ -1,6 +1,6 @@
 const app = document.querySelector("#app");
 
-export function myDiscs(evtJoinmyDisc1, evtJoinmyDisc, x1, x2, x3, x4, x5, x6) {
+export function myDiscs(evtJoinmyDisc1, evtJoinmyDisc, x1, x2, x3, x4, x5) {
     app.innerHTML = `
     <section id="container-centralized-myDisc">
     <header>
@@ -20,13 +20,8 @@ export function myDiscs(evtJoinmyDisc1, evtJoinmyDisc, x1, x2, x3, x4, x5, x6) {
 
     <div id="container-center-myDisc">     
 
-      <div class="card-add">
-        <img id="card-add-icon" class="link" src="./assets/images/mais (3).png" alt="" />
-      </div>
-
     </div>
 
-  
     <section id="container-menu">
             <div id="menu">
                 <div id="container-img-name">
@@ -59,16 +54,7 @@ export function myDiscs(evtJoinmyDisc1, evtJoinmyDisc, x1, x2, x3, x4, x5, x6) {
         </section>
     `;
     loadMyDiscs();
-  discsService([
-        evtJoinmyDisc1,
-        evtJoinmyDisc,
-        x1,
-        x2,
-        x3,
-        x4,
-        x5,
-        x6,
-    ]);
+    discsService([evtJoinmyDisc1, evtJoinmyDisc, x1, x2, x3, x4, x5]);
 
     const profilePic = document.querySelector("#container-user-all");
     const profileMenu = document.querySelector("#menu");
