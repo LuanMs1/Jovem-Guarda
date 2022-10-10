@@ -17,15 +17,15 @@ export function registerDisc(evtBack, evtJoin, evtConfirmation) {
         <span id="name-user-all">Alpha Edtech</span>
       </div>
     </header>
-
+    <section id="register-disc-section">
+      <span id="register-disc-title">Cadastrar Discos</span>
+    </section>
+    <section id="logo-register-disc-position">
+        <input id="list-albums" list="albums" type="text" placeholder="PESQUISAR ALBUM">
+    </section>
     <section id="individual-disc">
-        <input id="list-albums" list="albums" type="text" placeholder="PESQUISAR">
         <p id="msg-error"></p>
         <select name="" id="select-albums"></select>
-        <span id="name-album">Album</span>
-        <span id="name-artist">Artista</span>
-        <span id="year-album">Ano</span>
-        <img id="img-album" src="imgregisterDisc.png" alt="">
     </section>
     <section id="description-disc-register">
         <div id="description-disc-left-register">
@@ -270,6 +270,8 @@ export async function spotifyGetAlbumToRegister(idAlbum) {
 }
 
 function createRegisterData(registerData) {
+
+  const individualDiscRegister = document.getElementById("individual-disc")
     const allTracks = document.getElementById("all-tracks");
 
     const imgAlbum = document.getElementById("img-album");
@@ -290,12 +292,36 @@ function createRegisterData(registerData) {
 
   registerAlbum.addEventListener("click", createRegisterDataToDataBase);
 
-    imgAlbum.setAttribute("src", `${registerData.imgAlbum}`);
+    const cardDisc = document.createElement("div");
+    cardDisc.className = "card-myDiscs"; 
+    
+    const imgCard = document.createElement("img");
+      imgCard.className = "card-img";
+      imgCard.setAttribute("src", `${registerData.imgAlbum}`);
 
-    nameAlbum.innerHTML = `${registerData.nameAlbum}`;
-    nameArtist.innerHTML = `${registerData.nameArtist}`;
-    yearAlbum.innerHTML = `${registerData.dateAlbum}`;
-    durationTracks.innerHTML = ` ${registerData.durationTracks}`;
+
+    const spanNameDisc = document.createElement("span");
+        spanNameDisc.className = "name-disc";
+        spanNameDisc.innerHTML = `${registerData.nameAlbum}`;
+
+        const spanYearDisc = document.createElement("span");
+        spanYearDisc.className = "year-disc";
+        spanYearDisc.innerHTML = `${registerData.dateAlbum}`;
+
+        const spanArtisDisc = document.createElement("span");
+        spanArtisDisc.className = "info-disc";
+        spanArtisDisc.innerHTML = `${registerData.nameArtist}`;
+
+        individualDiscRegister.appendChild(cardDisc);
+        cardDisc.appendChild(imgCard);
+        cardDisc.appendChild(spanNameDisc);
+        cardDisc.appendChild(spanYearDisc);
+        cardDisc.appendChild(spanArtisDisc);
+
+    // nameAlbum.innerHTML = `${registerData.nameAlbum}`;
+    // nameArtist.innerHTML = `${registerData.nameArtist}`;
+    // yearAlbum.innerHTML = `${registerData.dateAlbum}`;
+    // durationTracks.innerHTML = ` ${registerData.durationTracks}`;
 
     allTracks.innerHTML = "";
 
