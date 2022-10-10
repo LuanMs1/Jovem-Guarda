@@ -256,7 +256,6 @@ const filterOr = async (filterInfo, offset = 0) => {
         GROUP BY discs.id
         LIMIT 15 OFFSET $${param}
     `
-    console.log(text);
     values.push(offset);
     try{
         const dbRes = await db.query(text, values);
