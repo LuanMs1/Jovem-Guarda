@@ -58,8 +58,17 @@ export function myDiscs(evtJoinmyDisc1, evtJoinmyDisc, x1, x2, x3, x4, x5, x6) {
             </div>
         </section>
     `;
-
-    discsService([evtJoinmyDisc1, evtJoinmyDisc, x1, x2, x3, x4, x5, x6]);
+    loadMyDiscs();
+  discsService([
+        evtJoinmyDisc1,
+        evtJoinmyDisc,
+        x1,
+        x2,
+        x3,
+        x4,
+        x5,
+        x6,
+    ]);
 
     const profilePic = document.querySelector("#container-user-all");
     const profileMenu = document.querySelector("#menu");
@@ -75,7 +84,6 @@ export function myDiscs(evtJoinmyDisc1, evtJoinmyDisc, x1, x2, x3, x4, x5, x6) {
 }
 
 function discsService(evt) {
-    loadMyDiscs();
     const elements = document.querySelectorAll(".link");
     for (let i = 0; i < elements.length; i++) {
         elements[i].onclick = () => {
