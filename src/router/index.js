@@ -38,6 +38,7 @@ module.exports = (app) => {
     user.post('/exchanges/complete/:id', exchanges.complete);
 
     //DISCOS
+    disc.get('/all', discs.getAllDiscs);
     disc.get("/one/:id", discs.getDisc);
     disc.get("/filter/:offset?", discs.filter);
 
