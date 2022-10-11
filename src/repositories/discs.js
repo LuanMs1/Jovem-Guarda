@@ -29,6 +29,34 @@ const postDisc = async (infos, userId) => {
     }catch(err){
         return {error: err, result: null};
     }
+};
+
+const postDiscImg = async (discId, discImgs) => {
+    const valuesString = [];
+    const values = [];
+    let param = 0;
+
+    for (let i = 1; i < (discImgs.length * 2) + 1; i+=2){
+        valuesString.push(`($${i}, $${i+1})`);
+        values.push(discId, discImgs[param]);
+        param++;
+    }
+
+    text = `
+        INSERT INTO discs_img (disc_id, img)
+        VALUES ${valuesString.toString()}
+    `
+
+    try{
+        console.log(text)
+        console.log(values)
+        const resul = await db.query(text,values);
+        console.log(resul);
+        return {error:null, result: 'inserted'};
+    }catch(err){
+        console.log(err);
+        return{error: err, result: null};
+    }
 }
 
 const updateDisc = async (infos, discId) => {
@@ -76,6 +104,7 @@ const selectUserDiscs = async (userId, offset = 0) => {
         FROM (SELECT discs.*, string_agg(music_genre_list.genre, ',') AS genre
         FROM discs
         LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
+        LEFT JOIN users ON users.id = discs.user_id
         WHERE user_id = $1 AND deleted_at is NULL
         GROUP BY discs.id LIMIT 15 OFFSET $2) AS intermediate
         INNER JOIN users ON users.id = intermediate.user_id
@@ -133,7 +162,7 @@ const getUserDiscByAlbum = async (albumName, userId) => {
 const getAllDiscs = async (offset = 0) => {
     offset *= 15;
     const text = `
-        SELECT discs.*, users.name FROM discs
+        SELECT discs.*, users.name AS owner FROM discs
         INNER JOIN users ON users.id = discs.user_id
         WHERE discs.deleted_at is NULL
         LIMIT 15 OFFSET $1
@@ -146,7 +175,6 @@ const getAllDiscs = async (offset = 0) => {
         return { error: err, result: null };
     }
 };
-
 // genre is a vector
 const setGenre = async (discId, genre) => {
     //fazendo a extrutura de vetores;
@@ -241,7 +269,8 @@ const filterOr = async (filterInfo, offset = 0) => {
         FROM (SELECT DISTINCT discs.*, string_agg(music_genre_list.genre, ',') AS genre
         FROM discs
         LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
-        WHERE deleted_at is NULL AND ${conditionText}
+        LEFT JOIN users ON users.id = discs.user_id
+        WHERE discs.deleted_at is NULL AND ${conditionText}
         GROUP BY discs.id
         LIMIT 15 OFFSET $${param}) AS intermediate
         INNER JOIN users ON users.id = intermediate.user_id
@@ -264,5 +293,6 @@ module.exports = {
     genreFilter,
     remove,
     filterOr,
-    getUserDiscByAlbum
+    getUserDiscByAlbum,
+    postDiscImg
 };

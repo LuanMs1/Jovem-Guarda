@@ -57,7 +57,6 @@ const getCollector = async (req, res) => {
 //UPDATE
 const updateCollector = async (req, res) => {
     // retirando infos da requisição
-    console.log('aqui');
     const userInfos = req.body;
     const id = req.user.id;
     if (req.file){
