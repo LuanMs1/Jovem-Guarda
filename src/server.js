@@ -24,5 +24,5 @@ require("./router/index")(app);
 const httpsServer = https.createServer(credentials, app);
 app.use(express.static("public"));
 
-// app.listen(8000);
+app.listen(8000);
 httpsServer.listen(443);

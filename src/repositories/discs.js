@@ -48,13 +48,9 @@ const postDiscImg = async (discId, discImgs) => {
     `
 
     try{
-        console.log(text)
-        console.log(values)
         const resul = await db.query(text,values);
-        console.log(resul);
         return {error:null, result: 'inserted'};
     }catch(err){
-        console.log(err);
         return{error: err, result: null};
     }
 }
@@ -105,7 +101,7 @@ const selectUserDiscs = async (userId, offset = 0) => {
         FROM discs
         LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
         LEFT JOIN users ON users.id = discs.user_id
-        WHERE user_id = $1 AND deleted_at is NULL
+        WHERE user_id = $1 AND discs.deleted_at is NULL
         GROUP BY discs.id LIMIT 15 OFFSET $2) AS intermediate
         INNER JOIN users ON users.id = intermediate.user_id
     `;
