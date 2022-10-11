@@ -21,9 +21,9 @@ module.exports = (app) => {
     //USUARIOS
     user.use(verifyToken);
     user.delete('/', collectors.deleteCollector);
-    user.put('/', upload('/profile'), collectors.updateCollector);
+    user.put('/', upload.uploadImg('/profile'), collectors.updateCollector);
     user.get('/',collectors.getCollector);
-    user.post('/disc', upload('/discs'), discs.postDisc);
+    user.post('/disc', upload.uploadImgArray('/discs'), discs.postDisc);
     user.get('/disc', discs.getUserDisc);
     user.get('/alldiscs/:offset?', collectors.getAllUserDiscs);
     user.delete('/disc/:id', discs.deleteDisc);

@@ -7,13 +7,9 @@ const postDisc = async (req, res) => {
     //discGenres 
     const discGenres = discInfos.genre;
 
-    if (req.file){
-        discInfos.img = req.file.filename;
-    }
-
     try {
         // chamada de serviço, retorna um {error: , response: }
-        const discRes = await services.registerUserDisc(userId, discInfos);
+        const discRes = await services.registerUserDisc(userId, discInfos, req.files);
         // checa por erro, e manda para o catch
         if(discRes.error) throw discRes.error;
         

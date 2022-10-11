@@ -1,5 +1,6 @@
+const multer = require("multer");
+const crypto = require('crypto');
 function uploadImg(path) {
-    const multer = require("multer");
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, `public/uploads/${path}`);
@@ -7,7 +8,7 @@ function uploadImg(path) {
 
         filename: function (req, file, cb) {
             const archiveExtension = file.originalname.split(".")[1];
-            const newName = require("crypto").randomBytes(64).toString("hex");
+            const newName = crypto.randomBytes(64).toString("hex");
 
             cb(null, `${newName}.${archiveExtension}`);
         },
@@ -15,7 +16,6 @@ function uploadImg(path) {
 
     const fileFilter = function (req, file, cb){
         const ext = file.originalname.split('.')[1];
-        console.log(ext);
         if (ext !== 'jpg' && ext !== 'jpeg') {
             cb(new Error('apenas .jpg ou .jpeg'));
             cb(null, false);
@@ -25,5 +25,29 @@ function uploadImg(path) {
 
     return multer({ storage, fileFilter }).single("img");
 }
+function uploadImgArray(path) {
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, `public/uploads/${path}`);
+        },
 
-module.exports = uploadImg;
+        filename: function (req, file, cb) {
+            const archiveExtension = file.originalname.split(".")[1];
+            const newName = crypto.randomBytes(64).toString("hex");
+
+            cb(null, `${newName}.${archiveExtension}`);
+        },
+    });
+
+    const fileFilter = function (req, file, cb){
+        const ext = file.originalname.split('.')[1];
+        if (ext !== 'jpg' && ext !== 'jpeg' && ext !== 'png') {
+            cb(new Error('apenas .jpg ou .jpeg'));
+            cb(null, false);
+        }
+        cb(null, true);
+    }
+
+    return multer({ storage, fileFilter }).array('img',5);
+}
+module.exports = {uploadImg, uploadImgArray};

@@ -43,7 +43,7 @@ function checkConstraint(atribute,value){
             break;
     }
 }
-async function registerUserDisc(userId, discInfos) {
+async function registerUserDisc(userId, discInfos, discsImgs) {
     try {
         // Validações
         if (!userId) throw "Id de usuário necessário";
@@ -54,6 +54,16 @@ async function registerUserDisc(userId, discInfos) {
         //dados validados, passar para a requisição ao banco
         const registration = await discsdb.postDisc(discInfos, userId);
         if (registration.error) throw registration.error;
+
+        //salvando nome das imagens no banco
+        const discId = registration.result.rows[0].id;
+        const discsImgsArray = [];
+        discsImgs.forEach((element) => {
+            discsImgsArray.push(element.filename);
+        })
+        console.log(discsImgsArray);
+        await discsdb.postDiscImg(discId,discsImgsArray)
+
 
         return {error: null, result: registration.result.rows};
     }catch(err){
