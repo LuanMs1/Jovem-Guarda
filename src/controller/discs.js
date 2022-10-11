@@ -139,6 +139,18 @@ const deleteDisc = async (req, res) => {
         return res.status(500).json({message: err});
     }
 }
+const getAllDiscs = async (req,res) => {
+    const offset = req.params.offset;
+    try{
+        const discRes = await services.getAllDiscs(offset);
+        if (discRes.error) throw discRes.error;
+
+        res.status(200).json(discRes.result);
+    }catch(err){
+        
+        return res.status(500).json({message: err});
+    }
+}
 
 module.exports = {
     postDisc, 
@@ -146,5 +158,6 @@ module.exports = {
     updateDisc,
     deleteDisc,
     filter,
-    getUserDisc
+    getUserDisc,
+    getAllDiscs
 };
