@@ -31,8 +31,8 @@ const loginUsuario = async (req, res) => {
         const token = jwt.sign({ id: usuario.id }, jwtSecret, {
             expiresIn: "8h",
         });
-
-        res.cookie('authorization', token, { httpOnly: true});
+        const cookieExpireTime = 8 * 60 * 60 * 1000;
+        res.cookie('authorization', token);
         return res.status(200).json({ token });
     } catch (error) {
         return res.status(400).json({ message: error.message });

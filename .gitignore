@@ -104,3 +104,6 @@ dist
 .tern-port
 
 teste.http
+
+#certs
+*.pem
