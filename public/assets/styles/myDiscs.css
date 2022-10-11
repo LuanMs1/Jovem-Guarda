@@ -22,7 +22,6 @@
     width: 90vw;
     height: 50vh;
     display: flex;
-    flex-direction: row-reverse;
     gap: 2vw;
     align-items: center;
     justify-content: space-around;
