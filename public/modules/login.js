@@ -1,5 +1,3 @@
-// import { spotifyGetArtist } from "./api-spotify/spotifyGetArtist.js";
-// import { spotifyGetAlbum } from "./api-spotify/spotifyGetAlbum.js";
 
 const app = document.querySelector("#app");
 

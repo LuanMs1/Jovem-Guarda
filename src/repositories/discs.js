@@ -211,22 +211,30 @@ const filterOr = async (filterInfo, offset = 0) => {
     let values = []
     let conditionText = [];
     let param = 1;
+
+    //pegando cada parametro para construir as condições da query
     for (atribute in filterInfo){
         let conditions = []
+
+        // construindo o array de valores para query
         values.push(... filterInfo[atribute]);
         for (let i in filterInfo[atribute]){
             if (atribute === 'release_year') {
+                //release_year usa intervalo de tempo
                 conditions
                     .push(`(release_year BETWEEN $${param} AND $${param + 1})`);
                 param += 2;
                 break;
             }else{
-                conditions.push(`(UPPER(${atribute}) = UPPER($${param}))`);
+                //parte da query para pesquisar por padrão fornecido
+                conditions.push(`(UPPER(${atribute}) LIKE $${param})`);
             }
             param++
         }
+        // OR entre parametros de mesma chave
         conditionText.push(conditions.join(' OR '));
     }
+    // AND para comparação entre chaves;
     conditionText = '(' + conditionText.join(') AND (') + ')';
     const text = `
         SELECT intermediate.*, users.name AS owner

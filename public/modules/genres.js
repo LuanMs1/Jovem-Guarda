@@ -1,6 +1,6 @@
 const app = document.querySelector("#app");
 
-export function genres(evtJoinmyDisc1, evtJoinmyDisc, evtArtists) {
+export function genres(evtJoinmyDisc1, evtJoinmyDisc) {
     app.innerHTML = `
       <section id="container-centralized-genre">
         <header>
@@ -9,7 +9,6 @@ export function genres(evtJoinmyDisc1, evtJoinmyDisc, evtArtists) {
           </a>
           <span class="link">DISCOS</span>
           <span class="selected-page">ESTILOS</span>
-          <span class="link">ARTISTAS</span>
           <div id="container-user-all">
             <img id="user-img-all" src="./assets/images/userAlpha.jpg" />
             <span id="name-user-all">Alpha Edtech</span>
@@ -156,22 +155,37 @@ export function genres(evtJoinmyDisc1, evtJoinmyDisc, evtArtists) {
         </div>
 
         <section id="container-menu">
-          <div id="menu">
-            <div id="container-img-name">
-              <img id="img-menu" src="./assets/images/userAlpha.jpg">
-              <span>NAME</span>
+            <div id="menu">
+                <div id="container-img-name">
+                    <img id="img-menu" src="./assets/images/userAlpha.jpg" />
+                    <span>Alpha Edtech</span>
+                </div>
+                <div id="menu-options">
+                    <div>
+                        <img class="icons" src="./assets/images/icons/add.png" />
+                        <span>CADASTRE SEUS DISCOS</span>
+                    </div>
+                    <div>
+                        <img
+                            class="icons"
+                            src="./assets/images/icons/profile-user.png"
+                        />
+                        <span>MEU PERFIL</span>
+                    </div>
+                    <div>
+                        <img class="icons" src="./assets/images/icons/heart.png" />
+                        <span>LISTA DE DESEJOS</span>
+                    </div>
+                    <div>
+                        <img class="icons" src="./assets/images/icons/star.png" />
+                        <span>AVALIAÇÕES</span>
+                    </div>
+                </div>
+                <u>Desconectar</u>
             </div>
-            <div id="menu-options">
-              <img class="img-options" src="./imgs/adicionar-botao.png"><span>CADASTRE SEUS DISCOS</span>
-              <span>MEU PERFIL</span>
-              <span>LISTA DE DESEJO</span>
-              <span>AVALIAÇÕES</span>
-            </div>
-            <span>Desconectar</span>
-          </div>
         </section>
     `;
-    discsService([evtJoinmyDisc1, evtJoinmyDisc, evtArtists]);
+    discsService([evtJoinmyDisc1, evtJoinmyDisc]);
 
     const profilePic = document.querySelector("#container-user-all");
     const profileMenu = document.querySelector("#menu");
