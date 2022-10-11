@@ -72,9 +72,10 @@ const selectUserDiscs = async (userId, offset = 0) => {
     offset *=15;
 
     const text = `
-        SELECT discs.*, string_agg(music_genre_list.genre, ',') AS genre
+        SELECT discs.*, string_agg(DISTINCT users.name, ',') AS owner, string_agg(music_genre_list.genre, ',') AS genre
         FROM discs
         LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
+        LEFT JOIN users ON users.id = discs.user_id
         WHERE user_id = $1 AND deleted_at is NULL
         GROUP BY discs.id LIMIT 15 OFFSET $2
     `;
@@ -115,10 +116,11 @@ const getDisc = async (discId) => {
 
 const getUserDiscByAlbum = async (albumName, userId) => {
     const text = `
-        SELECT discs.*, string_agg(music_genre_list.genre, ',') AS genre
+        SELECT discs.*,string_agg(DISTINCT users.name, ',') AS owner, string_agg(music_genre_list.genre, ',') AS genre
         FROM discs
         LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
-        WHERE user_id = $1 AND UPPER(album) = UPPER($2)
+        LEFT JOIN users ON users.id = discs.user_id
+        WHERE discs.user_id = $1 AND UPPER(album) = UPPER($2)
         GROUP BY discs.id
     `
     try{
@@ -132,8 +134,9 @@ const getUserDiscByAlbum = async (albumName, userId) => {
 const getAllDiscs = async (offset = 0) => {
     offset *= 15;
     const text = `
-        SELECT * FROM discs
-        WHERE deleted_at is NULL
+        SELECT users.name AS owner, discs.* FROM discs
+        LEFT JOIN users ON users.id = discs.user_id
+        WHERE discs.deleted_at is NULL
         LIMIT 15 OFFSET $1
     `;
 
@@ -144,7 +147,6 @@ const getAllDiscs = async (offset = 0) => {
         return { error: err, result: null };
     }
 };
-
 // genre is a vector
 const setGenre = async (discId, genre) => {
     //fazendo a extrutura de vetores;
@@ -235,10 +237,11 @@ const filterOr = async (filterInfo, offset = 0) => {
     // AND para comparação entre chaves;
     conditionText = '(' + conditionText.join(') AND (') + ')';
     const text = `
-        SELECT DISTINCT discs.*, string_agg(music_genre_list.genre, ',') AS genre
+        SELECT DISTINCT discs.*,string_agg(DISTINCT users.name, ',') AS owner, string_agg(music_genre_list.genre, ',') AS genre
         FROM discs
         LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
-        WHERE deleted_at is NULL AND ${conditionText}
+        LEFT JOIN users ON users.id = discs.user_id
+        WHERE discs.deleted_at is NULL AND ${conditionText}
         GROUP BY discs.id
         LIMIT 15 OFFSET $${param}
     `
