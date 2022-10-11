@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
 
- /* :root{
+/* :root{
     --main-bg-color:#030526;
     --btn-bg-color:#A735F2;
     --btn-search-colo:#321F75;
@@ -65,7 +65,7 @@ header span {
     height: 55px;
     border-radius: 50%;
     border: dashed 2px var(--btn-bg-color);
-} */ 
+} */
 /* #containerUser {
     width:120px;
     height: 100px;
@@ -94,12 +94,12 @@ header span {
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    font-family: 'Inria Sans', sans-serif;
-    color:#030526;
+    font-family: "Inria Sans", sans-serif;
+    color: #030526;
     font-weight: bold;
     border: none;
     background: url("imgs/search.png") no-repeat;
-    background-color:#ebe8e8;
+    background-color: #ebe8e8;
     background-size: 15px;
     font-size: 18px;
     background-position: 115px;
@@ -115,10 +115,10 @@ header span {
     opacity: 0.9;
     transition: ease-in-out 0.3s;
 }
-#list-albums::placeholder{
+#list-albums::placeholder {
     font-size: 15px;
-    color:#030526;
-    font-family: 'Inria Sans', sans-serif;
+    color: #030526;
+    font-family: "Inria Sans", sans-serif;
 }
 #individual-disc {
     width: 95vw;
@@ -127,32 +127,32 @@ header span {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap:10px;
+    gap: 10px;
     padding: 10px;
 }
 #name-album {
-    font-size:30px;
+    font-size: 30px;
 }
-#img-album{
+#img-album {
     width: 280px;
 }
 #select-albums {
     display: none;
     padding: 5px;
-    background-color:rgb(50, 31, 117,0.5);
-    color: #D9D9D9;
+    background-color: rgb(50, 31, 117, 0.5);
+    color: #d9d9d9;
     /* box-shadow: 6px 6px 15px 1px rgba(0,0,0,0.81); */
     box-shadow: 3px 3px 13px 1px var(--btn-bg-color);
-    font-family: 'Inria Sans', sans-serif;
+    font-family: "Inria Sans", sans-serif;
     font-size: 16px;
     border-radius: 5px;
 }
 .style-select {
-    font-family: 'Inria Sans', sans-serif;
+    font-family: "Inria Sans", sans-serif;
     font-size: 15px;
     width: bold;
-    background-color:#321F75;
-    color:#ebe8e8;
+    background-color: #321f75;
+    color: #ebe8e8;
     border-radius: 5px;
     /* padding:0.5px; */
     border: solid 1.5px rgb(173, 168, 169);
@@ -160,7 +160,7 @@ header span {
 }
 
 #description-disc-register {
-    background-color: rgb(217, 217, 217,0.2);
+    background-color: rgb(217, 217, 217, 0.2);
     max-width: 800px;
     width: 95vw;
     height: 45vh;
@@ -179,7 +179,7 @@ label {
     width: 1px;
     height: 230px;
 }
-#description-disc-left-register{
+#description-disc-left-register {
     margin-left: 30px;
     width: 350px;
     display: flex;
@@ -213,10 +213,10 @@ label {
     margin-top: 20px;
     margin-bottom: 20px;
     background-color: var(--btn-bg-color);
-    font-family: 'Inria Sans';
+    font-family: "Inria Sans";
     font-weight: bold;
     font-size: 15px;
-    color: #D9D9D9;
+    color: #d9d9d9;
     width: 200px;
     height: 30px;
     border-radius: 10px;
@@ -248,18 +248,18 @@ label {
 }
 #msg-error {
     font-size: 20px;
-    font-family: 'Inria Sans';
+    font-family: "Inria Sans";
     color: rgb(228, 15, 15);
 }
 #msg-error-register {
     padding: 10px;
     font-size: 20px;
-    font-family: 'Inria Sans';
+    font-family: "Inria Sans";
     color: rgb(228, 15, 15);
 }
 #register-disc-title {
     font-size: 28px;
-    font-family: 'Inria Sans';
+    font-family: "Inria Sans";
     padding: 10px;
 }
 #register-disc-section {

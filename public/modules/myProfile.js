@@ -1,6 +1,14 @@
 const app = document.querySelector("#app");
 
-export function myProfile(evtJoin, evtRegister) {
+export function myProfile(
+    evtMydisc,
+    evtDiscs,
+    evtGenre,
+    evtRegister,
+    evtWishlist,
+    evtEvaluation,
+    evtDesconect
+) {
     app.innerHTML = `
     <section id="container-centralized-myProfile">
     <header>
@@ -12,7 +20,7 @@ export function myProfile(evtJoin, evtRegister) {
                 alt=""
             />
         </a>
-        <span class="selected-page">DISCOS</span>
+        <span class="link">DISCOS</span>
         <span class="link">ESTILOS</span>
         <div id="container-user-all">
             <img
@@ -108,39 +116,59 @@ export function myProfile(evtJoin, evtRegister) {
                     class="icons"
                     src="./assets/images/icons/add.png"
                 />
-                <span>CADASTRE SEUS DISCOS</span>
+                <span class="link">CADASTRE SEUS DISCOS</span>
             </div>
             <div>
                 <img
                     class="icons"
                     src="./assets/images/icons/profile-user.png"
                 />
-                <span>MEU PERFIL</span>
+                <span class="selected-page">MEU PERFIL</span>
             </div>
             <div>
                 <img
                     class="icons"
                     src="./assets/images/icons/heart.png"
                 />
-                <span>LISTA DE DESEJOS</span>
+                <span class="link">LISTA DE DESEJOS</span>
             </div>
             <div>
                 <img
                     class="icons"
                     src="./assets/images/icons/star.png"
                 />
-                <span>AVALIAÇÕES</span>
+                <span class="link">AVALIAÇÕES</span>
             </div>
         </div>
-        <u>Desconectar</u>
+        <u class="link">Desconectar</u>
     </div>
 </section>
     `;
 
-    homeService([evtJoin, evtRegister]);
+    service([
+        evtMydisc,
+        evtDiscs,
+        evtGenre,
+        evtRegister,
+        evtWishlist,
+        evtEvaluation,
+        evtDesconect,
+    ]);
+
+    const profilePic = document.querySelector("#container-user-all");
+    const profileMenu = document.querySelector("#menu");
+    const profileMenuContainer = document.querySelector("#container-menu");
+
+    profilePic.addEventListener("click", () => {
+        profileMenu.style.display === "flex"
+            ? ((profileMenu.style.display = "none"),
+              (profileMenuContainer.style.display = "none"))
+            : ((profileMenu.style.display = "flex"),
+              (profileMenuContainer.style.display = "flex"));
+    });
 }
 
-function homeService(evt) {
+function service(evt) {
     const elements = document.querySelectorAll(".link");
 
     for (let i = 0; i < elements.length; i++) {

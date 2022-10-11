@@ -4,11 +4,19 @@ import { getSpotifyToken } from "./api-spotify/spotifyToken.js";
 
 const app = document.querySelector("#app");
 
-export function registerDisc(evtBack, evtJoin, evtConfirmation) {
+export function registerDisc(
+    evtMydisc,
+    evtDiscs,
+    evtGenre,
+    evtMyprofile,
+    evtWishlist,
+    evtEvaluation,
+    evtDesconect
+) {
     app.innerHTML = `
-  <header>
+    <header>
       <a id="container-logo-myDiscs" href="#">
-        <img id="logo-img-all" src="./assets/images/LogoJovemGuarda.svg" alt="" />
+        <img id="logo-img-all" class="link" src="./assets/images/LogoJovemGuarda.svg" alt="" />
       </a>
       <span class="link">DISCOS</span>
       <span class="link">ESTILOS</span>
@@ -96,14 +104,75 @@ export function registerDisc(evtBack, evtJoin, evtConfirmation) {
             <div class="imgs-disc-user"></div>
             <div class="imgs-disc-user"></div>
         </div>
+    </section>
+    
+    <section id="container-menu">
+        <div id="menu">
+            <div id="container-img-name">
+                <img id="img-menu" src="./assets/images/userAlpha.jpg" />
+                <span>Alpha Edtech</span>
+            </div>
+            <div id="menu-options">
+                <div>
+                    <img
+                        class="icons"
+                        src="./assets/images/icons/add.png"
+                    />
+                    <span class="selected-page">CADASTRE SEUS DISCOS</span>
+                </div>
+                <div>
+                    <img
+                        class="icons"
+                        src="./assets/images/icons/profile-user.png"
+                    />
+                    <span class="link">MEU PERFIL</span>
+                </div>
+                <div>
+                    <img
+                        class="icons"
+                        src="./assets/images/icons/heart.png"
+                    />
+                    <span class="link">LISTA DE DESEJOS</span>
+                </div>
+                <div>
+                    <img
+                        class="icons"
+                        src="./assets/images/icons/star.png"
+                    />
+                    <span class="link">AVALIAÇÕES</span>
+                </div>
+            </div>
+            <u class="link">Desconectar</u>
+        </div>
     </section>`;
-  registerDiscService([evtBack, evtJoin, evtConfirmation]);
+
+    const profilePic = document.querySelector("#container-user-all");
+    const profileMenu = document.querySelector("#menu");
+    const profileMenuContainer = document.querySelector("#container-menu");
+
+    profilePic.addEventListener("click", () => {
+        profileMenu.style.display === "flex"
+            ? ((profileMenu.style.display = "none"),
+              (profileMenuContainer.style.display = "none"))
+            : ((profileMenu.style.display = "flex"),
+              (profileMenuContainer.style.display = "flex"));
+    });
+
+    registerDiscService([
+        evtMydisc,
+        evtDiscs,
+        evtGenre,
+        evtMyprofile,
+        evtWishlist,
+        evtEvaluation,
+        evtDesconect,
+    ]);
 }
 
 function registerDiscService(evt) {
-  document.getElementById("register-album").style.display = "none";
-  const elements = document.querySelectorAll(".link");
-  debounceRegisterApi();
+    document.getElementById("register-album").style.display = "none";
+    const elements = document.querySelectorAll(".link");
+    debounceRegisterApi();
 
     for (let i = 0; i <= elements.length; i++) {
         elements[i].addEventListener("click", () => {
@@ -116,14 +185,14 @@ function registerDiscService(evt) {
 function debounceRegisterApi() {
     const listAlbums = document.getElementById("list-albums");
 
-  listAlbums.addEventListener(
-    "keyup",
-    debounce(function () {
-      const listAlbumsValue = listAlbums.value;
-      spotifyGetAlbum(listAlbumsValue);
-      console.log(listAlbumsValue);
-    }, 500)
-  );
+    listAlbums.addEventListener(
+        "keyup",
+        debounce(function () {
+            const listAlbumsValue = listAlbums.value;
+            spotifyGetAlbum(listAlbumsValue);
+            console.log(listAlbumsValue);
+        }, 500)
+    );
 
     function debounce(func, wait) {
         let timer = null;
@@ -135,27 +204,26 @@ function debounceRegisterApi() {
 }
 
 export async function spotifyGetAlbum(artistAlbum) {
+    const selectAlbuns = document.getElementById("select-albums");
 
-  const selectAlbuns = document.getElementById("select-albums");
+    const createSelect = document.createElement("select");
 
-  const createSelect = document.createElement("select");
+    const msgError = document.getElementById("msg-error");
 
-  const msgError = document.getElementById("msg-error");
+    const tokenSpotify = await getSpotifyToken();
 
-  const tokenSpotify = await getSpotifyToken();
+    document.querySelector("#select-albums").innerHTML = "";
 
-  document.querySelector("#select-albums").innerHTML = "";
+    const inputValue = document.querySelector("#list-albums").value;
 
-  const inputValue = document.querySelector("#list-albums").value
+    msgError.innerHTML = "";
 
-  msgError.innerHTML = "";
+    if (inputValue == "") {
+        selectAlbuns.style.display = "none";
+        msgError.innerHTML = "Por favor, insira um valor válido";
+    }
 
-  if (inputValue == "") {
-    selectAlbuns.style.display = "none";
-    msgError.innerHTML = "Por favor, insira um valor válido";
-  }
-
-  const urlSpotifyAlbum = `https://api.spotify.com/v1/search?q=${artistAlbum}&type=album&type=single&limit=50`;
+    const urlSpotifyAlbum = `https://api.spotify.com/v1/search?q=${artistAlbum}&type=album&type=single&limit=50`;
 
     try {
         const res = await fetch(urlSpotifyAlbum, {
@@ -166,49 +234,39 @@ export async function spotifyGetAlbum(artistAlbum) {
             },
         });
 
-    const albums = await res.json();
+        const albums = await res.json();
 
-    for (let i = 0; i < albums.albums.items.length; i++) {
+        for (let i = 0; i < albums.albums.items.length; i++) {
+            const createOption = document.createElement("option");
 
-      const createOption = document.createElement("option");
-      
+            selectAlbuns.setAttribute("size", `${albums.albums.items.length}`);
+            createSelect.classList.add("selected-albums");
+            createOption.innerHTML = `${albums.albums.items[i].name}`;
+            createOption.setAttribute("value", `${albums.albums.items[i].id}`);
+            selectAlbuns.appendChild(createOption);
+        }
 
-      selectAlbuns.setAttribute(
-        "size",
-        `${albums.albums.items.length}`
-      );
-      createSelect.classList.add("selected-albums");
-      createOption.innerHTML = `${albums.albums.items[i].name}`;
-      createOption.setAttribute("value", `${albums.albums.items[i].id}`);
-      selectAlbuns.appendChild(createOption);
+        selectAlbuns.addEventListener("change", getElementsToRegister);
+
+        function getElementsToRegister() {
+            const idAlbum =
+                selectAlbuns.options[selectAlbuns.selectedIndex].value;
+            selectAlbuns.style.display = "none";
+            spotifyGetAlbumToRegister(idAlbum);
+            document.querySelector("#select-albums").innerHTML = "";
+            document.querySelector("#list-albums").value = "";
+        }
+
+        selectAlbuns.style.display = "block";
+    } catch (error) {
+        console.log(error);
     }
-
-    selectAlbuns.addEventListener("change", getElementsToRegister);
-
-    function getElementsToRegister() {
-      
-      const idAlbum = selectAlbuns.options[selectAlbuns.selectedIndex].value;
-      selectAlbuns.style.display = "none";
-      spotifyGetAlbumToRegister(idAlbum);
-      document.querySelector("#select-albums").innerHTML = "";
-      document.querySelector("#list-albums").value = "";
-      
-    }
-
-    selectAlbuns.style.display = "block";
-
-
-  } catch (error) {
-    console.log(error);
-  }
-
 }
 
 const dataToDataBase = [];
 
 export async function spotifyGetAlbumToRegister(idAlbum) {
-
-  const tokenSpotify = await getSpotifyToken();
+    const tokenSpotify = await getSpotifyToken();
 
     const urlSpotifyAlbum = `https://api.spotify.com/v1/albums/${idAlbum}`;
 
@@ -270,8 +328,7 @@ export async function spotifyGetAlbumToRegister(idAlbum) {
 }
 
 function createRegisterData(registerData) {
-
-  const individualDiscRegister = document.getElementById("individual-disc")
+    const individualDiscRegister = document.getElementById("individual-disc");
     const allTracks = document.getElementById("all-tracks");
 
     const imgAlbum = document.getElementById("img-album");
@@ -288,35 +345,34 @@ function createRegisterData(registerData) {
 
     const registerAlbum = document.getElementById("register-album");
 
-  document.getElementById("register-album").style.display = "block";
+    document.getElementById("register-album").style.display = "block";
 
-  registerAlbum.addEventListener("click", createRegisterDataToDataBase);
+    registerAlbum.addEventListener("click", createRegisterDataToDataBase);
 
     const cardDisc = document.createElement("div");
-    cardDisc.className = "card-myDiscs"; 
-    
-    const imgCard = document.createElement("img");
-      imgCard.className = "card-img";
-      imgCard.setAttribute("src", `${registerData.imgAlbum}`);
+    cardDisc.className = "card-myDiscs";
 
+    const imgCard = document.createElement("img");
+    imgCard.className = "card-img";
+    imgCard.setAttribute("src", `${registerData.imgAlbum}`);
 
     const spanNameDisc = document.createElement("span");
-        spanNameDisc.className = "name-disc";
-        spanNameDisc.innerHTML = `${registerData.nameAlbum}`;
+    spanNameDisc.className = "name-disc";
+    spanNameDisc.innerHTML = `${registerData.nameAlbum}`;
 
-        const spanYearDisc = document.createElement("span");
-        spanYearDisc.className = "year-disc";
-        spanYearDisc.innerHTML = `${registerData.dateAlbum}`;
+    const spanYearDisc = document.createElement("span");
+    spanYearDisc.className = "year-disc";
+    spanYearDisc.innerHTML = `${registerData.dateAlbum}`;
 
-        const spanArtisDisc = document.createElement("span");
-        spanArtisDisc.className = "info-disc";
-        spanArtisDisc.innerHTML = `${registerData.nameArtist}`;
+    const spanArtisDisc = document.createElement("span");
+    spanArtisDisc.className = "info-disc";
+    spanArtisDisc.innerHTML = `${registerData.nameArtist}`;
 
-        individualDiscRegister.appendChild(cardDisc);
-        cardDisc.appendChild(imgCard);
-        cardDisc.appendChild(spanNameDisc);
-        cardDisc.appendChild(spanYearDisc);
-        cardDisc.appendChild(spanArtisDisc);
+    individualDiscRegister.appendChild(cardDisc);
+    cardDisc.appendChild(imgCard);
+    cardDisc.appendChild(spanNameDisc);
+    cardDisc.appendChild(spanYearDisc);
+    cardDisc.appendChild(spanArtisDisc);
 
     // nameAlbum.innerHTML = `${registerData.nameAlbum}`;
     // nameArtist.innerHTML = `${registerData.nameArtist}`;
@@ -334,10 +390,9 @@ function createRegisterData(registerData) {
 }
 
 function createRegisterDataToDataBase() {
+    const msgErrorRegister = document.getElementById("msg-error-register");
 
-  const msgErrorRegister = document.getElementById("msg-error-register");
-
-  const selectAlbumType = document.getElementById("select-album-type");
+    const selectAlbumType = document.getElementById("select-album-type");
 
     const selectvinilType = document.getElementById("select-vinil-type");
 
@@ -373,18 +428,16 @@ function createRegisterDataToDataBase() {
         disc_description: descriptionVinil.value,
     };
 
-  if (!dataDisc.disc_description == "" ) {
-    msgErrorRegister.style.color = "green"
-    msgErrorRegister.innerHTML = "Disco cadastro com sucesso!"
+    if (!dataDisc.disc_description == "") {
+        msgErrorRegister.style.color = "green";
+        msgErrorRegister.innerHTML = "Disco cadastro com sucesso!";
 
-    fetch("http://localhost:8000/user/disc", {
-        method: "POST",
-        body: JSON.stringify(dataDisc),
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-      });
-
-  } else {
-    msgErrorRegister.innerHTML = "Por favor, insira uma descrição válida."
-  }
-  
+        fetch("http://localhost:8000/user/disc", {
+            method: "POST",
+            body: JSON.stringify(dataDisc),
+            headers: { "Content-type": "application/json; charset=UTF-8" },
+        });
+    } else {
+        msgErrorRegister.innerHTML = "Por favor, insira uma descrição válida.";
+    }
 }

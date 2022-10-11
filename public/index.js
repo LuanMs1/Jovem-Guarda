@@ -7,6 +7,8 @@ import { discs } from "./modules/discs.js";
 import { genres } from "./modules/genres.js";
 import { registerDisc } from "./modules/registerDisc.js";
 import { myProfile } from "./modules/myProfile.js";
+import { evaluation } from "./modules/evaluation.js";
+import { wishlist } from "./modules/wishlist.js";
 // import { errorNotFound } from "./modules/errorNotFound.js";
 
 const routes = {
@@ -35,19 +37,70 @@ const routes = {
     },
     "/registerDisc": function () {
         registerDisc(
+            events("/myDiscs"),
             events("/discs"),
-            events("/genre"),
-            events("/registerDisc")
+            events("/genres"),
+            events("/myProfile"),
+            events("/wishlist"),
+            events("/evaluation"),
+            events("/login")
         );
     },
     "/discs": function () {
-        discs(events("/myDiscs"), events("/genres"), events("/exchange"));
+        discs(
+            events("/myDiscs"),
+            events("/genres"),
+            events("/exchange"),
+            events("/registerDisc"),
+            events("/myProfile"),
+            events("/wishlist"),
+            events("/evaluation"),
+            events("/login")
+        );
     },
     "/genres": function () {
-        genres(events("/myDiscs"), events("/discs"), events("/exchange"));
+        genres(
+            events("/myDiscs"),
+            events("/discs"),
+            events("/registerDisc"),
+            events("/myProfile"),
+            events("/wishlist"),
+            events("/evaluation"),
+            events("/login")
+        );
     },
     "/myProfile": function () {
-        myProfile(events("/myDiscs"), events("/discs"), events("/exchange"));
+        myProfile(
+            events("/myDiscs"),
+            events("/discs"),
+            events("/genres"),
+            events("/registerDisc"),
+            events("/wishlist"),
+            events("/evaluation"),
+            events("/login")
+        );
+    },
+    "/wishlist": function () {
+        wishlist(
+            events("/myDiscs"),
+            events("/discs"),
+            events("/genres"),
+            events("/registerDisc"),
+            events("/myProfile"),
+            events("/evaluation"),
+            events("/login")
+        );
+    },
+    "/evaluation": function () {
+        evaluation(
+            events("/myDiscs"),
+            events("/discs"),
+            events("/genres"),
+            events("/registerDisc"),
+            events("/myProfile"),
+            events("/wishlist"),
+            events("/login")
+        );
     },
     "/404": function () {
         errorNotFound(events("/"), events("/login"));

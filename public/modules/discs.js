@@ -1,6 +1,15 @@
 const app = document.querySelector("#app");
 
-export function discs(evtJoinmyDisc, evtGenres, proposeExchange) {
+export function discs(
+    evtMydisc,
+    evtGenre,
+    exchange,
+    evtRegister,
+    evtMyprofile,
+    evtWishlist,
+    evtEvaluation,
+    evtDesconect
+) {
     app.innerHTML = `
       <section id="container-centralized">
         <header>
@@ -143,30 +152,39 @@ export function discs(evtJoinmyDisc, evtGenres, proposeExchange) {
             <div id="menu-options">
                 <div>
                     <img class="icons" src="./assets/images/icons/add.png" />
-                    <span>CADASTRE SEUS DISCOS</span>
+                    <span class="link">CADASTRE SEUS DISCOS</span>
                 </div>
                 <div>
                     <img
                         class="icons"
                         src="./assets/images/icons/profile-user.png"
                     />
-                    <span>MEU PERFIL</span>
+                    <span class="link">MEU PERFIL</span>
                 </div>
                 <div>
                     <img class="icons" src="./assets/images/icons/heart.png" />
-                    <span>LISTA DE DESEJOS</span>
+                    <span class="link">LISTA DE DESEJOS</span>
                 </div>
                 <div>
                     <img class="icons" src="./assets/images/icons/star.png" />
-                    <span>AVALIAÇÕES</span>
+                    <span class="link">AVALIAÇÕES</span>
                 </div>
             </div>
-            <u>Desconectar</u>
+            <u class="link">Desconectar</u>
         </div>
     </section>
 `;
 
-    discsService([evtJoinmyDisc, evtGenres, proposeExchange]);
+    discsService([
+        evtMydisc,
+        evtGenre,
+        exchange,
+        evtRegister,
+        evtMyprofile,
+        evtWishlist,
+        evtEvaluation,
+        evtDesconect,
+    ]);
 
     const filterBtn = document.querySelector("#btn-filter-main");
     const filterModal = document.querySelector("#container-modal-filter");
