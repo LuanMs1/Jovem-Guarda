@@ -29,6 +29,34 @@ const postDisc = async (infos, userId) => {
     }catch(err){
         return {error: err, result: null};
     }
+};
+
+const postDiscImg = async (discId, discImgs) => {
+    const valuesString = [];
+    const values = [];
+    let param = 0;
+
+    for (let i = 1; i < (discImgs.length * 2) + 1; i+=2){
+        valuesString.push(`($${i}, $${i+1})`);
+        values.push(discId, discImgs[param]);
+        param++;
+    }
+
+    text = `
+        INSERT INTO discs_img (disc_id, img)
+        VALUES ${valuesString.toString()}
+    `
+
+    try{
+        console.log(text)
+        console.log(values)
+        const resul = await db.query(text,values);
+        console.log(resul);
+        return {error:null, result: 'inserted'};
+    }catch(err){
+        console.log(err);
+        return{error: err, result: null};
+    }
 }
 
 const updateDisc = async (infos, discId) => {
@@ -263,5 +291,6 @@ module.exports = {
     genreFilter,
     remove,
     filterOr,
-    getUserDiscByAlbum
+    getUserDiscByAlbum,
+    postDiscImg
 };

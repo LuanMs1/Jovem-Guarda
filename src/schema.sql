@@ -78,3 +78,10 @@ CREATE TABLE avaliations (
   exchange_id integer NOT NULL REFERENCES exchange(id),
   created_at timestamptz DEFAULT now()
 );
+DROP TABLE IF EXISTS discs_img;
+CREATE TABLE discs_img(
+	disc_id int, 
+	img VARCHAR,
+	PRIMARY KEY (disc_id, img),
+	FOREIGN KEY (disc_id) REFERENCES discs(id)
+);

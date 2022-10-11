@@ -1,3 +1,4 @@
+const fs = require('fs').promises;
 async function removeImg(path){
     path = `public/uploads/${path}`
     try{
