@@ -128,7 +128,8 @@ async function cancelExchange(exchangeId,userId){
         const exchangeRes = await exchangedb.getUnformatedExchange(exchangeId);
         const exchangeStatus = exchangeRes.result.rows[0].status;
         const userOfering = exchangeRes.result.rows[0].user_from;
-        if(userOfering !== userId) throw 'Usuário não é dono da troca'
+        const userTo = exchangeRes.result.rows[0].user_to;
+        if(userOfering !== userId && userTo !== userId) throw 'Usuário não é dono da troca'
         if(exchangeStatus !== 'pending_exchange') throw 'Troca não esta acontecendo';
 
         const cancelRes = await exchangedb.cancel(exchangeId);
