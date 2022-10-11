@@ -102,17 +102,11 @@
 #disc-title {
     font-size: 2vw;
 }
-/* #disc-img {
-    width: 1vw;
-} */
 #description-disc {
-    /* background-color: rgb(217, 217, 217, 0.2); */
     max-width: 1100px;
-    width: 95vw;
-    height: 45vh;
+    width: 70vw;
     display: flex;
     align-items: center;
-    /* justify-content: space-between; */
     margin-top: 2vw;
     border-radius: 30px;
 }
@@ -169,7 +163,6 @@
 
 #btn-clean:hover {
     background-position: 100% 0;
-    moz-transition: all 0.4s ease-in-out;
     -o-transition: all 0.4s ease-in-out;
     -webkit-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
@@ -181,9 +174,7 @@
     height: 40vh;
 }
 #description-disc-left {
-    /* flex-wrap: wrap; */
     max-width: 500px;
-    /* margin-left: 30px; */
     width: 25vw;
     height: 40vh;
     display: flex;
@@ -238,19 +229,16 @@
     gap: 6px;
 }
 #container-modal-discs {
-    max-width: 75vw;
-    height: 50vh;
+    max-width: 1100px;
+    height: 38vh;
     background: rgba(217, 217, 217, 0.3);
     box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     margin-top: 2vh;
-    margin-bottom: 5vh;
     flex-wrap: wrap;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    padding-right: 5vw;
-    padding-left: 5vw;
+    justify-content: space-evenly;
 }
 
 #img-disc {
@@ -263,12 +251,11 @@ strong {
     display: flex;
     align-items: center;
 }
-#type-disc {
+#type-disc-div {
     font-size: 1.2vw;
     display: flex;
     flex-direction: column;
     width: 16vw;
-    margin-left: 30px;
     gap: 20px;
 }
 #container-img-info {
@@ -278,8 +265,6 @@ strong {
     gap: 3px;
 }
 #description-disc-right-infos {
-    /* max-width: 500px;
-    width: 500px; */
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -293,15 +278,13 @@ strong {
     flex-wrap: wrap;
 }
 #img-exchange {
-    width: 5vw;
-    margin-left: 10vw;
+    width: 55px;
     cursor: pointer;
 }
 #img-exchange:hover {
     scale: 1.1;
     transition: 1.1s;
 }
-
 #container-left-exchange {
     display: flex;
     align-items: center;
