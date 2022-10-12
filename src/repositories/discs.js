@@ -11,7 +11,8 @@ const postDisc = async (infos, userId) => {
         album_type: infos.album_type || null,
         length: infos.length || null,
         disc_description: infos.disc_description || null,
-        disc_status: infos.disc_status || null, 
+        disc_status: infos.disc_status || null,
+        genre: infos.genre || null
     };
     //extraindo dados para variáveis
     const values = Object.values(discInfos);
@@ -20,7 +21,7 @@ const postDisc = async (infos, userId) => {
     //construindo o texto com as colunas retiradas do objeto
     const text = `
         INSERT INTO discs (${columns.toString('')})
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
         RETURNING id;
     `
     try{
@@ -65,7 +66,8 @@ const updateDisc = async (infos, discId) => {
         album_type: infos.album_type || null,
         length: infos.length || null,
         disc_description: infos.disc_status || null,
-        disc_status: infos.disc_status || null
+        disc_status: infos.disc_status || null,
+        genre: infos.genre || null
     }
     //extraindo dados para variáveis
     const values = Object.values(discInfos);
@@ -96,23 +98,23 @@ const selectUserDiscs = async (userId, offset = 0) => {
     offset *=15;
 
     const text = `
-        SELECT intermediate.*, users.name AS owner
-        FROM (SELECT discs.*, string_agg(music_genre_list.genre, ',') AS genre
+        SELECT discs.*, users.name AS owner
         FROM discs
-        LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
         LEFT JOIN users ON users.id = discs.user_id
         WHERE user_id = $1 AND discs.deleted_at is NULL
-        GROUP BY discs.id LIMIT 15 OFFSET $2) AS intermediate
-        INNER JOIN users ON users.id = intermediate.user_id
+        LIMIT 15 OFFSET $2
     `;
+    console.log(text);
 
     try {
         const dbRes = await db.query(text, [userId, offset]);
         return { error: null, result: dbRes };
     } catch (err) {
+        console.log(err)
         return { error: err, result: null };
     }
 };
+
 /**
  * 
  * @param {integer} discId 
@@ -121,13 +123,10 @@ const selectUserDiscs = async (userId, offset = 0) => {
 const getDisc = async (discId) => {
 
     const text = `
-        SELECT intermediate.*, users.name AS owner
-        FROM (SELECT discs.*, string_agg(music_genre_list.genre, ',') AS genre
+        SELECT discs.*, users.name
         FROM discs
-        LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
+        LEFT JOIN users ON users.id = discs.user_id
         WHERE discs.id = $1
-        GROUP BY discs.id) AS intermediate
-        INNER JOIN users ON users.id = intermediate.user_id
     `
     
     try{
@@ -140,13 +139,10 @@ const getDisc = async (discId) => {
 
 const getUserDiscByAlbum = async (albumName, userId) => {
     const text = `
-        SELECT intermediate.*, users.name AS owner
-        FROM (SELECT discs.*, string_agg(music_genre_list.genre, ',') AS genre
+        SELECT discs.*, users.name
         FROM discs
-        LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
+        LEFT JOIN users ON users.id = discs.user_id
         WHERE user_id = $1 AND UPPER(album) = UPPER($2)
-        GROUP BY discs.id) AS intermediate
-        INNER JOIN users ON users.id = intermediate.user_id
     `
     try{
         const dbRes = await db.query(text, [userId, albumName]);
@@ -171,48 +167,6 @@ const getAllDiscs = async (offset = 0) => {
         return { error: err, result: null };
     }
 };
-// genre is a vector
-const setGenre = async (discId, genre) => {
-    //fazendo a extrutura de vetores;
-    let values = [];
-    for (let i in genre){
-        i++
-        values.push(`(${discId}, $${i})`);
-    };
-
-    const text = `
-        INSERT INTO music_genre_list (album_id, genre)
-        VALUES ${values.toString()};
-    `
-    try{
-        const dbRes = await db.query(text, genre);
-        return {error: null, result: dbRes};
-
-    }catch(err){
-        return {error: err, result: null};
-    }
-}
-
-const genreFilter = async (genre) => {
-    let conditions = [];
-    for (let i in genre){
-        i++
-        conditions.push(`(UPPER(genre) = UPPER($${i}))`);
-    };
-
-    const text = `
-        SELECT DISTINCT discs.*, music_genre_list.genre
-        FROM discs
-        LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
-        WHERE deleted_at is null AND ${conditions.join(' OR ')} ;
-    `
-    try{
-        const dbRes = await db.query(text, genre);
-        return {error: null, result: dbRes};
-    }catch(err){
-        return {error: err, result: null};
-    }
-}
 
 const remove = async(discId) => {
     const values = [new Date(), discId];
@@ -261,17 +215,14 @@ const filterOr = async (filterInfo, offset = 0) => {
     // AND para comparação entre chaves;
     conditionText = '(' + conditionText.join(') AND (') + ')';
     const text = `
-        SELECT intermediate.*, users.name AS owner
-        FROM (SELECT DISTINCT discs.*, string_agg(music_genre_list.genre, ',') AS genre
+        SELECT DISTINCT discs.*, users.name AS owner
         FROM discs
-        LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
         LEFT JOIN users ON users.id = discs.user_id
         WHERE discs.deleted_at is NULL AND ${conditionText}
-        GROUP BY discs.id
-        LIMIT 15 OFFSET $${param}) AS intermediate
-        INNER JOIN users ON users.id = intermediate.user_id
+        LIMIT 15 OFFSET $${param}
     `
     values.push(offset);
+    console.log(text);
     try{
         const dbRes = await db.query(text, values);
         return {error: null, result: dbRes};
@@ -284,9 +235,7 @@ module.exports = {
     selectUserDiscs, 
     getDisc, 
     getAllDiscs,
-    setGenre,
     updateDisc,
-    genreFilter,
     remove,
     filterOr,
     getUserDiscByAlbum,
