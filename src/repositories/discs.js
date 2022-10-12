@@ -27,6 +27,8 @@ const postDisc = async (infos, userId) => {
         const dbRes = await db.query(text, values);
         return {error: null, result: dbRes}
     }catch(err){
+        // console.log('error disc:')
+        // console.log(err);
         return {error: err, result: null};
     }
 };
@@ -49,13 +51,11 @@ const postDiscImg = async (discId, discImgs) => {
 
 
     try{
-        console.log(text)
-        console.log(values)
         const resul = await db.query(text,values);
-        console.log(resul);
         return {error:null, result: 'inserted'};
     }catch(err){
-        console.log(err);
+        // console.log('erro img:')
+        // console.log(err)
         return{error: err, result: null};
     }
 }

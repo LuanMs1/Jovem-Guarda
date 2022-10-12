@@ -6,19 +6,19 @@ const postDisc = async (req, res) => {
     const discInfos = req.body;
     //discGenres 
     const discGenres = discInfos.genre;
-    console.log(discInfos);
+    // console.log(discInfos);
     try {
         // chamada de serviço, retorna um {error: , response: }
         const discRes = await services.registerUserDisc(userId, discInfos, req.files);
         // checa por erro, e manda para o catch
         if(discRes.error) throw discRes.error;
         
-        if (discGenres) {
-            const discId = discRes.result[0].id;
-            const genreRes = await services.setDiscGenre(discId, discGenres);
-            if(genreRes.error) throw genreRes.error;
-        }
-
+        // if (discGenres) {
+        //     const discId = discRes.result[0].id;
+        //     const genreRes = await services.setDiscGenre(discId, discGenres);
+        //     if(genreRes.error) throw genreRes.error;
+        // }
+ 
         return res.status(201).json();
 
     }catch(err){
@@ -53,7 +53,7 @@ const getUserDisc = async (req,res) => {
 
 const getDisc = async (req, res) => {
     const discId = req.params.id;
-    console.log('usando controller getDisc')
+    // console.log('usando controller getDisc')
     try {
         const discRes = await services.getDisc(discId);
         if (discRes.error) throw discRes.error;

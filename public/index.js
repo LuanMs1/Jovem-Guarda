@@ -24,7 +24,7 @@ const routes = {
     "/confirmation": function () {
         confirmation(events("/"), events("/login"));
     },
-    "/myDiscs": function () {
+    "/myDiscs": function (e) {
         myDiscs(
             events("/discs"),
             events("/genres"),
@@ -32,10 +32,11 @@ const routes = {
             events("/myProfile"),
             events("/wishlist"),
             events("/evaluation"),
-            events("/login")
+            events("/login"),
+            e
         );
     },
-    "/registerDisc": function () {
+    "/registerDisc": function (e) {
         registerDisc(
             events("/myDiscs"),
             events("/discs"),
@@ -46,7 +47,7 @@ const routes = {
             events("/login")
         );
     },
-    "/discs": function () {
+    "/discs": function (e) {
         discs(
             events("/myDiscs"),
             events("/genres"),
@@ -58,7 +59,7 @@ const routes = {
             events("/login")
         );
     },
-    "/genres": function () {
+    "/genres": function (e) {
         genres(
             events("/myDiscs"),
             events("/discs"),
@@ -69,7 +70,7 @@ const routes = {
             events("/login")
         );
     },
-    "/myProfile": function () {
+    "/myProfile": function (e) {
         myProfile(
             events("/myDiscs"),
             events("/discs"),
@@ -80,7 +81,7 @@ const routes = {
             events("/login")
         );
     },
-    "/wishlist": function () {
+    "/wishlist": function (e) {
         wishlist(
             events("/myDiscs"),
             events("/discs"),
@@ -91,7 +92,7 @@ const routes = {
             events("/login")
         );
     },
-    "/evaluation": function () {
+    "/evaluation": function (e) {
         evaluation(
             events("/myDiscs"),
             events("/discs"),
@@ -102,7 +103,7 @@ const routes = {
             events("/login")
         );
     },
-    "/404": function () {
+    "/404": function (e) {
         errorNotFound(events("/"), events("/login"));
     },
     // "/main": function () {
@@ -120,11 +121,11 @@ function events(prop) {
 
 history.pushState({}, "", "/");
 
-function router() {
+function router(e) {
     const adress = window.location.href.substring(8);
     const url = adress.substring(adress.indexOf("/"));
     const route = testUrlRoute(url);
-    route();
+    route(e);
 }
 
 function testUrlRoute(route) {
@@ -137,7 +138,7 @@ function testUrlRoute(route) {
 
 window.addEventListener("onstatechange", (e) => {
     history.pushState({}, "", e.detail.name);
-    router();
+    router(e);
 });
 
 window.addEventListener("popstate", router);
