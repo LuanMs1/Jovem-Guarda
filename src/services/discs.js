@@ -170,18 +170,18 @@ async function putDisc (infos, discId){
     }
 }
 
-async function filterByGenre (genre){
-    try{
-        if (!genre) return 'Necessário designar generos';
+// async function filterByGenre (genre){
+//     try{
+//         if (!genre) throw 'Necessário designar generos';
 
-        const filter = await discsdb.genreFilter(genre);
-        if (filter.error) throw filter.error;
+//         const filter = await discsdb.genreFilter(genre);
+//         if (filter.error) throw filter.error;
 
-        return {error: null, result: filter.result.rows};
-    }catch(err){
-        return {error: err, result: null};
-    }
-}
+//         return {error: null, result: filter.result.rows};
+//     }catch(err){
+//         return {error: err, result: null};
+//     }
+// }
 
 async function deleteDisc(discId){
     if (!discId) return "ID de disco necessário";

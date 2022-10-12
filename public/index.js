@@ -9,7 +9,7 @@ import { registerDisc } from "./modules/registerDisc.js";
 import { myProfile } from "./modules/myProfile.js";
 import { evaluation } from "./modules/evaluation.js";
 import { wishlist } from "./modules/wishlist.js";
-import { singleDisc} from "./modules/singleDisc.js";
+import { singleDisc } from "./modules/singleDisc.js";
 import { tradeDisc } from "./modules/tradeDisc.js";
 import { individualDisc } from "./modules/individualDisc.js";
 // import { errorNotFound } from "./modules/errorNotFound.js";
@@ -27,7 +27,7 @@ const routes = {
     "/confirmation": function () {
         confirmation(events("/"), events("/login"));
     },
-    "/myDiscs": function (e) {
+    "/myDiscs": function () {
         myDiscs(
             events("/discs"),
             events("/genres"),
@@ -35,8 +35,7 @@ const routes = {
             events("/myProfile"),
             events("/wishlist"),
             events("/evaluation"),
-            events("/login"),
-            e
+            events("/login")
         );
     },
     "/registerDisc": function () {
@@ -47,7 +46,7 @@ const routes = {
             events("/myProfile"),
             events("/wishlist"),
             events("/evaluation"),
-            events("/login"),
+            events("/login")
         );
     },
     "/discs": function (e) {
@@ -66,24 +65,24 @@ const routes = {
         genres(
             events("/myDiscs"),
             events("/discs"),
-            events("/discs  ?genre=axe"),
-            events("/discsGenres/blues"),
-            events("/discsGenres"),
-            events("/discsGenres"),
-            events("/discsGenres"),
-            events("/discsGenres"),
-            events("/discsGenres"),
-            events("/discsGenres"),
-            events("/discsGenres"),
-            events("/discsGenres"),
-            events("/discsGenres"),
-            events("/discsGenres"),
-            events("/discsGenres"),
-            events("/discsGenres"),
-            events("/discsGenres"),
-            events("/discsGenres"),
-            events("/discsGenres"),
-            events("/discsGenres"),
+            events("/discs"),
+            events("/discs"),
+            events("/discs"),
+            events("/discs"),
+            events("/discs"),
+            events("/discs"),
+            events("/discs"),
+            events("/discs"),
+            events("/discs"),
+            events("/discs"),
+            events("/discs"),
+            events("/discs"),
+            events("/discs"),
+            events("/discs"),
+            events("/discs"),
+            events("/discs"),
+            events("/discs"),
+            events("/discs"),
             events("/registerDisc"),
             events("/myProfile"),
             events("/wishlist"),
@@ -92,7 +91,7 @@ const routes = {
             e
         );
     },
-    "/myProfile": function (e) {
+    "/myProfile": function () {
         myProfile(
             events("/myDiscs"),
             events("/discs"),
@@ -100,11 +99,10 @@ const routes = {
             events("/registerDisc"),
             events("/wishlist"),
             events("/evaluation"),
-            events("/login"),
-            e
+            events("/login")
         );
     },
-    "/wishlist": function (e) {
+    "/wishlist": function () {
         wishlist(
             events("/myDiscs"),
             events("/discs"),
@@ -112,11 +110,10 @@ const routes = {
             events("/registerDisc"),
             events("/myProfile"),
             events("/evaluation"),
-            events("/login"),
-            e
+            events("/login")
         );
     },
-    "/evaluation": function (e) {
+    "/evaluation": function () {
         evaluation(
             events("/myDiscs"),
             events("/discs"),
@@ -124,8 +121,7 @@ const routes = {
             events("/registerDisc"),
             events("/myProfile"),
             events("/wishlist"),
-            events("/login"),
-            e
+            events("/login")
         );
     },
     "/tradeDisc": function (e) {
@@ -179,8 +175,6 @@ function router(e) {
     const adress = window.location.href.substring(8);
     const url = adress.substring(adress.indexOf("/"));
     const route = testUrlRoute(url);
-    console.log("Router");
-    console.log(e);
     route(e);
 }
 
@@ -194,10 +188,7 @@ function testUrlRoute(route) {
 
 window.addEventListener("onstatechange", (e) => {
     history.pushState({}, "", e.detail.name);
-    console.log("Evento");
-    console.log(e)
     router(e);
-    
 });
 
 window.addEventListener("popstate", router);

@@ -1,5 +1,7 @@
 const app = document.querySelector("#app");
 
+let nameGenre;
+
 export function discs(
     evtMydisc,
     evtGenre,
@@ -7,7 +9,8 @@ export function discs(
     evtMyprofile,
     evtWishlist,
     evtEvaluation,
-    evtDesconect
+    evtDesconect,
+    e
 ) {
     app.innerHTML = `
       <section id="container-centralized">
@@ -39,7 +42,7 @@ export function discs(
                 <div id="description-disc-left">
                   <div>
                     <span>Estilos</span><br />
-                    <input id="style" type="text" /><br /> 
+                    <input id="style" type="text" value="" /><br /> 
                   
                   </div>
       
@@ -141,6 +144,9 @@ export function discs(
     </section>
 `;
 
+    nameGenre = e.detail.genre;
+    console.log(nameGenre);
+
     discsService([
         evtMydisc,
         evtGenre,
@@ -174,13 +180,26 @@ export function discs(
 
 function discsService(evt) {
     const elements = document.querySelectorAll(".link");
-    showAllDiscs();
+
+    if (nameGenre) {
+        document.querySelector("#disc-title").innerHTML = `${nameGenre}`;
+        document.querySelector("#style").value = `${nameGenre}`;
+        showGenre(nameGenre);
+    } else showAllDiscs();
     for (let i = 0; i < elements.length; i++) {
         elements[i].onclick = () => {
             window.dispatchEvent(evt[i]);
         };
     }
     document.title = "Discos";
+}
+
+async function showGenre(nameGenre) {
+    console.log(nameGenre);
+    const res = await fetch(`http://localhost:8000/user/disc/${nameGenre}`);
+
+    const discsGenre = await res.json();
+    console.log(discsGenre);
 }
 
 async function showAllDiscs() {
@@ -199,8 +218,7 @@ async function showAllDiscs() {
 
         const divDiscContainer = document.createElement("div");
         divDiscContainer.id = "container-modal-discs";
-        divDiscContainer.dataset.discId = allDiscs[c].id;
-        divDiscContainer.dataset.discOwner = allDiscs[c].user_id;
+        divDiscContainer.dataset.id = allDiscs[c].id;
 
         const containerInfo = document.createElement("div");
         containerInfo.id = "container-img-info";
@@ -318,13 +336,13 @@ async function showAllDiscs() {
         const changeImgDiv = document.createElement("div");
 
         changeImgDiv.addEventListener("click", () => {
-            console.log(divDiscContainer.dataset.disck);
+            console.log(divDiscContainer.dataset);
             console.log("clicked here");
             window.dispatchEvent(
                 new CustomEvent("onstatechange", {
                     detail: {
                         name: "/tradeDisc",
-                        infos: divDiscContainer.dataset,
+                        id: 3,
                     },
                 })
             );
