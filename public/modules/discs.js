@@ -219,7 +219,7 @@ async function showAllDiscs() {
         yearAlbum.className = "infos-album"
         yearAlbum.innerHTML = `${allDiscs[c].release_year}`
 
-        test.appendChild( divDiscContainer);
+        test.appendChild(divDiscContainer);
         divDiscContainer.appendChild(containerInfo);
         containerInfo.appendChild(imgAlbum);
         containerInfo.appendChild(nameArtist);

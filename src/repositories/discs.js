@@ -42,10 +42,11 @@ const postDiscImg = async (discId, discImgs) => {
         param++;
     }
 
-    text = `
+    const text = `
         INSERT INTO discs_img (disc_id, img)
         VALUES ${valuesString.toString()}
     `
+
 
     try{
         console.log(text)
@@ -105,7 +106,7 @@ const selectUserDiscs = async (userId, offset = 0) => {
         FROM discs
         LEFT JOIN music_genre_list ON music_genre_list.album_id = discs.id
         LEFT JOIN users ON users.id = discs.user_id
-        WHERE user_id = $1 AND deleted_at is NULL
+        WHERE user_id = $1 AND discs.deleted_at is NULL
         GROUP BY discs.id LIMIT 15 OFFSET $2) AS intermediate
         INNER JOIN users ON users.id = intermediate.user_id
     `;
