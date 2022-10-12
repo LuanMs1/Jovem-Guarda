@@ -126,6 +126,16 @@ async function getAllDiscs(offset) {
         return { error: err, result: null };
     }
 }
+async function getAllDiscsButOwners(userId,offset) {
+    try {
+        const discsRes = await discsdb.getAllDiscsButOwners(userId,offset);
+        if (discsRes.error) throw discsRes.error;
+
+        return { error: null, result: discsRes.result.rows };
+    } catch (err) {
+        return { error: err, result: null };
+    }
+}
 
 async function setDiscGenre(discId, genre){
     try{        
@@ -248,5 +258,6 @@ module.exports ={
     filterByGenre,
     filter,
     deleteDisc,
-    getUserDisc
+    getUserDisc,
+    getAllDiscsButOwners
 };

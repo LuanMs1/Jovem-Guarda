@@ -19,6 +19,7 @@ module.exports = (app) => {
     user.post("/signup", collectors.signUpCollector);
     
     //USUARIOS
+    user.get('/any/:id', collectors.getCollectorById)
     user.use(verifyToken);
     user.delete('/', collectors.deleteCollector);
     user.put('/', upload.uploadImg('/profile'), collectors.updateCollector);
@@ -28,6 +29,7 @@ module.exports = (app) => {
     user.get('/alldiscs/:offset?', collectors.getAllUserDiscs);
     user.delete('/disc/:id', discs.deleteDisc);
     user.put('/disc/:id', discs.updateDisc);
+    user.get('/discs/others/:offset?', discs.getAllDiscsButOwners);
     
     user.post('/exchanges', exchanges.proposeExchange);
     user.get('/exchanges', exchanges.userActiveExchanges);
