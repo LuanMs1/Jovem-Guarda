@@ -5,9 +5,11 @@ export function individualDisc(
     evtDiscs,
     evtGenre,
     evtRegister,
+    evtMyProfile,
     evtWishlist,
     evtEvaluation,
-    evtDesconect
+    evtDesconect,
+    e
 ) {
     app.innerHTML = `
     <section id="container-centralized-myProfile">
@@ -31,23 +33,22 @@ export function individualDisc(
         </div>
     </header>
 
-    <section id="individual-disc">
-    <span id="disc-title">Di Melo</span>
-    <span>Di Melo</span>
-    <span>1975</span>
-    <img id="disc-img" src="./assets/images/disco1.jpeg" alt="">
+    <span id="disc-title"></span>
+    <span id="disc-artist" ></span>
+    <span id="disc-year"></span>
+    <img id="disc-img" src="" alt="">
 </section>
 <section id="description-disc">
     <div id="description-disc-left">
-        <span>TIPO DO ALBUM:</span>
-        <span>TIPO DO VINIL:</span>
-        <span>DURAÇÃO:</span>
-        <span>CONDIÇÕES:</span>
-        <span>PROPRIETÁRIO: </span>
+        <span id="album-type-individual">Tipo do Album: </span>
+        <span id="vinyl-type-individual" >Tipo do Vinil:</span>
+        <span id="length-individual">Duração:</span>
+        <span id="status-individual">Situação:</span>
+        <span id="owner-individual">Proprietário: </span>
     </div>
     <div id="description-line"></div>
     <div id="description-disc-right">
-        <span>DESCRIÇÃO: </span>
+        <span id="description-individual">Descrição:</span>
     </div>
 </section>
 <button id="btn-trade">TROCAR</button>
@@ -106,12 +107,17 @@ export function individualDisc(
     </div>
 </section>
     `;
+    const test2 = e
+    const test3 = e.detail.id
+    const test4 = e.detail
+    console.log(test2,e,test3, test4);
 
     service([
         evtMydisc,
         evtDiscs,
         evtGenre,
         evtRegister,
+        evtMyProfile,
         evtWishlist,
         evtEvaluation,
         evtDesconect,
@@ -132,11 +138,60 @@ export function individualDisc(
 
 function service(evt) {
     const elements = document.querySelectorAll(".link");
-
+    // createIndividualDisc(id)
     for (let i = 0; i < elements.length; i++) {
         elements[i].onclick = () => {
             window.dispatchEvent(evt[i]);
         };
     }
     document.title = "Disco individual";
+}
+
+
+async function createIndividualDisc(id) {
+    const res = await fetch(`http://localhost:8000/user/${id}`, {
+        method: "GET",
+    });
+
+    const individualDisc = await res.json();
+
+    const discTitle = document.getElementById("disc-title");
+    discTitle.innerHTML = `${ individualDisc.album}`
+
+    const discArtist = document.getElementById("disc-title");
+    discArtist.innerHTML = `${individualDisc.artist}`
+
+    const discYear = document.getElementById("disc-year");
+    discYear.innerHTML = `${individualDisc.release_year}`
+
+    const discImg = document.getElementById("disc-img");
+    discImg.innerHTML = `${ individualDisc.img}`
+
+    const albumTypeIndividual = document.getElementById("album-type-individual");
+    albumTypeIndividual.innerHTML = `Tipo do Album: ${ individualDisc.album_type}`
+
+    const vinylTypeIndividual = document.getElementById("vinyl-type-individual");
+    vinylTypeIndividual.innerHTML = `Tipo do Vinil: ${individualDisc.vynil_type}`
+
+    const lengthIndividual = document.getElementById("length-individual");
+    lengthIndividual.innerHTML = `Duração: ${individualDisc.length}`
+
+    const statusIndividual = document.getElementById("status-individual");
+    statusIndividual.innerHTML = `${ individualDisc.disc_status}`
+
+    const ownerIndividual = document.getElementById("owner-individual");
+    // ownerIndividual.innerHTML = `Proprietário: ${}`
+
+    const descriptionIndividual = document.getElementById("description-individual");
+    descriptionIndividual.innerHTML = `Descrição:${individualDisc.disc_description}`
+
+   
+    
+    
+   
+   
+   
+    
+    
+    
 }

@@ -4,16 +4,16 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const fs = require("fs");
 // 
-const https = require("https");
-const privateKey = fs.readFileSync("./certs/key.pem");
-const certificate = fs.readFileSync("./certs/cert.pem");
+// const https = require("https");
+// const privateKey = fs.readFileSync("./certs/key.pem");
+// const certificate = fs.readFileSync("./certs/cert.pem");
 
-const credentials = {
-    key: privateKey,
-    cert: certificate,
-};
-const httpsServer = https.createServer(credentials, app);
-httpsServer.listen(443);
+// const credentials = {
+//     key: privateKey,
+//     cert: certificate,
+// };
+// const httpsServer = https.createServer(credentials, app);
+// httpsServer.listen(443);
 
 const app = express();
 
