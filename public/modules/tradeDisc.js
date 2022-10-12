@@ -8,7 +8,8 @@ export function tradeDisc(
     myProfile,
     evtWishlist,
     evtEvaluation,
-    evtDesconect
+    evtDesconect,
+    e
 ) {
     app.innerHTML = `
     <section id="container-centralized-myProfile">
@@ -107,6 +108,10 @@ export function tradeDisc(
     </div>
 </section>
     `;
+
+    // id do disco à ser trocado, fazer fetch e preencher os campos
+    const discToTradeId = e.detail.id;
+    console.log(discToTradeId);
 
     service([
         evtMydisc,
