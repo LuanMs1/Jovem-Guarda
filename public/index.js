@@ -9,6 +9,9 @@ import { registerDisc } from "./modules/registerDisc.js";
 import { myProfile } from "./modules/myProfile.js";
 import { evaluation } from "./modules/evaluation.js";
 import { wishlist } from "./modules/wishlist.js";
+import { singleDisc} from "./modules/singleDisc.js";
+import { tradeDisc } from "./modules/tradeDisc.js";
+import { individualDisc } from "./modules/individualDisc.js";
 // import { errorNotFound } from "./modules/errorNotFound.js";
 
 const routes = {
@@ -51,7 +54,6 @@ const routes = {
         discs(
             events("/myDiscs"),
             events("/genres"),
-            events("/exchange"),
             events("/registerDisc"),
             events("/myProfile"),
             events("/wishlist"),
@@ -63,6 +65,24 @@ const routes = {
         genres(
             events("/myDiscs"),
             events("/discs"),
+            events("/discs  ?genre=axe"),
+            events("/discsGenres/blues"),
+            events("/discsGenres"),
+            events("/discsGenres"),
+            events("/discsGenres"),
+            events("/discsGenres"),
+            events("/discsGenres"),
+            events("/discsGenres"),
+            events("/discsGenres"),
+            events("/discsGenres"),
+            events("/discsGenres"),
+            events("/discsGenres"),
+            events("/discsGenres"),
+            events("/discsGenres"),
+            events("/discsGenres"),
+            events("/discsGenres"),
+            events("/discsGenres"),
+            events("/discsGenres"),
             events("/registerDisc"),
             events("/myProfile"),
             events("/wishlist"),
@@ -103,7 +123,36 @@ const routes = {
             events("/login")
         );
     },
-    "/404": function (e) {
+    "/tradeDisc": function (e) {
+        tradeDisc(
+            events("/myDiscs"),
+            events("/discs"),
+            events("/genres"),
+            events("/registerDisc"),
+            events("/myProfile"),
+            events("/wishlist"),
+            events("/evaluation"),
+            events("/login"),
+            e
+        );
+    },
+    "/individualDisc": function (e) {
+        individualDisc(
+            events("/myDiscs"),
+            events("/discs"),
+            events("/genres"),
+            events("/registerDisc"),
+            events("/myProfile"),
+            events("/wishlist"),
+            events("/evaluation"),
+            events("/login"),
+            e
+        );
+    },
+    "/singleDisc": function (e) {
+        singleDisc(e);
+    },
+    "/404": function () {
         errorNotFound(events("/"), events("/login"));
     },
     // "/main": function () {
@@ -125,6 +174,8 @@ function router(e) {
     const adress = window.location.href.substring(8);
     const url = adress.substring(adress.indexOf("/"));
     const route = testUrlRoute(url);
+    console.log("router");
+    console.log(e);
     route(e);
 }
 
@@ -138,6 +189,8 @@ function testUrlRoute(route) {
 
 window.addEventListener("onstatechange", (e) => {
     history.pushState({}, "", e.detail.name);
+    console.log("onstageChange");
+    console.log(e);
     router(e);
 });
 

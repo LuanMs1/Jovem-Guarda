@@ -54,6 +54,22 @@ const getCollector = async (req, res) => {
     res.json(user);
 };
 
+const getCollectorById = async (req, res) => {
+
+    const userId = req.params.id;
+    try{
+        const user = await services.getCollector(userId);
+        if (user.error) throw user.error;
+
+        delete user.result.password;
+        return res.status(200).json(user.result);
+    }catch(err){
+        console.log(err);
+        if (err === 'Usuário não encontrado') return res.status(404).json({message: err});
+        return res.status(500).json({message: err});
+    }
+}
+
 //UPDATE
 const updateCollector = async (req, res) => {
     // retirando infos da requisição
@@ -124,4 +140,5 @@ module.exports = {
     getCollector,
     signUpCollector,
     getAllUserDiscs,
+    getCollectorById
 };

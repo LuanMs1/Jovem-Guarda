@@ -19,15 +19,18 @@ module.exports = (app) => {
     user.post("/signup", collectors.signUpCollector);
     
     //USUARIOS
+    user.get('/any/:id', collectors.getCollectorById)
     user.use(verifyToken);
     user.delete('/', collectors.deleteCollector);
     user.put('/', upload.uploadImg('/profile'), collectors.updateCollector);
     user.get('/',collectors.getCollector);
     user.post('/disc', upload.uploadImgArray('/discs'), discs.postDisc);
-    user.get('/disc', discs.getUserDisc);
+    // user.get('/disc', discs.getUserDiscByAlbum);
     user.get('/alldiscs/:offset?', collectors.getAllUserDiscs);
     user.delete('/disc/:id', discs.deleteDisc);
     user.put('/disc/:id', discs.updateDisc);
+    user.get('/discs/others/:offset?', discs.getAllDiscsButOwners);
+    user.get('/disc/:genre', discs.filterByGenre);
     
     user.post('/exchanges', exchanges.proposeExchange);
     user.get('/exchanges', exchanges.userActiveExchanges);

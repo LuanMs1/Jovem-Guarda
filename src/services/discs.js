@@ -8,7 +8,7 @@ const discColumns = [
     'artist', 'release_year', 
     'img', 'vynil_type', 
     'album_type', 'length', 
-    'disc_description', 'disc_status'
+    'disc_description', 'disc_status','genre'
 ]
 
 function validateDiscInfos(infos) {
@@ -127,6 +127,16 @@ async function getAllDiscs(offset) {
         return { error: err, result: null };
     }
 }
+async function getAllDiscsButOwners(userId,offset) {
+    try {
+        const discsRes = await discsdb.getAllDiscsButOwners(userId,offset);
+        if (discsRes.error) throw discsRes.error;
+
+        return { error: null, result: discsRes.result.rows };
+    } catch (err) {
+        return { error: err, result: null };
+    }
+}
 
 async function setDiscGenre(discId, genre){
     try{        
@@ -225,6 +235,21 @@ async function filter(filterInfo, offset = 0){
     }
 }
 
+async function filterByGenre(genre){
+    try{
+        const filter = {
+            genre: [genre]
+        };
+        const genreFilter = await discsdb.filterOr(filter);
+        if(genreFilter.error) throw genreFilter.error;
+
+        return {error: null, result: genreFilter.result.rows};
+    }catch(err){
+
+        return {error: err, result: null};
+    }
+};
+
 async function deleteDisc(discId){
     if (!discId) return "ID de disco necessário";
 
@@ -249,5 +274,6 @@ module.exports ={
     filterByGenre,
     filter,
     deleteDisc,
-    getUserDisc
+    getUserDisc,
+    getAllDiscsButOwners
 };

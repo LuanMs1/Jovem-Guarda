@@ -9,7 +9,7 @@
     justify-content: space-around;
     flex-wrap: wrap;
 }
-.card-genre {
+#card-genre {
     background-color: rgb(122, 122, 122, 0.5);
     width: 185px;
     height: 260px;
@@ -19,7 +19,7 @@
     justify-content: center;
     align-items: center;
 }
-.card-genre:hover {
+#card-genre:hover {
     scale: 1.1;
     transition: 0.5s;
     cursor: pointer;
