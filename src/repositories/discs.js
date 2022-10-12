@@ -167,6 +167,22 @@ const getAllDiscs = async (offset = 0) => {
         return { error: err, result: null };
     }
 };
+const getAllDiscsButOwners = async (ownerId, offset = 0) => {
+    offset *= 15;
+    const text = `
+        SELECT discs.*, users.name AS owner FROM discs
+        INNER JOIN users ON users.id = discs.user_id
+        WHERE discs.deleted_at is NULL AND NOT (discs.user_id = $1)
+        LIMIT 15 OFFSET $2
+    `;
+
+    try {
+        const dbRes = await db.query(text, [ownerId,offset]);
+        return { error: null, result: dbRes };
+    } catch (err) {
+        return { error: err, result: null };
+    }
+};
 
 const remove = async(discId) => {
     const values = [new Date(), discId];
@@ -239,5 +255,6 @@ module.exports = {
     remove,
     filterOr,
     getUserDiscByAlbum,
-    postDiscImg
+    postDiscImg,
+    getAllDiscsButOwners
 };

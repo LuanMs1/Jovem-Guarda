@@ -131,6 +131,19 @@ const getAllDiscs = async (req,res) => {
         
         return res.status(500).json({message: err});
     }
+};
+
+const getAllDiscsButOwners = async (req,res) => {
+    const offset = req.params.offset;
+    try {
+        const discRes = await services.getAllDiscsButOwners(req.user.id, offset);
+        if (discRes.error) throw discRes.error;
+
+        res.status(200).json(discRes.result);
+    }catch(err){
+
+        return res.status(500).jsno({message: err});
+    }
 }
 
 module.exports = {
@@ -140,5 +153,6 @@ module.exports = {
     deleteDisc,
     filter,
     getUserDiscByAlbum,
-    getAllDiscs
+    getAllDiscs,
+    getAllDiscsButOwners
 };
