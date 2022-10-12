@@ -38,7 +38,7 @@ export function tradeDisc(
         <div>
             <span class="trade-text">Ofereço</span>
         </div>
-        <div class="card-add">
+        <div class="card-add card-add-offer">
             <img
                 class="card-add-icon"
                 src="./assets/images/icons/mais (3).png"
@@ -52,10 +52,9 @@ export function tradeDisc(
                 <span class="trade-text">Quero</span>
                 <span>De:Fulano</span>
             </div>
-            <div>
-                <img class="card-img" src="./assets/images/disco1.jpeg" alt="" />
+            <div class = "discs-to">
             </div>
-            <div class="card-add">
+            <div class="card-add card-add-asck">
                 <img
                     class="card-add-icon"
                     src="./assets/images/icons/mais (3).png"
@@ -127,6 +126,8 @@ export function tradeDisc(
     const profilePic = document.querySelector("#container-user-all");
     const profileMenu = document.querySelector("#menu");
     const profileMenuContainer = document.querySelector("#container-menu");
+    const addOfferDisc = document.querySelector('.card-add-offer');
+    const addAsckDisc = document.querySelector('.card-add-asck')
 
     profilePic.addEventListener("click", () => {
         profileMenu.style.display === "flex"
@@ -135,7 +136,19 @@ export function tradeDisc(
             : ((profileMenu.style.display = "flex"),
               (profileMenuContainer.style.display = "flex"));
     });
+    addOfferDisc.addEventListener('click', () =>{
+        console.log(e);
+        choseDiscToOffer(e);
+    });
+
+    addAsckDisc.addEventListener('click', () => {
+        choseWantedDisc(e);
+    })
+    showDisc(e);
+    console.log('detail:')
+    console.log(e.detail)
 }
+
 
 function service(evt) {
     const elements = document.querySelectorAll(".link");
@@ -146,4 +159,33 @@ function service(evt) {
         };
     }
     document.title = "Propor troca";
+}
+
+async function showDisc(e){
+
+    const divFrom = document.querySelector('.discs-to');
+    const img = document.createElement('img');
+    img.className = 'card-img';
+    const discId = e.detail.infos.discId;
+
+    const res = await fetch(`http://localhost:8000/disc/one/${discId}`)
+    const disc = await res.json();
+    console.log(disc);
+    const discImg = disc.img;
+    console.log(discImg);
+    img.src = discImg;
+    divFrom.appendChild(img);
+}
+
+async function choseDiscToOffer(e){
+    const fetchDiscs = await fetch('http://localhost:8000/user/alldiscs');
+    const myDiscs = await fetchDiscs.json();
+    console.log(myDiscs)
+}
+
+async function choseWantedDisc(e){
+    const userTo = e.detail.infos.discOwner;
+    const fetchDiscs = await fetch(`http://localhost:8000/disc/user/${userTo}`);
+    const fromDiscs =  await fetchDiscs.json();
+    console.log(fromDiscs);
 }
