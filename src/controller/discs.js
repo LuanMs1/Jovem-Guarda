@@ -46,7 +46,7 @@ const getUserDiscs = async (req, res) => {
 };
 
 const filterByGenre = async (req, res) => {
-    const genre = req.params.genre;
+    const genre = req.params.genre.trim();
     console.log(genre);
     try {
         const discRes = await services.filterByGenre(genre);
