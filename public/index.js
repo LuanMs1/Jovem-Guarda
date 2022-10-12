@@ -118,7 +118,7 @@ const routes = {
             e
         );
     },
-    "/individualDisc": function () {
+    "/individualDisc": function (e) {
         individualDisc(
             events("/myDiscs"),
             events("/discs"),
@@ -127,7 +127,8 @@ const routes = {
             events("/myProfile"),
             events("/wishlist"),
             events("/evaluation"),
-            events("/login")
+            events("/login"),
+            e
         );
     },
     "/singleDisc": function (e) {

@@ -101,7 +101,7 @@ async function loadMyDiscs() {
             console.log('clicked here');
             window.dispatchEvent(new CustomEvent("onstatechange", {
               detail: {
-                  name: '/singleDisc',
+                  name: '/individualDisc',
                   id: discId
               },
           }));
