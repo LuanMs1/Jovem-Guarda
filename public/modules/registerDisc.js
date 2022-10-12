@@ -573,7 +573,7 @@ function createRegisterDataToDataBase() {
         fetch("http://localhost:8000/user/disc", {
             method: "POST",
             body: dataDisc,
-            headers: { "Content-type": "application/json; charset=UTF-8" },
+            // headers: { "Content-type": "application/json; charset=UTF-8" },
         });
 
     } else {

@@ -219,7 +219,7 @@ async function filter(filterInfo, offset = 0){
 
         //removendo espaço em branco e adicionando % para pegar padrão
         for (let fil in filterInfo){
-            if (fil !== 'release_year'){
+            if (fil !== 'release_year' && fil !== 'user_id'){
                 for (let i in filterInfo[fil]){
                     filterInfo[fil][i] ='%' + filterInfo[fil][i].trim().toUpperCase() + '%'
                 }

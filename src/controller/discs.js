@@ -27,6 +27,19 @@ const postDisc = async (req, res) => {
     }
 };
 
+const getUserDiscs = async (req,res) =>{
+    const userId = req.params.id;
+    try{
+        const userDiscs = await services.userDiscs(userId)
+        if (userDiscs.error) throw(userDiscs.error);
+
+        return res.status(200).json(userDiscs.result);
+    }catch(err){
+        
+        return res.status(500).json({message:err});
+    }
+}
+
 const filterByGenre = async (req,res) => {
     const genre = req.params.genre;
     try{
@@ -104,6 +117,8 @@ const filter = async (req, res) => {
     }catch(err){
         if (err === 'Atributo inválido') return res.status(400).json({message: err});
         if (err === 'Informar filtro') return res.status(400).json({message: err});
+
+        console.log(err);
         return res.status(500).json({message: err})
     }
 
@@ -168,5 +183,6 @@ module.exports = {
     getUserDiscByAlbum,
     getAllDiscs,
     getAllDiscsButOwners,
-    filterByGenre
+    filterByGenre,
+    getUserDiscs
 };
