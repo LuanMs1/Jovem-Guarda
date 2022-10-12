@@ -1,6 +1,6 @@
 const app = document.querySelector("#app");
 
-export function propose(e) {
+export function singleDisc(e) {
     app.innerHTML = `
         PAGINA TESTE;
     `

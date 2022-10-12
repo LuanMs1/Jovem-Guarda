@@ -9,7 +9,7 @@ import { registerDisc } from "./modules/registerDisc.js";
 import { myProfile } from "./modules/myProfile.js";
 import { evaluation } from "./modules/evaluation.js";
 import { wishlist } from "./modules/wishlist.js";
-import { propose } from "./modules/proposeExchange.js";
+import { singleDisc} from "./modules/singleDisc.js";
 import { tradeDisc } from "./modules/tradeDisc.js";
 import { individualDisc } from "./modules/individualDisc.js";
 // import { errorNotFound } from "./modules/errorNotFound.js";
@@ -118,7 +118,7 @@ const routes = {
             e
         );
     },
-    "/individualDisc": function () {
+    "/individualDisc": function (e) {
         individualDisc(
             events("/myDiscs"),
             events("/discs"),
@@ -127,8 +127,12 @@ const routes = {
             events("/myProfile"),
             events("/wishlist"),
             events("/evaluation"),
-            events("/login")
+            events("/login"),
+            e
         );
+    },
+    "/singleDisc": function (e) {
+        singleDisc(e);
     },
     "/404": function () {
         errorNotFound(events("/"), events("/login"));

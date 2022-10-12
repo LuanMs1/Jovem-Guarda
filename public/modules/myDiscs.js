@@ -85,14 +85,27 @@ async function loadMyDiscs() {
     });
 
     const dataAllUserDiscs = await res.json();
+    console.log(dataAllUserDiscs);
 
     const containerCenterMyDisc = document.getElementById(
         "container-center-myDisc"
     );
 
     for (let c = 0; c < dataAllUserDiscs.length; c++) {
+        const discId = dataAllUserDiscs[c].id;
         const cardDisc = document.createElement("div");
         cardDisc.className = "card-myDiscs";
+
+        cardDisc.addEventListener('click', () => {
+            
+            console.log('clicked here');
+            window.dispatchEvent(new CustomEvent("onstatechange", {
+              detail: {
+                  name: '/individualDisc',
+                  id: discId
+              },
+          }));
+          });
 
         const imgCard = document.createElement("img");
         imgCard.className = "card-img";
