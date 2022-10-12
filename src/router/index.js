@@ -24,7 +24,7 @@ module.exports = (app) => {
     user.put('/', upload.uploadImg('/profile'), collectors.updateCollector);
     user.get('/',collectors.getCollector);
     user.post('/disc', upload.uploadImgArray('/discs'), discs.postDisc);
-    user.get('/disc', discs.getUserDisc);
+    user.get('/disc', discs.getUserDiscByAlbum);
     user.get('/alldiscs/:offset?', collectors.getAllUserDiscs);
     user.delete('/disc/:id', discs.deleteDisc);
     user.put('/disc/:id', discs.updateDisc);

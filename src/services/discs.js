@@ -8,7 +8,7 @@ const discColumns = [
     'artist', 'release_year', 
     'img', 'vynil_type', 
     'album_type', 'length', 
-    'disc_description', 'disc_status'
+    'disc_description', 'disc_status','genre'
 ]
 
 function validateDiscInfos(infos) {
@@ -61,7 +61,6 @@ async function registerUserDisc(userId, discInfos, discsImgs) {
         discsImgs.forEach((element) => {
             discsImgsArray.push(element.filename);
         })
-        console.log(discsImgsArray);
         await discsdb.postDiscImg(discId,discsImgsArray)
 
 
