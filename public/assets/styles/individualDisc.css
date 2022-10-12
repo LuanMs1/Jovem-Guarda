@@ -14,7 +14,7 @@
 #disc-img {
     width: 280px;
 }
-#description-disc {
+/* #description-disc {
     background-color: rgb(217, 217, 217, 0.2);
     max-width: 1100px;
     width: 95vw;
@@ -24,7 +24,7 @@
     justify-content: space-between;
     margin-top: 4vw;
     border-radius: 30px;
-}
+} */
 #description-line {
     background-color: rgb(240, 248, 255, 0.7);
     width: 1px;
