@@ -9,6 +9,7 @@ import { registerDisc } from "./modules/registerDisc.js";
 import { myProfile } from "./modules/myProfile.js";
 import { evaluation } from "./modules/evaluation.js";
 import { wishlist } from "./modules/wishlist.js";
+import { propose } from "./modules/proposeExchange.js";
 // import { errorNotFound } from "./modules/errorNotFound.js";
 
 const routes = {
@@ -102,6 +103,9 @@ const routes = {
             events("/login")
         );
     },
+    "/propose": function (e){
+        propose(e);
+    },
     "/404": function () {
         errorNotFound(events("/"), events("/login"));
     },
@@ -120,11 +124,13 @@ function events(prop) {
 
 history.pushState({}, "", "/");
 
-function router() {
+function router(e) {
     const adress = window.location.href.substring(8);
     const url = adress.substring(adress.indexOf("/"));
     const route = testUrlRoute(url);
-    route();
+    console.log('router');
+    console.log(e);
+    route(e);
 }
 
 function testUrlRoute(route) {
@@ -137,7 +143,9 @@ function testUrlRoute(route) {
 
 window.addEventListener("onstatechange", (e) => {
     history.pushState({}, "", e.detail.name);
-    router();
+    console.log('onstageChange');
+    console.log(e);
+    router(e);
 });
 
 window.addEventListener("popstate", router);

@@ -203,6 +203,7 @@ async function showAllDiscs() {
 
         const divDiscContainer = document.createElement("div")
         divDiscContainer.id = "container-modal-discs"
+        divDiscContainer.dataset.id = allDiscs[c].id;
 
         const containerInfo = document.createElement("div");
         containerInfo.id = "container-img-info";
@@ -322,6 +323,18 @@ async function showAllDiscs() {
 
         
         const changeImgDiv = document.createElement("div");
+
+        changeImgDiv.addEventListener('click', () => {
+            
+          console.log(divDiscContainer.dataset);
+          console.log('clicked here');
+          window.dispatchEvent(new CustomEvent("onstatechange", {
+            detail: {
+                name: '/propose',
+                id: 3
+            },
+        }));
+        });
 
         const changeImg = document.createElement("img");
 
