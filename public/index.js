@@ -9,6 +9,7 @@ import { registerDisc } from "./modules/registerDisc.js";
 import { myProfile } from "./modules/myProfile.js";
 import { evaluation } from "./modules/evaluation.js";
 import { wishlist } from "./modules/wishlist.js";
+import { propose } from "./modules/proposeExchange.js";
 import { tradeDisc } from "./modules/tradeDisc.js";
 import { individualDisc } from "./modules/individualDisc.js";
 // import { errorNotFound } from "./modules/errorNotFound.js";
@@ -104,7 +105,7 @@ const routes = {
             events("/login")
         );
     },
-    "/tradeDisc": function () {
+    "/tradeDisc": function (e) {
         tradeDisc(
             events("/myDiscs"),
             events("/discs"),
@@ -113,7 +114,8 @@ const routes = {
             events("/myProfile"),
             events("/wishlist"),
             events("/evaluation"),
-            events("/login")
+            events("/login"),
+            e
         );
     },
     "/individualDisc": function () {
@@ -146,11 +148,13 @@ function events(prop) {
 
 history.pushState({}, "", "/");
 
-function router() {
+function router(e) {
     const adress = window.location.href.substring(8);
     const url = adress.substring(adress.indexOf("/"));
     const route = testUrlRoute(url);
-    route();
+    console.log('router');
+    console.log(e);
+    route(e);
 }
 
 function testUrlRoute(route) {
@@ -163,7 +167,9 @@ function testUrlRoute(route) {
 
 window.addEventListener("onstatechange", (e) => {
     history.pushState({}, "", e.detail.name);
-    router();
+    console.log('onstageChange');
+    console.log(e);
+    router(e);
 });
 
 window.addEventListener("popstate", router);
