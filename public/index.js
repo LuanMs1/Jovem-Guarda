@@ -10,6 +10,7 @@ import { myProfile } from "./modules/myProfile.js";
 import { evaluation } from "./modules/evaluation.js";
 import { wishlist } from "./modules/wishlist.js";
 import { tradeDisc } from "./modules/tradeDisc.js";
+import { individualDisc } from "./modules/individualDisc.js";
 // import { errorNotFound } from "./modules/errorNotFound.js";
 
 const routes = {
@@ -105,6 +106,18 @@ const routes = {
     },
     "/tradeDisc": function () {
         tradeDisc(
+            events("/myDiscs"),
+            events("/discs"),
+            events("/genres"),
+            events("/registerDisc"),
+            events("/myProfile"),
+            events("/wishlist"),
+            events("/evaluation"),
+            events("/login")
+        );
+    },
+    "/individualDisc": function () {
+        individualDisc(
             events("/myDiscs"),
             events("/discs"),
             events("/genres"),

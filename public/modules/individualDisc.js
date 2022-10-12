@@ -1,6 +1,6 @@
 const app = document.querySelector("#app");
 
-export function individual(
+export function individualDisc(
     evtMydisc,
     evtDiscs,
     evtGenre,
@@ -35,7 +35,7 @@ export function individual(
     <span id="disc-title">Di Melo</span>
     <span>Di Melo</span>
     <span>1975</span>
-    <img id="disc-img" src="imgs/disco1.jpeg" alt="">
+    <img id="disc-img" src="./assets/images/disco1.jpeg" alt="">
 </section>
 <section id="description-disc">
     <div id="description-disc-left">
