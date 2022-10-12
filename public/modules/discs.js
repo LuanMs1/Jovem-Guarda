@@ -330,7 +330,7 @@ async function showAllDiscs() {
           console.log('clicked here');
           window.dispatchEvent(new CustomEvent("onstatechange", {
             detail: {
-                name: '/propose',
+                name: '/tradeDisc',
                 id: 3
             },
         }));

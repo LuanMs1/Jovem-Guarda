@@ -104,7 +104,7 @@ const routes = {
             events("/login")
         );
     },
-    "/tradeDisc": function () {
+    "/tradeDisc": function (e) {
         tradeDisc(
             events("/myDiscs"),
             events("/discs"),
@@ -113,7 +113,8 @@ const routes = {
             events("/myProfile"),
             events("/wishlist"),
             events("/evaluation"),
-            events("/login")
+            events("/login"),
+            e
         );
     },
     "/404": function () {

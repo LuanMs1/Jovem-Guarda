@@ -43,7 +43,7 @@ const postDiscImg = async (discId, discImgs) => {
         param++;
     }
 
-    text = `
+    const text = `
         INSERT INTO discs_img (disc_id, img)
         VALUES ${valuesString.toString()}
     `

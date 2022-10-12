@@ -12,8 +12,6 @@ const credentials = {
     key: privateKey,
     cert: certificate,
 };
-const httpsServer = https.createServer(credentials, app);
-httpsServer.listen(443);
 
 const app = express();
 
@@ -25,5 +23,7 @@ app.use(cors());
 require("./router/index")(app);
 
 app.use(express.static("public"));
+const httpsServer = https.createServer(credentials, app);
 
 app.listen(8000);
+httpsServer.listen(443);
