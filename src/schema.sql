@@ -44,7 +44,7 @@ CREATE TABLE discs (
 ALTER TABLE discs ADD CONSTRAINT vynil_type_check CHECK (vynil_type IN ('transparent', 'matte', 'glossy', 'color', 'metallic'));
 ALTER TABLE discs ADD CONSTRAINT album_type_check CHECK (album_type IN ('single', 'ep', 'lp'));
 ALTER TABLE discs ADD CONSTRAINT disc_status_check CHECK (disc_status IN ('available to trade', 'wishlist', 'own'));
-ALTER TABLE discs ADD CONSTRAINT genre_check CHECK (genre IN ('Blues','Country', 'Eletrônica', 'Forró', 'Funk', 'Gospel', 'Hip Hop', 'Jazz', 'MPB',
+ALTER TABLE discs ADD CONSTRAINT genre_check CHECK (genre IN ('Axé','Blues','Country', 'Eletrônica', 'Forró', 'Funk', 'Gospel', 'Hip Hop', 'Jazz', 'MPB',
 'Música clássica', 'Pagode', 'Pop', 'Rap', 'Reggae', 'Rock', 'Samba'))
 
 DROP TABLE IF EXISTS exchange;
