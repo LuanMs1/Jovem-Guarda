@@ -1,0 +1,81 @@
+#individual-disc {
+    /* background-color: aliceblue; */
+    width: 95vw;
+    max-width: 1100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.8vw;
+}
+#disc-title {
+    font-size: 45px;
+}
+#disc-img {
+    width: 280px;
+}
+#description-disc {
+    background-color: rgb(217, 217, 217, 0.2);
+    max-width: 1100px;
+    width: 95vw;
+    height: 45vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4vw;
+    border-radius: 30px;
+}
+#description-line {
+    background-color: rgb(240, 248, 255, 0.7);
+    width: 1px;
+    height: 230px;
+}
+#description-disc-left {
+    margin-left: 30px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2.4vw;
+    /* background-color: aqua; */
+}
+#description-disc-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-right: 30px;
+    gap: 2.4vw;
+    width: 500px;
+    height: 228px;
+}
+#btn-trade {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: var(--btn-bg-color);
+    font-family: "Inria Sans";
+    font-weight: bold;
+    font-size: 15px;
+    color: #d9d9d9;
+    width: 200px;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+}
+#section-imgs-disc {
+    max-width: 1100px;
+    width: 96vw;
+    height: 40vh;
+}
+.imgs-disc-user {
+    width: 150px;
+    height: 150px;
+    background-color: #030526;
+    box-shadow: 0px 4px 20px 0px var(--btn-bg-color);
+}
+#position-imgs-disc-user {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

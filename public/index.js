@@ -11,6 +11,7 @@ import { evaluation } from "./modules/evaluation.js";
 import { wishlist } from "./modules/wishlist.js";
 import { singleDisc} from "./modules/singleDisc.js";
 import { tradeDisc } from "./modules/tradeDisc.js";
+import { individualDisc } from "./modules/individualDisc.js";
 // import { errorNotFound } from "./modules/errorNotFound.js";
 
 const routes = {
@@ -115,6 +116,18 @@ const routes = {
             events("/evaluation"),
             events("/login"),
             e
+        );
+    },
+    "/individualDisc": function () {
+        individualDisc(
+            events("/myDiscs"),
+            events("/discs"),
+            events("/genres"),
+            events("/registerDisc"),
+            events("/myProfile"),
+            events("/wishlist"),
+            events("/evaluation"),
+            events("/login")
         );
     },
     "/singleDisc": function (e) {
