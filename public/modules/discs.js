@@ -183,7 +183,7 @@ function discsService(evt) {
 
     if (nameGenre) {
         document.querySelector("#disc-title").innerHTML = `${nameGenre}`;
-        document.querySelector("#style").value = "Axé";
+        document.querySelector("#style").value = `${nameGenre}`;
         showGenre(nameGenre);
     } else showAllDiscs();
     for (let i = 0; i < elements.length; i++) {
