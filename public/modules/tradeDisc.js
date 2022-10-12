@@ -52,7 +52,7 @@ export function tradeDisc(
                 <span class="trade-text">Quero</span>
                 <span>De:Fulano</span>
             </div>
-            <div>
+            <div class = "discs-front">
                 <img class="card-img" src="./assets/images/disco1.jpeg" alt="" />
             </div>
             <div class="card-add">
@@ -135,6 +135,8 @@ export function tradeDisc(
             : ((profileMenu.style.display = "flex"),
               (profileMenuContainer.style.display = "flex"));
     });
+
+    showDisc(e);
 }
 
 function service(evt) {
@@ -146,4 +148,13 @@ function service(evt) {
         };
     }
     document.title = "Propor troca";
+}
+
+async function showDisc(e){
+    const divFrom = document.querySelector('#want-disc-right');
+    const discId = e.detail.id;
+
+    const res = await fetch(`http://localhost:8000/disc/one/${discId}`)
+    const disc = await res.json();
+    console.log(disc)
 }
