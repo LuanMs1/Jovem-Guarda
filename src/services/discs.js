@@ -8,7 +8,7 @@ const discColumns = [
     'artist', 'release_year', 
     'img', 'vynil_type', 
     'album_type', 'length', 
-    'disc_description', 'disc_status'
+    'disc_description', 'disc_status','genre'
 ]
 
 function validateDiscInfos(infos) {
@@ -120,6 +120,16 @@ async function getUserDisc(userId, albumName){
 async function getAllDiscs(offset) {
     try {
         const discsRes = await discsdb.getAllDiscs(offset);
+        if (discsRes.error) throw discsRes.error;
+
+        return { error: null, result: discsRes.result.rows };
+    } catch (err) {
+        return { error: err, result: null };
+    }
+}
+async function getAllDiscsButOwners(userId,offset) {
+    try {
+        const discsRes = await discsdb.getAllDiscsButOwners(userId,offset);
         if (discsRes.error) throw discsRes.error;
 
         return { error: null, result: discsRes.result.rows };
@@ -249,5 +259,6 @@ module.exports ={
     filterByGenre,
     filter,
     deleteDisc,
-    getUserDisc
+    getUserDisc,
+    getAllDiscsButOwners
 };
