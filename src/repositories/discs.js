@@ -221,7 +221,7 @@ const filterOr = async (filterInfo, offset = 0) => {
                 break;
             }else{
                 //parte da query para pesquisar por padrão fornecido
-                conditions.push(`(UPPER(${atribute}) LIKE $${param})`);
+                conditions.push(`(UPPER(${atribute}) LIKE UPPER($${param}))`);
             }
             param++
         }
@@ -231,14 +231,13 @@ const filterOr = async (filterInfo, offset = 0) => {
     // AND para comparação entre chaves;
     conditionText = '(' + conditionText.join(') AND (') + ')';
     const text = `
-        SELECT DISTINCT discs.*, users.name AS owner
+        SELECT discs.*, users.name AS owner
         FROM discs
         LEFT JOIN users ON users.id = discs.user_id
         WHERE discs.deleted_at is NULL AND ${conditionText}
         LIMIT 15 OFFSET $${param}
     `
     values.push(offset);
-    console.log(text);
     try{
         const dbRes = await db.query(text, values);
         return {error: null, result: dbRes};
