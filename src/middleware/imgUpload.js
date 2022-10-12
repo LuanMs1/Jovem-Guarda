@@ -48,6 +48,6 @@ function uploadImgArray(path) {
         cb(null, true);
     }
 
-    return multer({ storage, fileFilter }).array('imgVilDisc',5);
+    return multer({ storage, fileFilter }).array('imgrealvinil',5);
 }
 module.exports = {uploadImg, uploadImgArray};

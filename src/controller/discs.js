@@ -17,6 +17,7 @@ const postDisc = async (req, res) => {
     }catch(err){
         // pesquisar middleware para tratamento de erros do nodejs
         // https://masteringjs.io/tutorials/express/error-handling
+        
         if(err === 'Nome do album necessário') return res.status(400).json({message: err});
         if(err === 'Nome do artista necessário') return res.status(400).json({message: err});
         if(err === 'Data de lançamente necessária') return res.status(400).json({message: err});

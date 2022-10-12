@@ -58,6 +58,7 @@ async function registerUserDisc(userId, discInfos, discsImgs) {
         //salvando nome das imagens no banco
         const discId = registration.result.rows[0].id;
         const discsImgsArray = [];
+        // console.log(discsImgsArray);
         discsImgs.forEach((element) => {
             discsImgsArray.push(element.filename);
         })

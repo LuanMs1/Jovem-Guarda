@@ -87,10 +87,7 @@ export function registerDisc(
             <label id="description-vinil-label" style="gap: 10px;" for="description-vinil">DESCRIÇÃO:<textarea id="description-vinil" class="style-select" rows="5" cols="30"></textarea></label>
         </div>
     </section>
-    <section id="register-album-section" >
-      <p id="msg-error-register"></p>
-        <button id="register-album">CADASTRAR</button>
-    </section>
+    <p id="msg-error-register"></p>
     <section id="musics-disc-register">
         <div id="all-tracks"></div>
     </section>
@@ -99,13 +96,30 @@ export function registerDisc(
             <span>FOTOS DO PRODUTO:</span>
         </div>
         <div id="position-imgs-disc-user">
-            <div class="imgs-disc-user"></div>
-            <div class="imgs-disc-user"></div>
-            <div class="imgs-disc-user"></div>
-            <div class="imgs-disc-user"></div>
+            <div id="image-one" class="imgs-disc-user">
+                <img class="img-div-photo" src="" alt="">
+            </div>
+            <div id="image-two" class="imgs-disc-user">
+                <img class="img-div-photo" src="" alt="">
+            </div>
+            <div id="image-three" class="imgs-disc-user">
+                <img class="img-div-photo" src="" alt="">
+            </div>
+            <div id="image-four" class="imgs-disc-user">
+                <img class="img-div-photo" src="" alt="">
+            </div>
         </div>
     </section>
-    
+    <form id="formElem">
+        <input  class="input-upload" id="input-type-file-one" type="file">
+        <input  class="input-upload" id="input-type-file-two" type="file">
+        <input  class="input-upload" id="input-type-file-three" type="file">
+        <input  class="input-upload" id="input-type-file-four" type="file">
+        <section id="register-album-section" >
+            <button type="submit" id="register-album">CADASTRAR</button>
+        </section>
+    </form>
+
     <section id="container-menu">
         <div id="menu">
             <div id="container-img-name">
@@ -329,6 +343,8 @@ export async function spotifyGetAlbumToRegister(idAlbum) {
 
 function createRegisterData(registerData) {
     const individualDiscRegister = document.getElementById("individual-disc");
+
+    // individualDiscRegister.innerHTML = "";
     const allTracks = document.getElementById("all-tracks");
 
     const imgAlbum = document.getElementById("img-album");
@@ -348,6 +364,7 @@ function createRegisterData(registerData) {
     document.getElementById("register-album").style.display = "block";
 
     registerAlbum.addEventListener("click", createRegisterDataToDataBase);
+
 
     const cardDisc = document.createElement("div");
     cardDisc.className = "card-myDiscs";
@@ -387,9 +404,102 @@ function createRegisterData(registerData) {
         allTracks.appendChild(createTracks);
         console.log(registerData.nameTracks[t].name);
     }
+
+const imgDivPhoto = document.getElementsByClassName("img-div-photo");
+
+const inputOne = document.getElementById("input-type-file-one");
+
+const inputTwo = document.getElementById("input-type-file-two");
+
+const inputThree = document.getElementById("input-type-file-three");
+
+const inputFour = document.getElementById("input-type-file-four");
+
+const divPhoto = document.querySelectorAll(".imgs-disc-user");
+
+divPhoto.forEach((e) => e.addEventListener("dragover", (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+}))
+
+
+divPhoto.forEach((e) => e.addEventListener("drop", (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    console.log();
+    const fileList = e.dataTransfer.files;
+    console.log(fileList);
+
+    const imgDisplay = e.target.children[0]
+
+    createPhotoDragandDrop(fileList, imgDisplay);
+
+}))
+
+divPhoto.forEach((e) =>
+  e.addEventListener("click", (e) => {
+    let inputNumber = "";
+    let imgDisplay = null;
+
+    switch (e.target.id) {
+      case "image-one":
+        inputOne.click();
+        inputNumber = inputOne;
+        imgDisplay = 0;
+        break;
+      case "image-two":
+        inputTwo.click();
+        inputNumber = inputTwo;
+        imgDisplay = 1;
+        break;
+      case "image-three":
+        inputThree.click();
+        inputNumber = inputThree;
+        imgDisplay = 2;
+        break;
+      case "image-four":
+        inputFour.click();
+        inputNumber = inputFour;
+        imgDisplay = 3;
+        break;
+    }
+    createPhotoInput(inputNumber, imgDisplay);
+  })
+);
+
+function createPhotoInput(inputNumber, imgDisplay) {
+    inputNumber.addEventListener("change", () => {
+      let reader = new FileReader();
+    
+   
+        console.log(inputNumber.files[0].File);
+      reader.onload = () => {
+        imgDivPhoto[imgDisplay].src = reader.result;
+        imgDivPhoto[imgDisplay].style.display = "block";
+
+      };
+      reader.readAsDataURL(inputNumber.files[0]);
+     
+    });
+  }  
 }
 
+function createPhotoDragandDrop(fileList,imgDisplay) {
+    console.log("oie");
+    let reader = new FileReader();
+    console.log(reader);
+    reader.onload = () => {
+        imgDisplay.src = reader.result;
+        imgDisplay.style.display = "block";
+    }
+
+    reader.readAsDataURL(fileList[0])
+}
+
+
 function createRegisterDataToDataBase() {
+
     const msgErrorRegister = document.getElementById("msg-error-register");
 
     const selectAlbumType = document.getElementById("select-album-type");
@@ -415,6 +525,33 @@ function createRegisterDataToDataBase() {
         selectgenderType.options[selectgenderType.selectedIndex].value,
     ];
 
+    const formElem = document.getElementById("formElem");
+    const test = new FormData(formElem)
+    test.append("album","Nome do Album");
+    test.append("artist","Nome artista");
+    test.append("release_year",1923);
+
+    for(let [name, value] of test) {
+        console.log(`${name} = ${value}`);
+        // alert(`${name} = ${value}`); // key1 = value1, then key2 = value2
+      }
+
+    formElem.onsubmit = async (e) => {
+        e.preventDefault();
+       
+        console.log(test);
+
+        let response = await fetch('http://localhost:8000/user/disc', {
+          method: 'POST',
+          body: test,
+          headers: { "Content-type": "multipart/form-data"}
+        });
+    
+        // let result = await response.json();
+        console.log(result);
+        console.log("test");
+      };
+
     const dataDisc = {
         album: dataToDataBase[0].nameAlbum,
         artist: dataToDataBase[0].nameArtist,
@@ -428,15 +565,17 @@ function createRegisterDataToDataBase() {
         disc_description: descriptionVinil.value,
     };
 
+
     if (!dataDisc.disc_description == "") {
         msgErrorRegister.style.color = "green";
         msgErrorRegister.innerHTML = "Disco cadastro com sucesso!";
 
         fetch("http://localhost:8000/user/disc", {
             method: "POST",
-            body: JSON.stringify(dataDisc),
+            body: dataDisc,
             headers: { "Content-type": "application/json; charset=UTF-8" },
         });
+
     } else {
         msgErrorRegister.innerHTML = "Por favor, insira uma descrição válida.";
     }
