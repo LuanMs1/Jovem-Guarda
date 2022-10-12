@@ -5,7 +5,7 @@ const postDisc = async (req, res) => {
     const userId = req.user.id;
     const discInfos = req.body;
     //discGenres 
-  
+
     try {
         // chamada de serviço, retorna um {error: , response: }
         const discRes = await services.registerUserDisc(userId, discInfos, req.files);
