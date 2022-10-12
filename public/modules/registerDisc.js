@@ -111,12 +111,12 @@ export function registerDisc(
         </div>
     </section>
     <form id="formElem">
-        <input  class="input-upload" id="input-type-file-one" type="file">
-        <input  class="input-upload" id="input-type-file-two" type="file">
-        <input  class="input-upload" id="input-type-file-three" type="file">
-        <input  class="input-upload" id="input-type-file-four" type="file">
+        <input  name="imgrealvinil" class="input-upload" id="input-type-file-one" type="file">
+        <input  name="imgrealvinil" class="input-upload" id="input-type-file-two" type="file">
+        <input  name="imgrealvinil" class="input-upload" id="input-type-file-three" type="file">
+        <input  name="imgrealvinil" class="input-upload" id="input-type-file-four" type="file">
         <section id="register-album-section" >
-            <button type="submit" id="register-album">CADASTRAR</button>
+            <button id="register-album">CADASTRAR</button>
         </section>
     </form>
 
@@ -525,58 +525,43 @@ function createRegisterDataToDataBase() {
         selectgenderType.options[selectgenderType.selectedIndex].value,
     ];
 
-    const formElem = document.getElementById("formElem");
-    const test = new FormData(formElem)
-    test.append("album","Nome do Album");
-    test.append("artist","Nome artista");
-    test.append("release_year",1923);
+    console.log(dataToDataBase[0]);
 
-    for(let [name, value] of test) {
-        console.log(`${name} = ${value}`);
-        // alert(`${name} = ${value}`); // key1 = value1, then key2 = value2
-      }
+    const formElem = document.getElementById("formElem");
+    const formInfo = new FormData(formElem)
+    formInfo.append("album",dataToDataBase[0].nameAlbum);
+    formInfo.append("artist",dataToDataBase[0].nameArtist);
+    formInfo.append("release_year",dataToDataBase[0].dateAlbum);
+    formInfo.append("img",dataToDataBase[0].imgAlbum);
+    formInfo.append("vynil_type",selectedVinilType);
+    formInfo.append("album_type",selectedAlbumType);
+    formInfo.append("genre",selectedGender);
+    formInfo.append("length",dataToDataBase[0].durationTracks);
+    formInfo.append("disc_description",descriptionVinil.value);
+    formInfo.append("disc_status",selectedStatus);
+    
+
+    console.log(formElem);
+    console.table(formElem);
 
     formElem.onsubmit = async (e) => {
         e.preventDefault();
        
-        console.log(test);
-
         let response = await fetch('http://localhost:8000/user/disc', {
           method: 'POST',
-          body: test,
-          headers: { "Content-type": "multipart/form-data"}
+          body: formInfo,
         });
-    
-        // let result = await response.json();
-        console.log(result);
-        console.log("test");
+
       };
 
-    const dataDisc = {
-        album: dataToDataBase[0].nameAlbum,
-        artist: dataToDataBase[0].nameArtist,
-        release_year: dataToDataBase[0].dateAlbum,
-        img: dataToDataBase[0].imgAlbum,
-        vynil_type: selectedVinilType,
-        album_type: selectedAlbumType,
-        genre: selectedGender,
-        length: dataToDataBase[0].durationTracks,
-        disc_status: selectedStatus,
-        disc_description: descriptionVinil.value,
-    };
 
 
-    if (!dataDisc.disc_description == "") {
-        msgErrorRegister.style.color = "green";
-        msgErrorRegister.innerHTML = "Disco cadastro com sucesso!";
+    // if (!dataDisc.disc_description == "") {
+    //     msgErrorRegister.style.color = "green";
+    //     msgErrorRegister.innerHTML = "Disco cadastro com sucesso!";
 
-        fetch("http://localhost:8000/user/disc", {
-            method: "POST",
-            body: dataDisc,
-            // headers: { "Content-type": "application/json; charset=UTF-8" },
-        });
 
-    } else {
-        msgErrorRegister.innerHTML = "Por favor, insira uma descrição válida.";
-    }
+    // } else {
+    //     msgErrorRegister.innerHTML = "Por favor, insira uma descrição válida.";
+    // }
 }

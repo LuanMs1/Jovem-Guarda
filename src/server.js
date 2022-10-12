@@ -3,7 +3,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const fs = require("fs");
-// 
+
 const https = require("https");
 const privateKey = fs.readFileSync("./certs/key.pem");
 const certificate = fs.readFileSync("./certs/cert.pem");

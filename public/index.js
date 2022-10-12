@@ -39,7 +39,7 @@ const routes = {
             e
         );
     },
-    "/registerDisc": function (e) {
+    "/registerDisc": function () {
         registerDisc(
             events("/myDiscs"),
             events("/discs"),
@@ -47,7 +47,7 @@ const routes = {
             events("/myProfile"),
             events("/wishlist"),
             events("/evaluation"),
-            events("/login")
+            events("/login"),
         );
     },
     "/discs": function (e) {
@@ -58,7 +58,8 @@ const routes = {
             events("/myProfile"),
             events("/wishlist"),
             events("/evaluation"),
-            events("/login")
+            events("/login"),
+            e
         );
     },
     "/genres": function (e) {
@@ -87,7 +88,8 @@ const routes = {
             events("/myProfile"),
             events("/wishlist"),
             events("/evaluation"),
-            events("/login")
+            events("/login"),
+            e
         );
     },
     "/myProfile": function (e) {
@@ -98,7 +100,8 @@ const routes = {
             events("/registerDisc"),
             events("/wishlist"),
             events("/evaluation"),
-            events("/login")
+            events("/login"),
+            e
         );
     },
     "/wishlist": function (e) {
@@ -109,7 +112,8 @@ const routes = {
             events("/registerDisc"),
             events("/myProfile"),
             events("/evaluation"),
-            events("/login")
+            events("/login"),
+            e
         );
     },
     "/evaluation": function (e) {
@@ -120,7 +124,8 @@ const routes = {
             events("/registerDisc"),
             events("/myProfile"),
             events("/wishlist"),
-            events("/login")
+            events("/login"),
+            e
         );
     },
     "/tradeDisc": function (e) {
@@ -174,7 +179,7 @@ function router(e) {
     const adress = window.location.href.substring(8);
     const url = adress.substring(adress.indexOf("/"));
     const route = testUrlRoute(url);
-    console.log("router");
+    console.log("Router");
     console.log(e);
     route(e);
 }
@@ -189,9 +194,10 @@ function testUrlRoute(route) {
 
 window.addEventListener("onstatechange", (e) => {
     history.pushState({}, "", e.detail.name);
-    console.log("onstageChange");
-    console.log(e);
+    console.log("Evento");
+    console.log(e)
     router(e);
+    
 });
 
 window.addEventListener("popstate", router);
