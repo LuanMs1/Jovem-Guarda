@@ -26,6 +26,18 @@ const postDisc = async (req, res) => {
     }
 };
 
+const filterByGenre = async (req,res) => {
+    const genre = req.params.genre;
+    try{
+        const discRes = await services.filterByGenre(genre);
+        if (discRes.error) throw discRes.error
+
+        return res.status(200).json(discRes.result);
+    }catch(err){
+
+        return res.status(500).json({message: err});
+    }
+}
 const getUserDiscByAlbum = async (req,res) => {
     const albumName = req.body.album;
     const userId = req.user.id;
@@ -154,5 +166,6 @@ module.exports = {
     filter,
     getUserDiscByAlbum,
     getAllDiscs,
-    getAllDiscsButOwners
+    getAllDiscsButOwners,
+    filterByGenre
 };

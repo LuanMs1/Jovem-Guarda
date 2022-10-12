@@ -234,6 +234,21 @@ async function filter(filterInfo, offset = 0){
     }
 }
 
+async function filterByGenre(genre){
+    try{
+        const filter = {
+            genre: [genre]
+        };
+        const genreFilter = await discsdb.filterOr(filter);
+        if(genreFilter.error) throw genreFilter.error;
+
+        return {error: null, result: genreFilter.result.rows};
+    }catch(err){
+
+        return {error: err, result: null};
+    }
+};
+
 async function deleteDisc(discId){
     if (!discId) return "ID de disco necessário";
 
