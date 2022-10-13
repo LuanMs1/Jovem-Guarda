@@ -145,7 +145,6 @@ export function discs(
 `;
 
     nameGenre = e.detail.genre;
-    console.log(nameGenre);
 
     discsService([
         evtMydisc,
@@ -195,11 +194,155 @@ function discsService(evt) {
 }
 
 async function showGenre(nameGenre) {
-    console.log(nameGenre);
     const res = await fetch(`http://localhost:8000/user/disc/${nameGenre}`);
 
     const discsGenre = await res.json();
-    console.log(discsGenre);
+
+    for (let c = 0; c < discsGenre.length; c++) {
+        const test = document.getElementById("test");
+
+        const divDiscContainer = document.createElement("div");
+        divDiscContainer.id = "container-modal-discs";
+        divDiscContainer.dataset.id = discsGenre[c].id;
+
+        const containerInfo = document.createElement("div");
+        containerInfo.id = "container-img-info";
+
+        const imgAlbum = document.createElement("img");
+        imgAlbum.id = "img-disc";
+        imgAlbum.setAttribute("src", `${discsGenre[c].img}`);
+
+        const nameArtist = document.createElement("span");
+        nameArtist.className = "infos-album";
+        nameArtist.innerHTML = `${discsGenre[c].artist}`;
+
+        const yearAlbum = document.createElement("span");
+        yearAlbum.className = "infos-album";
+        yearAlbum.innerHTML = `${discsGenre[c].release_year}`;
+
+        test.appendChild(divDiscContainer);
+        divDiscContainer.appendChild(containerInfo);
+        containerInfo.appendChild(imgAlbum);
+        containerInfo.appendChild(nameArtist);
+        containerInfo.appendChild(yearAlbum);
+
+        const typeDiscDiv = document.createElement("div");
+        typeDiscDiv.id = "type-disc-div";
+
+        const typeAlbumLabel = document.createElement("label");
+        typeAlbumLabel.id = "type-album-label";
+        typeAlbumLabel.innerHTML = `Tipo do Album: `;
+
+        const typeDiscLabel = document.createElement("label");
+        typeDiscLabel.id = "type-disc-label";
+        typeDiscLabel.innerHTML = `Tipo do Disco: `;
+
+        const genreDiscLabel = document.createElement("label");
+        genreDiscLabel.id = "genre-label";
+        genreDiscLabel.innerHTML = `Gênero: `;
+
+        const lengthAlbumLabel = document.createElement("label");
+        lengthAlbumLabel.id = "length-label";
+        lengthAlbumLabel.innerHTML = `Duração: `;
+
+        const typeAlbum = document.createElement("span");
+        typeAlbum.id = "type-album";
+        typeAlbum.innerHTML = `${discsGenre[c].album_type}`;
+
+        const typeDisc = document.createElement("span");
+        typeDisc.id = "type-disc";
+        typeDisc.innerHTML = `${discsGenre[c].vynil_type}`;
+        const genreDisc = document.createElement("span");
+        genreDisc.id = "genre";
+        genreDisc.innerHTML = `${discsGenre[c].genre}`;
+        const lengthAlbum = document.createElement("span");
+        lengthAlbum.id = "length";
+        lengthAlbum.innerHTML = `${discsGenre[c].length}`;
+
+        divDiscContainer.appendChild(typeDiscDiv);
+        typeDiscDiv.appendChild(typeAlbumLabel);
+        typeDiscDiv.appendChild(typeDiscLabel);
+        typeDiscDiv.appendChild(genreDiscLabel);
+        typeDiscDiv.appendChild(lengthAlbumLabel);
+
+        typeAlbumLabel.appendChild(typeAlbum);
+        typeDiscLabel.appendChild(typeDisc);
+        genreDiscLabel.appendChild(genreDisc);
+        lengthAlbumLabel.appendChild(lengthAlbum);
+
+        //   <div id="description-disc-right-infos">
+        //   <div id="container-left-exchange">
+        //     <div id="type-disc"></divid>
+        //       <span>PROPRIETÁRIO:<span> Fulano de tal</span></span>
+        //       <span>CONDIÇÃO:<span> Disco bastante conservado</span></span>
+        //       <span id="description-text">DESCRIÇÃO:<span> Disco de coleção limitada e autografado </span></span>
+        //     </div>
+        //   </div>
+        // </div>
+        const descriptionDiscRightInfo = document.createElement("div");
+
+        descriptionDiscRightInfo.id = "description-disc-right-infos";
+
+        const containerRightExchange = document.createElement("div");
+        containerRightExchange.id = "container-left-exchang";
+
+        const typeDiscDivRight = document.createElement("div");
+        typeDiscDivRight.id = "type-disc-div";
+
+        descriptionDiscRightInfo.appendChild(containerRightExchange);
+        containerRightExchange.appendChild(typeDiscDivRight);
+
+        const ownerLabel = document.createElement("label");
+        ownerLabel.innerHTML = `Proprietário(a): `;
+        ownerLabel.setAttribute("value", `${discsGenre[c].user_id}`);
+
+        const conditionLabel = document.createElement("label");
+        conditionLabel.innerHTML = `Condição: `;
+        const descriptionLabel = document.createElement("label");
+        descriptionLabel.innerHTML = `Descrição: `;
+
+        const owner = document.createElement("span");
+        // owner.innerHTML = `${discsGenre[c].}`
+        const condition = document.createElement("span");
+        condition.innerHTML = `${discsGenre[c].disc_status}`;
+        const description = document.createElement("span");
+        description.innerHTML = `${discsGenre[c].disc_description}`;
+
+        divDiscContainer.appendChild(typeDiscDivRight);
+
+        typeDiscDivRight.appendChild(ownerLabel);
+        typeDiscDivRight.appendChild(conditionLabel);
+        typeDiscDivRight.appendChild(descriptionLabel);
+
+        ownerLabel.appendChild(owner);
+        conditionLabel.appendChild(condition);
+        descriptionLabel.append(description);
+
+        const changeImgDiv = document.createElement("div");
+
+        changeImgDiv.addEventListener("click", () => {
+            window.dispatchEvent(
+                new CustomEvent("onstatechange", {
+                    detail: {
+                        name: "/tradeDisc",
+                        id: 3,
+                    },
+                })
+            );
+        });
+
+        const changeImg = document.createElement("img");
+
+        changeImg.setAttribute(
+            "src",
+            "./assets/images/icons/exchange-disc.png"
+        );
+        changeImg.id = "img-exchange";
+        changeImg.className = "link";
+
+        divDiscContainer.appendChild(changeImgDiv);
+        changeImgDiv.appendChild(changeImg);
+    }
 }
 
 async function showAllDiscs() {
@@ -209,11 +352,7 @@ async function showAllDiscs() {
 
     const allDiscs = await res.json();
 
-    console.log(allDiscs);
-
     for (let c = 0; c < allDiscs.length; c++) {
-        console.log("test");
-
         const test = document.getElementById("test");
 
         const divDiscContainer = document.createElement("div");
@@ -336,8 +475,6 @@ async function showAllDiscs() {
         const changeImgDiv = document.createElement("div");
 
         changeImgDiv.addEventListener("click", () => {
-            console.log(divDiscContainer.dataset);
-            console.log("clicked here");
             window.dispatchEvent(
                 new CustomEvent("onstatechange", {
                     detail: {
