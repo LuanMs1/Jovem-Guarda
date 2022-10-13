@@ -57,6 +57,25 @@ const filterByGenre = async (req, res) => {
         return res.status(500).json({ message: err });
     }
 };
+
+const generalFilter = async (req, res) => {
+    const searchString = req.params.search;
+    const offset = req.params.offset;
+    console.log(offset);
+    const barFilter = {
+        album: [searchString],
+        artist: [searchString]
+    };
+    try{
+        const searchRes = await services.filter(barFilter,offset)
+        if (searchRes.error) throw searchRes.error;
+
+        return res.status(200).json(searchRes.result);
+    }catch(err) {
+        console.log(err);
+        return res.status(500).json({message: err})
+    }
+}
 const getUserDiscByAlbum = async (req, res) => {
     const albumName = req.body.album;
     const userId = req.user.id;
@@ -198,4 +217,5 @@ module.exports = {
     getAllDiscsButOwners,
     filterByGenre,
     getUserDiscs,
+    generalFilter,
 };
