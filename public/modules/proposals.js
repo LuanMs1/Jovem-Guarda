@@ -280,8 +280,6 @@ async function showOffers() {
         }
     }
 
-    // divModal.id = tradeId;
-
     // const divName = document.querySelector("#div-name-img");
     // const btn = document.querySelectorAll(".buttons-cancel");
 
