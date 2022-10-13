@@ -265,15 +265,17 @@ async function showOffers() {
 
         // changeImgDiv.appendChild(changeImg);
         const btn = document.querySelectorAll(".buttons-cancel");
+
+        console.log(btn);
+
         for (let index = 0; index < btn.length; index++) {
             btn[index].addEventListener("click", function test() {
                 const test = btn[index].closest("div");
                 console.log(test);
                 console.log("button-cancel");
-                console.log(treatedExchanges);
-                console.log(tradeId);
-                console.log(treatedExchanges[divModal.id][1].id);
-                // cancelExchange(treatedExchanges[index + 1][1].id);
+                console.log(treatedExchanges[tradeId][1].id);
+                // console.log(treatedExchanges);
+                cancelExchange(treatedExchanges[tradeId][1].id);
             });
         }
     }
@@ -281,18 +283,23 @@ async function showOffers() {
     // divModal.id = tradeId;
 
     // const divName = document.querySelector("#div-name-img");
-    const btn = document.querySelectorAll(".buttons-cancel");
+    // const btn = document.querySelectorAll(".buttons-cancel");
 
-    // const btn = document.querySelector(".buttons-cancel");
+    // console.log(btn);
 
-    // const test = await btn.parentNode();
-    // console.log(test);
-
-    console.log(btn);
-
-    // const btnAccept = document.querySelectorAll(".buttons-accept");
     // for (let index = 0; index < btn.length; index++) {
-    //     btnAccept[index].addEventListener("click", function test() {
+    //     btn[index].addEventListener("click", function test() {
+    //         const test = btn[index].closest("div");
+    //         console.log(test);
+    //         console.log("button-cancel");
+    //         console.log(treatedExchanges[index + 1][1].id);
+    //         console.log(treatedExchanges);
+    //         // cancelExchange(treatedExchanges[index + 1][1].id);
+    //     });
+    // }
+
+    // for (let index = 0; index < btn.length; index++) {
+    //     btn[index].addEventListener("click", function test() {
     //         const test = btn[index].closest("div");
     //         console.log(test);
     //         console.log("button-cancel");
