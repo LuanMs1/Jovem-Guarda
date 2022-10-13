@@ -156,6 +156,8 @@ export function discs(
         evtDesconect,
     ]);
 
+    
+
     const filterBtn = document.querySelector("#btn-filter-main");
     const filterModal = document.querySelector("#container-modal-filter");
     filterBtn.addEventListener("click", () => {
@@ -203,7 +205,10 @@ async function showGenre(nameGenre) {
 
         const divDiscContainer = document.createElement("div");
         divDiscContainer.id = "container-modal-discs";
-        divDiscContainer.dataset.id = discsGenre[c].id;
+        divDiscContainer.dataset.infos = {
+          discId: discsGenre[c].id,
+          ownerId: discsGenre[c].user_id
+        };
 
         const containerInfo = document.createElement("div");
         containerInfo.id = "container-img-info";
@@ -324,9 +329,10 @@ async function showGenre(nameGenre) {
             window.dispatchEvent(
                 new CustomEvent("onstatechange", {
                     detail: {
-                        name: "/tradeDisc",
-                        id: 3,
-                    },
+                      name: "/tradeDisc",
+                      discId: discsGenre[c].id,
+                      ownerId: discsGenre[c].user_id
+                  },
                 })
             );
         });
