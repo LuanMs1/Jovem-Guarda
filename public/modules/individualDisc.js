@@ -146,42 +146,49 @@ function service(evt) {
 
 
 async function createIndividualDisc(id) {
-    const res = await fetch(`/user/${id}`, {
+    const res = await fetch(`/disc/one/${id}`, {
         method: "GET",
     });
 
     const individualDisc = await res.json();
 
-    console.log(individualDisc);
 
     const discTitle = document.getElementById("disc-title");
-    discTitle.innerHTML = `${ individualDisc.album}`
+    discTitle.innerHTML = `${ individualDisc[0].album}`
 
     const discArtist = document.getElementById("disc-title");
-    discArtist.innerHTML = `${individualDisc.artist}`
+    discArtist.innerHTML = `${individualDisc[0].artist}`
 
     const discYear = document.getElementById("disc-year");
-    discYear.innerHTML = `${individualDisc.release_year}`
+    discYear.innerHTML = `${individualDisc[0].release_year}`
 
     const discImg = document.getElementById("disc-img");
-    discImg.setAttribute("src", `${individualDisc.img}`);
+    discImg.setAttribute("src", `${individualDisc[0].img}`);
 
     const albumTypeIndividual = document.getElementById("album-type-individual");
-    albumTypeIndividual.innerHTML = `Tipo do Album: ${ individualDisc.album_type}`
+    albumTypeIndividual.innerHTML = `Tipo do Album: ${ individualDisc[0].album_type}`
 
     const vinylTypeIndividual = document.getElementById("vinyl-type-individual");
-    vinylTypeIndividual.innerHTML = `Tipo do Vinil: ${individualDisc.vynil_type}`
+    vinylTypeIndividual.innerHTML = `Tipo do Vinil: ${individualDisc[0].vynil_type}`
 
     const lengthIndividual = document.getElementById("length-individual");
-    lengthIndividual.innerHTML = `Duração: ${individualDisc.length}`
+    lengthIndividual.innerHTML = `Duração: ${individualDisc[0].length}`
 
     const statusIndividual = document.getElementById("status-individual");
-    statusIndividual.innerHTML = `Situação: ${individualDisc.disc_status}`
+    statusIndividual.innerHTML = `Situação: ${individualDisc[0].disc_status}`
 
     const ownerIndividual = document.getElementById("owner-individual");
-    ownerIndividual.innerHTML = `Proprietário: ${individualDisc.name}`
+    ownerIndividual.innerHTML = `Proprietário: ${individualDisc[0].name}`
 
     const descriptionIndividual = document.getElementById("description-individual");
-    descriptionIndividual.innerHTML = `Descrição: ${individualDisc.disc_description}`
+    descriptionIndividual.innerHTML = `Descrição: ${individualDisc[0].disc_description}`
 
+   
+    const imgsDiscUpload = document.getElementsByClassName("imgs-disc-user")
+    
+    for (let y = 0; y < individualDisc.length; y++) {
+        const imgDiscUploadCreate = document.createElement("img")
+        imgDiscUploadCreate.setAttribute("src", `${individualDisc[y].real_imgs}`)
+        imgsDiscUpload[y].appendChild(imgDiscUploadCreate)
+    }
 }
