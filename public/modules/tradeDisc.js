@@ -109,6 +109,7 @@ export function tradeDisc(
     `;
 
     // id do disco à ser trocado, fazer fetch e preencher os campos
+    console.log(e);
     const discToTradeId = e.detail.id;
     console.log(discToTradeId);
 
@@ -166,7 +167,7 @@ async function showDisc(e){
     const divFrom = document.querySelector('.discs-to');
     const img = document.createElement('img');
     img.className = 'card-img';
-    const discId = e.detail.infos.discId;
+    const discId = e.detail.discId;
 
     const res = await fetch(`http://localhost:8000/disc/one/${discId}`)
     const disc = await res.json();
@@ -184,7 +185,8 @@ async function choseDiscToOffer(e){
 }
 
 async function choseWantedDisc(e){
-    const userTo = e.detail.infos.discOwner;
+    const userTo = e.detail.ownerId;
+    console.log(userTo)
     const fetchDiscs = await fetch(`http://localhost:8000/disc/user/${userTo}`);
     const fromDiscs =  await fetchDiscs.json();
     console.log(fromDiscs);

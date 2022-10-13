@@ -218,7 +218,10 @@ async function showAllDiscs() {
 
         const divDiscContainer = document.createElement("div");
         divDiscContainer.id = "container-modal-discs";
-        divDiscContainer.dataset.id = allDiscs[c].id;
+        divDiscContainer.dataset.infos = {
+          discId: allDiscs[c].id,
+          ownerId: allDiscs[c].user_id
+        };
 
         const containerInfo = document.createElement("div");
         containerInfo.id = "container-img-info";
@@ -342,7 +345,8 @@ async function showAllDiscs() {
                 new CustomEvent("onstatechange", {
                     detail: {
                         name: "/tradeDisc",
-                        id: 3,
+                        discId: allDiscs[c].id,
+                        ownerId: allDiscs[c].user_id
                     },
                 })
             );
