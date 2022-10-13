@@ -45,6 +45,7 @@ module.exports = (app) => {
     disc.get('/all', discs.getAllDiscs);
     disc.get("/one/:id", discs.getDisc);
     disc.get("/filter/:offset?", discs.filter);
+    disc.get('/generalfilter/:search/:offset?', discs.generalFilter)
 
 
     //EXCHANGE
