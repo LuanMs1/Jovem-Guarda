@@ -389,7 +389,7 @@ async function showGenre(nameGenre) {
 }
 
 async function showAllDiscs() {
-    const res = await fetch("/user/alldiscs", {
+    const res = await fetch("/user/discs/others", {
         method: "GET",
     });
 
