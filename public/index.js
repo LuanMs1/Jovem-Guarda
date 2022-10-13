@@ -7,7 +7,7 @@ import { discs } from "./modules/discs.js";
 import { genres } from "./modules/genres.js";
 import { registerDisc } from "./modules/registerDisc.js";
 import { myProfile } from "./modules/myProfile.js";
-import { evaluation } from "./modules/evaluation.js";
+import { proposals } from "./modules/proposals.js";
 import { wishlist } from "./modules/wishlist.js";
 import { singleDisc } from "./modules/singleDisc.js";
 import { tradeDisc } from "./modules/tradeDisc.js";
@@ -34,7 +34,7 @@ const routes = {
             events("/registerDisc"),
             events("/myProfile"),
             events("/wishlist"),
-            events("/evaluation"),
+            events("/proposals"),
             events("/login")
         );
     },
@@ -45,7 +45,7 @@ const routes = {
             events("/genres"),
             events("/myProfile"),
             events("/wishlist"),
-            events("/evaluation"),
+            events("/proposals"),
             events("/login")
         );
     },
@@ -56,7 +56,7 @@ const routes = {
             events("/registerDisc"),
             events("/myProfile"),
             events("/wishlist"),
-            events("/evaluation"),
+            events("/proposals"),
             events("/login"),
             e
         );
@@ -86,7 +86,7 @@ const routes = {
             events("/registerDisc"),
             events("/myProfile"),
             events("/wishlist"),
-            events("/evaluation"),
+            events("/proposals"),
             events("/login"),
             e
         );
@@ -98,7 +98,7 @@ const routes = {
             events("/genres"),
             events("/registerDisc"),
             events("/wishlist"),
-            events("/evaluation"),
+            events("/proposals"),
             events("/login")
         );
     },
@@ -109,12 +109,12 @@ const routes = {
             events("/genres"),
             events("/registerDisc"),
             events("/myProfile"),
-            events("/evaluation"),
+            events("/proposals"),
             events("/login")
         );
     },
-    "/evaluation": function () {
-        evaluation(
+    "/proposals": function () {
+        proposals(
             events("/myDiscs"),
             events("/discs"),
             events("/genres"),
@@ -132,7 +132,7 @@ const routes = {
             events("/registerDisc"),
             events("/myProfile"),
             events("/wishlist"),
-            events("/evaluation"),
+            events("/proposals"),
             events("/login"),
             e
         );
@@ -145,7 +145,7 @@ const routes = {
             events("/registerDisc"),
             events("/myProfile"),
             events("/wishlist"),
-            events("/evaluation"),
+            events("/proposals"),
             events("/login"),
             e
         );

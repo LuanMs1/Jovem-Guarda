@@ -155,7 +155,7 @@ export function registerDisc(
                         class="icons"
                         src="./assets/images/icons/star.png"
                     />
-                    <span class="link">AVALIAÇÕES</span>
+                    <span class="link">PROPOSTAS</span>
                 </div>
             </div>
             <u class="link">Desconectar</u>
@@ -346,8 +346,6 @@ export async function spotifyGetAlbumToRegister(idAlbum) {
             .toString()
             .padStart(2, "0")}:${secondsTrackTime.toString().padStart(2, "0")}`;
 
-        
-
         const registerData = {
             nameAlbum: album.name,
             nameArtist: album.artists[0].name,
@@ -425,7 +423,6 @@ function createRegisterData(registerData) {
     cardDisc.appendChild(spanNameDisc);
     cardDisc.appendChild(spanYearDisc);
     cardDisc.appendChild(spanArtisDisc);
-   
 
     // allTracks.innerHTML = "";
 
@@ -436,100 +433,97 @@ function createRegisterData(registerData) {
     //     console.log(registerData.nameTracks[t].name);
     // }
 
-const imgDivPhoto = document.getElementsByClassName("img-div-photo");
+    const imgDivPhoto = document.getElementsByClassName("img-div-photo");
 
-const inputOne = document.getElementById("input-type-file-one");
+    const inputOne = document.getElementById("input-type-file-one");
 
-const inputTwo = document.getElementById("input-type-file-two");
+    const inputTwo = document.getElementById("input-type-file-two");
 
-const inputThree = document.getElementById("input-type-file-three");
+    const inputThree = document.getElementById("input-type-file-three");
 
-const inputFour = document.getElementById("input-type-file-four");
+    const inputFour = document.getElementById("input-type-file-four");
 
-const divPhoto = document.querySelectorAll(".imgs-disc-user");
+    const divPhoto = document.querySelectorAll(".imgs-disc-user");
 
-divPhoto.forEach((e) => e.addEventListener("dragover", (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'copy';
-}))
+    divPhoto.forEach((e) =>
+        e.addEventListener("dragover", (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            e.dataTransfer.dropEffect = "copy";
+        })
+    );
 
+    divPhoto.forEach((e) =>
+        e.addEventListener("drop", (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            console.log();
+            const fileList = e.dataTransfer.files;
+            console.log(fileList);
 
-divPhoto.forEach((e) => e.addEventListener("drop", (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    console.log();
-    const fileList = e.dataTransfer.files;
-    console.log(fileList);
+            const imgDisplay = e.target.children[0];
 
-    const imgDisplay = e.target.children[0]
+            createPhotoDragandDrop(fileList, imgDisplay);
+        })
+    );
 
-    createPhotoDragandDrop(fileList, imgDisplay);
+    divPhoto.forEach((e) =>
+        e.addEventListener("click", (e) => {
+            let inputNumber = "";
+            let imgDisplay = null;
 
-}))
+            switch (e.target.id) {
+                case "image-one":
+                    inputOne.click();
+                    inputNumber = inputOne;
+                    imgDisplay = 0;
+                    break;
+                case "image-two":
+                    inputTwo.click();
+                    inputNumber = inputTwo;
+                    imgDisplay = 1;
+                    break;
+                case "image-three":
+                    inputThree.click();
+                    inputNumber = inputThree;
+                    imgDisplay = 2;
+                    break;
+                case "image-four":
+                    inputFour.click();
+                    inputNumber = inputFour;
+                    imgDisplay = 3;
+                    break;
+            }
+            createPhotoInput(inputNumber, imgDisplay);
+        })
+    );
 
-divPhoto.forEach((e) =>
-  e.addEventListener("click", (e) => {
-    let inputNumber = "";
-    let imgDisplay = null;
+    function createPhotoInput(inputNumber, imgDisplay) {
+        inputNumber.addEventListener("change", () => {
+            let reader = new FileReader();
 
-    switch (e.target.id) {
-      case "image-one":
-        inputOne.click();
-        inputNumber = inputOne;
-        imgDisplay = 0;
-        break;
-      case "image-two":
-        inputTwo.click();
-        inputNumber = inputTwo;
-        imgDisplay = 1;
-        break;
-      case "image-three":
-        inputThree.click();
-        inputNumber = inputThree;
-        imgDisplay = 2;
-        break;
-      case "image-four":
-        inputFour.click();
-        inputNumber = inputFour;
-        imgDisplay = 3;
-        break;
+            console.log(inputNumber.files[0].File);
+            reader.onload = () => {
+                imgDivPhoto[imgDisplay].src = reader.result;
+                imgDivPhoto[imgDisplay].style.display = "block";
+            };
+            reader.readAsDataURL(inputNumber.files[0]);
+        });
     }
-    createPhotoInput(inputNumber, imgDisplay);
-  })
-);
-
-function createPhotoInput(inputNumber, imgDisplay) {
-    inputNumber.addEventListener("change", () => {
-      let reader = new FileReader();
-    
-   
-        console.log(inputNumber.files[0].File);
-      reader.onload = () => {
-        imgDivPhoto[imgDisplay].src = reader.result;
-        imgDivPhoto[imgDisplay].style.display = "block";
-
-      };
-      reader.readAsDataURL(inputNumber.files[0]);
-     
-    });
-  }  
 }
 
-function createPhotoDragandDrop(fileList,imgDisplay) {
+function createPhotoDragandDrop(fileList, imgDisplay) {
     let reader = new FileReader();
     console.log(reader);
     reader.onload = () => {
         imgDisplay.src = reader.result;
         imgDisplay.style.display = "block";
-    }
+    };
 
-    reader.readAsDataURL(fileList[0])
+    reader.readAsDataURL(fileList[0]);
 }
 
-
 function createRegisterDataToDataBase() {
-
     const msgErrorRegister = document.getElementById("msg-error-register");
 
     const selectAlbumType = document.getElementById("select-album-type");
@@ -555,7 +549,6 @@ function createRegisterDataToDataBase() {
         selectgenderType.options[selectgenderType.selectedIndex].value,
     ];
 
-    console.log(dataToDataBase[0]);
 
     const formElem = document.getElementById("formElem");
     const formInfo = new FormData(formElem)
@@ -590,4 +583,5 @@ function createRegisterDataToDataBase() {
             e.preventDefault();
         }
     }
+
 }

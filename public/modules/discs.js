@@ -136,7 +136,7 @@ export function discs(
                 </div>
                 <div>
                     <img class="icons" src="./assets/images/icons/star.png" />
-                    <span class="link">AVALIAÇÕES</span>
+                    <span class="link">PROPOSTAS</span>
                 </div>
             </div>
             <u class="link">Desconectar</u>
@@ -155,8 +155,6 @@ export function discs(
         evtEvaluation,
         evtDesconect,
     ]);
-
-    
 
     const filterBtn = document.querySelector("#btn-filter-main");
     const filterModal = document.querySelector("#container-modal-filter");
@@ -206,8 +204,8 @@ async function showGenre(nameGenre) {
         const divDiscContainer = document.createElement("div");
         divDiscContainer.id = "container-modal-discs";
         divDiscContainer.dataset.infos = {
-          discId: discsGenre[c].id,
-          ownerId: discsGenre[c].user_id
+            discId: discsGenre[c].id,
+            ownerId: discsGenre[c].user_id,
         };
 
         const containerInfo = document.createElement("div");
@@ -368,10 +366,10 @@ async function showGenre(nameGenre) {
             window.dispatchEvent(
                 new CustomEvent("onstatechange", {
                     detail: {
-                      name: "/tradeDisc",
-                      discId: discsGenre[c].id,
-                      ownerId: discsGenre[c].user_id
-                  },
+                        name: "/tradeDisc",
+                        discId: discsGenre[c].id,
+                        ownerId: discsGenre[c].user_id,
+                    },
                 })
             );
         });
@@ -403,8 +401,8 @@ async function showAllDiscs() {
         const divDiscContainer = document.createElement("div");
         divDiscContainer.id = "container-modal-discs";
         divDiscContainer.dataset.infos = {
-          discId: allDiscs[c].id,
-          ownerId: allDiscs[c].user_id
+            discId: allDiscs[c].id,
+            ownerId: allDiscs[c].user_id,
         };
 
         const containerInfo = document.createElement("div");
@@ -428,7 +426,6 @@ async function showAllDiscs() {
         containerInfo.appendChild(nameArtist);
         containerInfo.appendChild(yearAlbum);
 
-
         const typeDiscDiv = document.createElement("div");
         typeDiscDiv.id = "type-disc-div";
 
@@ -448,38 +445,38 @@ async function showAllDiscs() {
         lengthAlbumLabel.id = "length-label";
         lengthAlbumLabel.innerHTML = `Duração: `;
 
-        let typeVinylDiscSwitch = null; 
+        let typeVinylDiscSwitch = null;
 
-        switch(allDiscs[c].vynil_type) {
-          case 'transparent':
-            typeVinylDiscSwitch = "Transparente"
-            break;
-          case 'matte':
-            typeVinylDiscSwitch = "Fosco"
-            break;
-          case 'glossy':
-            typeVinylDiscSwitch = "Lustroso"
-            break;
-          case 'color':
-            typeVinylDiscSwitch = "Colorido"
-            break;
-          case 'metallic':
-            typeVinylDiscSwitch = "Metálico"
-            break;
+        switch (allDiscs[c].vynil_type) {
+            case "transparent":
+                typeVinylDiscSwitch = "Transparente";
+                break;
+            case "matte":
+                typeVinylDiscSwitch = "Fosco";
+                break;
+            case "glossy":
+                typeVinylDiscSwitch = "Lustroso";
+                break;
+            case "color":
+                typeVinylDiscSwitch = "Colorido";
+                break;
+            case "metallic":
+                typeVinylDiscSwitch = "Metálico";
+                break;
         }
 
-        let typeAlbumDiscSwitch = null; 
+        let typeAlbumDiscSwitch = null;
 
-        switch(allDiscs[c].album_type) {
-          case 'single':
-            typeAlbumDiscSwitch = "Single"
-            break;
-          case 'ep':
-            typeAlbumDiscSwitch = "EP"
-            break;
-          case 'lp':
-            typeAlbumDiscSwitch = "LP"
-            break;
+        switch (allDiscs[c].album_type) {
+            case "single":
+                typeAlbumDiscSwitch = "Single";
+                break;
+            case "ep":
+                typeAlbumDiscSwitch = "EP";
+                break;
+            case "lp":
+                typeAlbumDiscSwitch = "LP";
+                break;
         }
 
         const typeAlbum = document.createElement("span");
@@ -531,22 +528,22 @@ async function showAllDiscs() {
         const descriptionLabel = document.createElement("label");
         descriptionLabel.innerHTML = `Descrição: `;
 
-        let conditionDisc = null; 
+        let conditionDisc = null;
 
-        switch(allDiscs[c].disc_status) {
-          case 'available to trade':
-            conditionDisc = "Disponível para troca."
-            break;
-          case 'wishlist':
-            conditionDisc = "Lista de Desejos."
-            break;
-          case 'own':
-            conditionDisc = "Coleção Própria."
-            break;
+        switch (allDiscs[c].disc_status) {
+            case "available to trade":
+                conditionDisc = "Disponível para troca.";
+                break;
+            case "wishlist":
+                conditionDisc = "Lista de Desejos.";
+                break;
+            case "own":
+                conditionDisc = "Coleção Própria.";
+                break;
         }
 
         const owner = document.createElement("span");
-        owner.innerHTML = `${allDiscs[c].owner}`
+        owner.innerHTML = `${allDiscs[c].owner}`;
         const condition = document.createElement("span");
         condition.innerHTML = `${conditionDisc}`;
         const description = document.createElement("span");
@@ -570,7 +567,7 @@ async function showAllDiscs() {
                     detail: {
                         name: "/tradeDisc",
                         discId: allDiscs[c].id,
-                        ownerId: allDiscs[c].user_id
+                        ownerId: allDiscs[c].user_id,
                     },
                 })
             );
