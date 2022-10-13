@@ -48,7 +48,7 @@ export function wishlist(
                     </div>
                     <div>
                         <img class="icons" src="./assets/images/icons/star.png" />
-                        <span class="link">AVALIAÇÕES</span>
+                        <span class="link">PROPOSTAS</span>
                     </div>
                 </div>
                 <u class="link">Desconectar</u>

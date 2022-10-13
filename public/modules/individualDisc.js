@@ -100,7 +100,7 @@ export function individualDisc(
                     class="icons"
                     src="./assets/images/icons/star.png"
                 />
-                <span class="link">AVALIAÇÕES</span>
+                <span class="link">PROPOSTAS</span>
             </div>
         </div>
         <u class="link">Desconectar</u>
@@ -108,7 +108,7 @@ export function individualDisc(
 </section>
     `;
 
-    createIndividualDisc(e.detail.id)
+    createIndividualDisc(e.detail.id);
 
     service([
         evtMydisc,
@@ -144,7 +144,6 @@ function service(evt) {
     document.title = "Disco individual";
 }
 
-
 async function createIndividualDisc(id) {
     const res = await fetch(`/disc/one/${id}`, {
         method: "GET",
@@ -152,44 +151,51 @@ async function createIndividualDisc(id) {
 
     const individualDisc = await res.json();
 
-
     const discTitle = document.getElementById("disc-title");
-    discTitle.innerHTML = `${ individualDisc[0].album}`
+    discTitle.innerHTML = `${individualDisc[0].album}`;
 
     const discArtist = document.getElementById("disc-title");
-    discArtist.innerHTML = `${individualDisc[0].artist}`
+    discArtist.innerHTML = `${individualDisc[0].artist}`;
 
     const discYear = document.getElementById("disc-year");
-    discYear.innerHTML = `${individualDisc[0].release_year}`
+    discYear.innerHTML = `${individualDisc[0].release_year}`;
 
     const discImg = document.getElementById("disc-img");
     discImg.setAttribute("src", `${individualDisc[0].img}`);
 
-    const albumTypeIndividual = document.getElementById("album-type-individual");
-    albumTypeIndividual.innerHTML = `Tipo do Album: ${ individualDisc[0].album_type}`
+    const albumTypeIndividual = document.getElementById(
+        "album-type-individual"
+    );
+    albumTypeIndividual.innerHTML = `Tipo do Album: ${individualDisc[0].album_type}`;
 
-    const vinylTypeIndividual = document.getElementById("vinyl-type-individual");
-    vinylTypeIndividual.innerHTML = `Tipo do Vinil: ${individualDisc[0].vynil_type}`
+    const vinylTypeIndividual = document.getElementById(
+        "vinyl-type-individual"
+    );
+    vinylTypeIndividual.innerHTML = `Tipo do Vinil: ${individualDisc[0].vynil_type}`;
 
     const lengthIndividual = document.getElementById("length-individual");
-    lengthIndividual.innerHTML = `Duração: ${individualDisc[0].length}`
+    lengthIndividual.innerHTML = `Duração: ${individualDisc[0].length}`;
 
     const statusIndividual = document.getElementById("status-individual");
-    statusIndividual.innerHTML = `Situação: ${individualDisc[0].disc_status}`
+    statusIndividual.innerHTML = `Situação: ${individualDisc[0].disc_status}`;
 
     const ownerIndividual = document.getElementById("owner-individual");
-    ownerIndividual.innerHTML = `Proprietário: ${individualDisc[0].name}`
+    ownerIndividual.innerHTML = `Proprietário: ${individualDisc[0].name}`;
 
-    const descriptionIndividual = document.getElementById("description-individual");
-    descriptionIndividual.innerHTML = `Descrição: ${individualDisc[0].disc_description}`
+    const descriptionIndividual = document.getElementById(
+        "description-individual"
+    );
+    descriptionIndividual.innerHTML = `Descrição: ${individualDisc[0].disc_description}`;
 
-   
-    const imgsDiscUpload = document.getElementsByClassName("imgs-disc-user")
-    
+    const imgsDiscUpload = document.getElementsByClassName("imgs-disc-user");
+
     for (let y = 0; y < individualDisc.length; y++) {
-        const imgDiscUploadCreate = document.createElement("img")
-        imgDiscUploadCreate.setAttribute("src", `./uploads/discs/${individualDisc[y].real_imgs}`)
-        imgDiscUploadCreate.className = "img-disc-upload-create"
-        imgsDiscUpload[y].appendChild(imgDiscUploadCreate)
+        const imgDiscUploadCreate = document.createElement("img");
+        imgDiscUploadCreate.setAttribute(
+            "src",
+            `./uploads/discs/${individualDisc[y].real_imgs}`
+        );
+        imgDiscUploadCreate.className = "img-disc-upload-create";
+        imgsDiscUpload[y].appendChild(imgDiscUploadCreate);
     }
 }

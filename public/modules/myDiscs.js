@@ -46,7 +46,7 @@ export function myDiscs(evtJoinmyDisc1, evtJoinmyDisc, x1, x2, x3, x4, x5) {
                     </div>
                     <div>
                         <img class="icons" src="./assets/images/icons/star.png" />
-                        <span class="link">AVALIAÇÕES</span>
+                        <span class="link">PROPOSTAS</span>
                     </div>
                 </div>
                 <u class="link">Desconectar</u>
@@ -96,18 +96,18 @@ async function loadMyDiscs() {
         const cardDisc = document.createElement("div");
         cardDisc.className = "card-myDiscs";
 
-        cardDisc.addEventListener('click', () => {
-            
-            console.log('clicked here');
-            window.dispatchEvent(new CustomEvent("onstatechange", {
-              detail: {
-                  name: '/individualDisc',
-                  id: discId
-              },
-          }));
-          });
+        cardDisc.addEventListener("click", () => {
+            console.log("clicked here");
+            window.dispatchEvent(
+                new CustomEvent("onstatechange", {
+                    detail: {
+                        name: "/individualDisc",
+                        id: discId,
+                    },
+                })
+            );
+        });
 
-          
         const imgCard = document.createElement("img");
         imgCard.className = "card-img";
         imgCard.setAttribute("src", `${dataAllUserDiscs[c].img}`);
