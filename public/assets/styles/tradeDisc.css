@@ -21,6 +21,7 @@
     align-items: center;
     flex-direction: column;
     gap: 55px;
+    padding: 20px;
 }
 #want-disc-right {
     display: flex;
@@ -64,3 +65,32 @@
     border: none;
     cursor: pointer;
 }
+#select-trade{
+    background-color: rgb(50, 31, 117, 0.8);
+    color: #d9d9d9;
+    /* box-shadow: 6px 6px 15px 1px rgba(0,0,0,0.81); */
+    box-shadow: 3px 3px 13px 1px var(--btn-bg-color);
+    font-family: "Inria Sans", sans-serif;
+    font-size: 16px;
+    border-radius: 5px;
+}
+#subm-trade {
+    width:180px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-family: "Inria Sans", sans-serif;
+    color: #030526;
+    font-weight: bold;
+    border: none;
+    background: url("imgs/search.png") no-repeat;
+    background-color: #ebe8e8;
+    background-size: 15px;
+    font-size: 18px;
+    background-position: 115px;
+    cursor: pointer;
+    padding-left: 10px;
+}
+
