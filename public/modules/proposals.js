@@ -50,7 +50,7 @@ export function proposals(
                         <span class="link">LISTA DE DESEJOS</span>
                     </div>
                     <div>
-                        <img class="icons" src="./assets/images/icons/star.png" />
+                        <img class="icons" src="./assets/images/icons/two-arrows.png" />
                         <span class="selected-page">PROPOSTAS</span>
                     </div>
                 </div>
@@ -168,20 +168,51 @@ async function showOffers() {
         const divButtons = document.createElement("div");
         divButtons.id = "div-buttons-pending";
         divModal.appendChild(divButtons);
-        const buttonAccept = document.createElement("button");
-        buttonAccept.innerHTML = "ACEITAR";
-        divButtons.appendChild(buttonAccept);
-        buttonAccept.id = "buttons-proposals";
-        const buttonReject = document.createElement("button");
-        buttonReject.innerHTML = "REJEITAR";
-        divButtons.appendChild(buttonReject);
-        buttonReject.id = "buttons-proposals";
 
-        const divNameImgL = document.createElement("div");
-        divNameImgL.id = "div-name-img";
-        divNameImgL.appendChild(buttonAccept);
-        divNameImgL.appendChild(buttonReject);
-        divModal.appendChild(divNameImgL);
+        console.log(exchanges[c].status);
+
+        if (exchanges[c].status === "pending_approval") {
+            const buttonAccept = document.createElement("button");
+            buttonAccept.innerHTML = "ACEITAR";
+            divButtons.appendChild(buttonAccept);
+            buttonAccept.id = "buttons-proposals";
+
+            const buttonReject = document.createElement("button");
+            buttonReject.innerHTML = "REJEITAR";
+            divButtons.appendChild(buttonReject);
+            buttonReject.id = "buttons-proposals";
+
+            const divNameImgL = document.createElement("div");
+            divNameImgL.id = "div-name-img";
+            divNameImgL.appendChild(buttonAccept);
+            divNameImgL.appendChild(buttonReject);
+            divModal.appendChild(divNameImgL);
+            divModal.appendChild(divNameImgL);
+        } else {
+            const buttonContacts = document.createElement("button");
+            buttonContacts.innerHTML = "CONTATOS";
+            divButtons.appendChild(buttonContacts);
+            buttonContacts.id = "buttons-proposals";
+
+            const buttonComplete = document.createElement("button");
+            buttonComplete.innerHTML = "COMPELTAR";
+            divButtons.appendChild(buttonComplete);
+            buttonComplete.id = "buttons-proposals";
+
+            const buttonCancel = document.createElement("button");
+            buttonCancel.innerHTML = "CANCELAR";
+            divButtons.appendChild(buttonCancel);
+            buttonCancel.id = "buttons-proposals";
+
+            const divNameImgL = document.createElement("div");
+            divNameImgL.id = "div-name-img";
+            divNameImgL.appendChild(buttonContacts);
+            divNameImgL.appendChild(buttonComplete);
+            divNameImgL.appendChild(buttonCancel);
+            divModal.appendChild(divNameImgL);
+            divModal.appendChild(divNameImgL);
+            divModal.appendChild(divNameImgL);
+        }
 
         // containerInfo.appendChild(imgAlbum);
 

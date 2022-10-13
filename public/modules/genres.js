@@ -203,7 +203,7 @@ export function genres(
                         <span class="link">LISTA DE DESEJOS</span>
                     </div>
                     <div>
-                        <img class="icons" src="./assets/images/icons/star.png" />
+                        <img class="icons" src="./assets/images/icons/two-arrows.png" />
                         <span class="link">PROPOSTAS</span>
                     </div>
                 </div>

@@ -66,6 +66,7 @@
     background: var(--main-bg-color);
     border: none;
     border-radius: 5px;
+    padding-left: 10px;
 }
 
 #password-login {
@@ -78,6 +79,7 @@
     background: var(--main-bg-color);
     border: none;
     border-radius: 5px;
+    padding-left: 10px;
 }
 
 #create-acount {

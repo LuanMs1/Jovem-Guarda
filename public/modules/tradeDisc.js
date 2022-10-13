@@ -99,7 +99,7 @@ export function tradeDisc(
             <div>
                 <img
                     class="icons"
-                    src="./assets/images/icons/star.png"
+                    src="./assets/images/icons/two-arrows.png"
                 />
                 <span class="link">PROPOSTAS</span>
             </div>

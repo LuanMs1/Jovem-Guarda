@@ -58,6 +58,7 @@
     background: var(--main-bg-color);
     border: none;
     border-radius: 5px;
+    padding-left: 10px;
 }
 
 #name-register {
@@ -70,6 +71,7 @@
     background: var(--main-bg-color);
     border: none;
     border-radius: 5px;
+    padding-left: 10px;
 }
 
 #password-register {
@@ -82,18 +84,7 @@
     background: var(--main-bg-color);
     border: none;
     border-radius: 5px;
-}
-
-#email-login {
-    max-width: 250px;
-    width: 80vw;
-    height: 35px;
-    color: #d9d9d9;
-    font-family: "Inria Sans", sans-serif;
-    font-size: 16px;
-    background: var(--main-bg-color);
-    border: none;
-    border-radius: 5px;
+    padding-left: 10px;
 }
 
 #confirm-password-register {
@@ -106,6 +97,7 @@
     background: var(--main-bg-color);
     border: none;
     border-radius: 5px;
+    padding-left: 10px;
 }
 
 #message-error-register {

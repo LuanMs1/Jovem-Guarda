@@ -45,7 +45,7 @@ export function myDiscs(evtJoinmyDisc1, evtJoinmyDisc, x1, x2, x3, x4, x5) {
                         <span class="link">LISTA DE DESEJOS</span>
                     </div>
                     <div>
-                        <img class="icons" src="./assets/images/icons/star.png" />
+                        <img class="icons" src="./assets/images/icons/two-arrows.png" />
                         <span class="link">PROPOSTAS</span>
                     </div>
                 </div>
