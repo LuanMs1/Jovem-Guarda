@@ -98,6 +98,9 @@ function service(evt) {
 async function showOffers() {
     const exchanges = await getActiveExchanges();
     console.log(exchanges);
+    const treatedExchanges = organizeData(exchanges);
+    console.log(treatedExchanges);
+    
     const res = await fetch("/user/alldiscs", {
         method: "GET",
     });
@@ -235,4 +238,28 @@ async function completeExchange(exchangeId) {
 }
 async function cancelExchange(exchangeId) {
     await fetch(`user/exchanges/cancel/${exchangeId}`);
+}
+
+function organizeData(exchange){
+    const organized = {};
+
+    for (let disc of exchange){
+        if (organized[disc.id]){
+            disc = discowner(disc);
+            organized[disc.id].push(disc);
+        }else{
+            disc = discowner(disc);
+            organized[disc.id] = [disc];
+        }
+    };
+    return organized;
+}
+
+function discowner(disc){
+    if (disc.disc_onwer === disc.user_to){
+        disc.disc_onwer = 'to' 
+    }else{
+        disc.disc_onwer = 'from'
+    }
+    return disc;
 }
