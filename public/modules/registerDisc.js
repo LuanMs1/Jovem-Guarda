@@ -314,6 +314,8 @@ export async function spotifyGetAlbumToRegister(idAlbum) {
             .toString()
             .padStart(2, "0")}:${secondsTrackTime.toString().padStart(2, "0")}`;
 
+        
+
         const registerData = {
             nameAlbum: album.name,
             nameArtist: album.artists[0].name,
@@ -365,7 +367,6 @@ function createRegisterData(registerData) {
 
     registerAlbum.addEventListener("click", createRegisterDataToDataBase);
 
-
     const cardDisc = document.createElement("div");
     cardDisc.className = "card-myDiscs";
 
@@ -385,16 +386,14 @@ function createRegisterData(registerData) {
     spanArtisDisc.className = "info-disc";
     spanArtisDisc.innerHTML = `${registerData.nameArtist}`;
 
+    durationTracks.innerHTML = `${registerData.durationTracks}`;
+
     individualDiscRegister.appendChild(cardDisc);
     cardDisc.appendChild(imgCard);
     cardDisc.appendChild(spanNameDisc);
     cardDisc.appendChild(spanYearDisc);
     cardDisc.appendChild(spanArtisDisc);
 
-    // nameAlbum.innerHTML = `${registerData.nameAlbum}`;
-    // nameArtist.innerHTML = `${registerData.nameArtist}`;
-    // yearAlbum.innerHTML = `${registerData.dateAlbum}`;
-    // durationTracks.innerHTML = ` ${registerData.durationTracks}`;
 
     allTracks.innerHTML = "";
 
