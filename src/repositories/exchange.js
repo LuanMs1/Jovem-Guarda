@@ -215,7 +215,7 @@ async function userActiveExchanges(userId){
     const text = `
         SELECT  exchange.id, exchange.status, userFrom.name As user_from, 
                 userTo.name AS user_to, discs.album AS disc_name, 
-                userOwner.name As disc_onwer, discs.img
+                userOwner.name As disc_onwer, discs.user_id As owner_id, discs.img
         FROM exchange
         INNER JOIN users AS userFrom
             ON userFrom.id = exchange.user_from

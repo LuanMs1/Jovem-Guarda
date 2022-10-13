@@ -107,3 +107,6 @@ teste.http
 
 #certs
 *.pem
+
+#imgs
+*.jpg
