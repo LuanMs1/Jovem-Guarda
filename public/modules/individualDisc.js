@@ -104,7 +104,7 @@ export function individualDisc(
             <div>
                 <img
                     class="icons"
-                    src="./assets/images/icons/star.png"
+                    src="./assets/images/icons/two-arrows.png"
                 />
                 <span class="link">PROPOSTAS</span>
             </div>
@@ -150,12 +150,11 @@ function service(evt) {
     document.title = "Disco individual";
 }
 
-
 async function createIndividualDisc(id) {
     const res = await fetch(`/disc/one/${id}`, {
         method: "GET",
     });
-    
+
     discID = id;
 
     const individualDisc = await res.json();
@@ -258,9 +257,7 @@ async function createIndividualDisc(id) {
 
     const deleteButton = document.getElementById("btn-trade");
     deleteButton.addEventListener("click", deleteIndividualDisc);
-
 }
-
 
 let discID = null;
 
@@ -268,27 +265,30 @@ async function deleteIndividualDisc() {
     const res = await fetch(`/user/disc/${discID}`, {
         method: "DELETE",
     });
-    const deleted = res.json()
+    const deleted = res.json();
 
-    document.getElementById("disc-title").style.textDecoration = "line-through"
-    document.getElementById("disc-artist").style.textDecoration = "line-through"
-    document.getElementById("disc-year").style.textDecoration = "line-through"
-    document.getElementById("disc-img").style.opacity = "0.3"
-    document.getElementById("album-type-individual").style.textDecoration = "line-through"
-    document.getElementById("vinyl-type-individual").style.textDecoration = "line-through"
-    document.getElementById("length-individual").style.textDecoration = "line-through"
-    document.getElementById("status-individual").style.textDecoration = "line-through"
-    document.getElementById("owner-individual").style.textDecoration = "line-through"
-    document.getElementById(
-        "description-individual"
-    ).style.textDecoration = "line-through"
+    document.getElementById("disc-title").style.textDecoration = "line-through";
+    document.getElementById("disc-artist").style.textDecoration =
+        "line-through";
+    document.getElementById("disc-year").style.textDecoration = "line-through";
+    document.getElementById("disc-img").style.opacity = "0.3";
+    document.getElementById("album-type-individual").style.textDecoration =
+        "line-through";
+    document.getElementById("vinyl-type-individual").style.textDecoration =
+        "line-through";
+    document.getElementById("length-individual").style.textDecoration =
+        "line-through";
+    document.getElementById("status-individual").style.textDecoration =
+        "line-through";
+    document.getElementById("owner-individual").style.textDecoration =
+        "line-through";
+    document.getElementById("description-individual").style.textDecoration =
+        "line-through";
 
     const msgError = document.getElementById("msg-error-individual");
-        msgError.innerHTML = "Disco excluído com sucesso!"
-        
-        
-    // if (res.status == 200) {
-    
-    // }
+    msgError.innerHTML = "Disco excluído com sucesso!";
 
+    // if (res.status == 200) {
+
+    // }
 }

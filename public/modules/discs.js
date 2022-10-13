@@ -135,7 +135,7 @@ export function discs(
                     <span class="link">LISTA DE DESEJOS</span>
                 </div>
                 <div>
-                    <img class="icons" src="./assets/images/icons/star.png" />
+                    <img class="icons" src="./assets/images/icons/two-arrows.png" />
                     <span class="link">PROPOSTAS</span>
                 </div>
             </div>
@@ -247,39 +247,39 @@ async function showGenre(nameGenre) {
         const lengthAlbumLabel = document.createElement("label");
         lengthAlbumLabel.id = "length-label";
         lengthAlbumLabel.innerHTML = `Duração: `;
-        
-        let typeVinylDiscSwitch = null; 
 
-        switch(discsGenre[c].vynil_type) {
-          case 'transparent':
-            typeVinylDiscSwitch = "Transparente"
-            break;
-          case 'matte':
-            typeVinylDiscSwitch = "Fosco"
-            break;
-          case 'glossy':
-            typeVinylDiscSwitch = "Lustroso"
-            break;
-          case 'color':
-            typeVinylDiscSwitch = "Colorido"
-            break;
-          case 'metallic':
-            typeVinylDiscSwitch = "Metálico"
-            break;
+        let typeVinylDiscSwitch = null;
+
+        switch (discsGenre[c].vynil_type) {
+            case "transparent":
+                typeVinylDiscSwitch = "Transparente";
+                break;
+            case "matte":
+                typeVinylDiscSwitch = "Fosco";
+                break;
+            case "glossy":
+                typeVinylDiscSwitch = "Lustroso";
+                break;
+            case "color":
+                typeVinylDiscSwitch = "Colorido";
+                break;
+            case "metallic":
+                typeVinylDiscSwitch = "Metálico";
+                break;
         }
 
-        let typeAlbumDiscSwitch = null; 
+        let typeAlbumDiscSwitch = null;
 
-        switch(discsGenre[c].album_type) {
-          case 'single':
-            typeAlbumDiscSwitch = "Single"
-            break;
-          case 'ep':
-            typeAlbumDiscSwitch = "EP"
-            break;
-          case 'lp':
-            typeAlbumDiscSwitch = "LP"
-            break;
+        switch (discsGenre[c].album_type) {
+            case "single":
+                typeAlbumDiscSwitch = "Single";
+                break;
+            case "ep":
+                typeAlbumDiscSwitch = "EP";
+                break;
+            case "lp":
+                typeAlbumDiscSwitch = "LP";
+                break;
         }
 
         const typeAlbum = document.createElement("span");
@@ -329,22 +329,22 @@ async function showGenre(nameGenre) {
         const descriptionLabel = document.createElement("label");
         descriptionLabel.innerHTML = `Descrição: `;
 
-        let conditionDisc = null; 
+        let conditionDisc = null;
 
-        switch(discsGenre[c].disc_status) {
-          case 'available to trade':
-            conditionDisc = "Disponível para troca."
-            break;
-          case 'wishlist':
-            conditionDisc = "Lista de Desejos."
-            break;
-          case 'own':
-            conditionDisc = "Coleção Própria."
-            break;
+        switch (discsGenre[c].disc_status) {
+            case "available to trade":
+                conditionDisc = "Disponível para troca.";
+                break;
+            case "wishlist":
+                conditionDisc = "Lista de Desejos.";
+                break;
+            case "own":
+                conditionDisc = "Coleção Própria.";
+                break;
         }
 
         const owner = document.createElement("span");
-        owner.innerHTML = `${discsGenre[c].owner}`
+        owner.innerHTML = `${discsGenre[c].owner}`;
         const condition = document.createElement("span");
         condition.innerHTML = `${conditionDisc}`;
         const description = document.createElement("span");

@@ -153,7 +153,7 @@ export function registerDisc(
                 <div>
                     <img
                         class="icons"
-                        src="./assets/images/icons/star.png"
+                        src="./assets/images/icons/two-arrows.png
                     />
                     <span class="link">PROPOSTAS</span>
                 </div>
@@ -222,7 +222,7 @@ function debounceRegisterApi() {
 export async function spotifyGetAlbum(artistAlbum) {
     const selectAlbuns = document.getElementById("select-albums");
 
-    const modalSelect = document.getElementById("modal-select")
+    const modalSelect = document.getElementById("modal-select");
 
     const createSelect = document.createElement("select");
 
@@ -231,7 +231,7 @@ export async function spotifyGetAlbum(artistAlbum) {
     const tokenSpotify = await getSpotifyToken();
 
     document.querySelector("#select-albums").innerHTML = "";
-    modalSelect.innerHTML = ""
+    modalSelect.innerHTML = "";
     const inputValue = document.querySelector("#list-albums").value;
 
     msgError.innerHTML = "";
@@ -251,7 +251,7 @@ export async function spotifyGetAlbum(artistAlbum) {
                 Authorization: `${tokenSpotify}`,
             },
         });
-        
+
         const albums = await res.json();
         modalSelect.appendChild(selectAlbuns);
 
@@ -259,48 +259,56 @@ export async function spotifyGetAlbum(artistAlbum) {
             const createOption = document.createElement("option");
 
             if (albums.albums.items.length === 1) {
-                selectAlbuns.setAttribute("size", `${albums.albums.items.length}`);
+                selectAlbuns.setAttribute(
+                    "size",
+                    `${albums.albums.items.length}`
+                );
             } else if (albums.albums.items.length > 10) {
-                selectAlbuns.setAttribute("size", `${albums.albums.items.length / 4}`)
-            } else if (albums.albums.items.length > 1 && albums.albums.items.length <= 10) {
-                selectAlbuns.setAttribute("size", `${albums.albums.items.length / 2}`)
+                selectAlbuns.setAttribute(
+                    "size",
+                    `${albums.albums.items.length / 4}`
+                );
+            } else if (
+                albums.albums.items.length > 1 &&
+                albums.albums.items.length <= 10
+            ) {
+                selectAlbuns.setAttribute(
+                    "size",
+                    `${albums.albums.items.length / 2}`
+                );
             }
-            
+
             createSelect.classList.add("selected-albums");
             createOption.innerHTML = `${albums.albums.items[i].name}`;
             createOption.setAttribute("value", `${albums.albums.items[i].id}`);
             selectAlbuns.appendChild(createOption);
-            modalSelect.style.display = "block"
+            modalSelect.style.display = "block";
         }
-        
 
         selectAlbuns.addEventListener("change", getElementsToRegister);
 
         function getElementsToRegister() {
             // if (document.getElementById("card-myDiscs") == "") {
-            
-           if(document.getElementById("individual-disc").innerHTML == "") {
-                const idAlbum =
-                selectAlbuns.options[selectAlbuns.selectedIndex].value;
-                selectAlbuns.style.display = "none";
-                spotifyGetAlbumToRegister(idAlbum);
-                document.querySelector("#select-albums").innerHTML = "";
-                document.querySelector("#list-albums").value = "";
-                modalSelect.style.display = "none"
-                document.getElementById("card-myDiscs").innerHTML = ""
-            } else {
-                document.getElementById("individual-disc").innerHTML = ""
-                const idAlbum =
-                selectAlbuns.options[selectAlbuns.selectedIndex].value;
-                selectAlbuns.style.display = "none";
-                spotifyGetAlbumToRegister(idAlbum);
-                document.querySelector("#select-albums").innerHTML = "";
-                document.querySelector("#list-albums").value = "";
-                modalSelect.style.display = "none"
-            }
 
-            
-            
+            if (document.getElementById("individual-disc").innerHTML == "") {
+                const idAlbum =
+                    selectAlbuns.options[selectAlbuns.selectedIndex].value;
+                selectAlbuns.style.display = "none";
+                spotifyGetAlbumToRegister(idAlbum);
+                document.querySelector("#select-albums").innerHTML = "";
+                document.querySelector("#list-albums").value = "";
+                modalSelect.style.display = "none";
+                document.getElementById("card-myDiscs").innerHTML = "";
+            } else {
+                document.getElementById("individual-disc").innerHTML = "";
+                const idAlbum =
+                    selectAlbuns.options[selectAlbuns.selectedIndex].value;
+                selectAlbuns.style.display = "none";
+                spotifyGetAlbumToRegister(idAlbum);
+                document.querySelector("#select-albums").innerHTML = "";
+                document.querySelector("#list-albums").value = "";
+                modalSelect.style.display = "none";
+            }
         }
 
         selectAlbuns.style.display = "block";
@@ -395,7 +403,6 @@ function createRegisterData(registerData) {
     document.getElementById("register-album").style.display = "block";
 
     registerAlbum.addEventListener("click", createRegisterDataToDataBase);
-
 
     const cardDisc = document.createElement("div");
     cardDisc.className = "card-myDiscs";
@@ -549,19 +556,18 @@ function createRegisterDataToDataBase() {
         selectgenderType.options[selectgenderType.selectedIndex].value,
     ];
 
-
     const formElem = document.getElementById("formElem");
-    const formInfo = new FormData(formElem)
-    formInfo.append("album",dataToDataBase[0].nameAlbum);
-    formInfo.append("artist",dataToDataBase[0].nameArtist);
-    formInfo.append("release_year",dataToDataBase[0].dateAlbum);
-    formInfo.append("img",dataToDataBase[0].imgAlbum);
-    formInfo.append("vynil_type",selectedVinilType);
-    formInfo.append("album_type",selectedAlbumType);
-    formInfo.append("genre",selectedGender);
-    formInfo.append("length",dataToDataBase[0].durationTracks);
-    formInfo.append("disc_description",descriptionVinil.value);
-    formInfo.append("disc_status",selectedStatus);
+    const formInfo = new FormData(formElem);
+    formInfo.append("album", dataToDataBase[0].nameAlbum);
+    formInfo.append("artist", dataToDataBase[0].nameArtist);
+    formInfo.append("release_year", dataToDataBase[0].dateAlbum);
+    formInfo.append("img", dataToDataBase[0].imgAlbum);
+    formInfo.append("vynil_type", selectedVinilType);
+    formInfo.append("album_type", selectedAlbumType);
+    formInfo.append("genre", selectedGender);
+    formInfo.append("length", dataToDataBase[0].durationTracks);
+    formInfo.append("disc_description", descriptionVinil.value);
+    formInfo.append("disc_status", selectedStatus);
 
     if (!descriptionVinil.value == "") {
         msgErrorRegister.style.color = "green";
@@ -569,19 +575,16 @@ function createRegisterDataToDataBase() {
 
         formElem.onsubmit = async (e) => {
             e.preventDefault();
-           
-            let response = await fetch('/user/disc', {
-              method: 'POST',
-              body: formInfo,
-            });
-    
-          };
 
+            let response = await fetch("/user/disc", {
+                method: "POST",
+                body: formInfo,
+            });
+        };
     } else {
         msgErrorRegister.innerHTML = "Por favor, insira uma descrição válida.";
         formElem.onsubmit = async (e) => {
             e.preventDefault();
-        }
+        };
     }
-
 }
