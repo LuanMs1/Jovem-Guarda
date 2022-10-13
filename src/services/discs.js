@@ -94,7 +94,7 @@ async function getDisc(discId) {
         if (discRes.error) throw discRes.error;
         if (discRes.result.rowCount === 0) throw "Disco não encontrado";
 
-        return { error: null, result: discRes.result.rows[0] };
+        return { error: null, result: discRes.result.rows };
     } catch (err) {
         return { error: err, result: null };
     }
