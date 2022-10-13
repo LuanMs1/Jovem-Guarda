@@ -194,7 +194,7 @@ function discsService(evt) {
 }
 
 async function showGenre(nameGenre) {
-    const res = await fetch(`http://localhost:8000/user/disc/${nameGenre}`);
+    const res = await fetch(`/user/disc/${nameGenre}`);
 
     const discsGenre = await res.json();
 

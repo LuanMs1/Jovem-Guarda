@@ -80,7 +80,7 @@ function discsService(evt) {
 }
 
 async function loadMyDiscs() {
-    const res = await fetch("http://localhost:8000/user/alldiscs", {
+    const res = await fetch("/user/alldiscs", {
         method: "GET",
     });
 
