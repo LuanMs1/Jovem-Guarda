@@ -233,7 +233,9 @@ async function choseWantedDisc(e) {
 function creatingSelection(discs, fatherElement, elementForImgs) {
     // creating elements to select
     const select = document.createElement("select");
+    select.id = "select-trade"
     const subm = document.createElement("button");
+    subm.id="subm-trade"
     for (let i in discs) {
         const option = document.createElement("option");
         option.innerHTML = discs[i].album;
@@ -247,7 +249,7 @@ function creatingSelection(discs, fatherElement, elementForImgs) {
         subm.remove();
         select.remove();
     });
-    subm.innerHTML = "choose disc";
+    subm.innerHTML = "Selecionar disco!";
     fatherElement.appendChild(subm);
 }
 // adding disc on the click
