@@ -126,9 +126,10 @@ const selectUserDiscs = async (userId, offset = 0) => {
 const getDisc = async (discId) => {
 
     const text = `
-        SELECT discs.*, users.name
+        SELECT discs.*, users.name, discs_img.img AS real_imgs
         FROM discs
         LEFT JOIN users ON users.id = discs.user_id
+        LEFT JOIN discs_img ON discs_img.disc_id = discs.id
         WHERE discs.id = $1
     `
     
@@ -139,6 +140,7 @@ const getDisc = async (discId) => {
         return { error: err, result: null };
     }
 };
+
 
 const getUserDiscByAlbum = async (albumName, userId) => {
     const text = `
