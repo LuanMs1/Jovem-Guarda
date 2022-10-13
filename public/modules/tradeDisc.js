@@ -127,8 +127,8 @@ export function tradeDisc(
     const profilePic = document.querySelector("#container-user-all");
     const profileMenu = document.querySelector("#menu");
     const profileMenuContainer = document.querySelector("#container-menu");
-    const addOfferDisc = document.querySelector('.card-add-offer');
-    const addAsckDisc = document.querySelector('.card-add-asck')
+    const addOfferDisc = document.querySelector(".card-add-offer");
+    const addAsckDisc = document.querySelector(".card-add-asck");
 
     profilePic.addEventListener("click", () => {
         profileMenu.style.display === "flex"
@@ -137,19 +137,18 @@ export function tradeDisc(
             : ((profileMenu.style.display = "flex"),
               (profileMenuContainer.style.display = "flex"));
     });
-    addOfferDisc.addEventListener('click', () =>{
+    addOfferDisc.addEventListener("click", () => {
         console.log(e);
         choseDiscToOffer(e);
     });
 
-    addAsckDisc.addEventListener('click', () => {
+    addAsckDisc.addEventListener("click", () => {
         choseWantedDisc(e);
-    })
+    });
     showDisc(e);
-    console.log('detail:')
-    console.log(e.detail)
+    console.log("detail:");
+    console.log(e.detail);
 }
-
 
 function service(evt) {
     const elements = document.querySelectorAll(".link");
@@ -162,14 +161,13 @@ function service(evt) {
     document.title = "Propor troca";
 }
 
-async function showDisc(e){
-
-    const divFrom = document.querySelector('.discs-to');
-    const img = document.createElement('img');
-    img.className = 'card-img';
+async function showDisc(e) {
+    const divFrom = document.querySelector(".discs-to");
+    const img = document.createElement("img");
+    img.className = "card-img";
     const discId = e.detail.discId;
 
-    const res = await fetch(`http://localhost:8000/disc/one/${discId}`)
+    const res = await fetch(`/disc/one/${discId}`);
     const disc = await res.json();
     console.log(disc);
     const discImg = disc.img;
@@ -178,16 +176,16 @@ async function showDisc(e){
     divFrom.appendChild(img);
 }
 
-async function choseDiscToOffer(e){
-    const fetchDiscs = await fetch('http://localhost:8000/user/alldiscs');
+async function choseDiscToOffer(e) {
+    const fetchDiscs = await fetch("/user/alldiscs");
     const myDiscs = await fetchDiscs.json();
-    console.log(myDiscs)
+    console.log(myDiscs);
 }
 
-async function choseWantedDisc(e){
+async function choseWantedDisc(e) {
     const userTo = e.detail.ownerId;
-    console.log(userTo)
-    const fetchDiscs = await fetch(`http://localhost:8000/disc/user/${userTo}`);
-    const fromDiscs =  await fetchDiscs.json();
+    console.log(userTo);
+    const fetchDiscs = await fetch(`/disc/user/${userTo}`);
+    const fromDiscs = await fetchDiscs.json();
     console.log(fromDiscs);
 }

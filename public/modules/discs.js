@@ -194,7 +194,7 @@ function discsService(evt) {
 }
 
 async function showGenre(nameGenre) {
-    const res = await fetch(`http://localhost:8000/user/disc/${nameGenre}`);
+    const res = await fetch(`/user/disc/${nameGenre}`);
 
     const discsGenre = await res.json();
 
@@ -203,7 +203,10 @@ async function showGenre(nameGenre) {
 
         const divDiscContainer = document.createElement("div");
         divDiscContainer.id = "container-modal-discs";
-        divDiscContainer.dataset.id = discsGenre[c].id;
+        divDiscContainer.dataset.infos = {
+            discId: discsGenre[c].id,
+            ownerId: discsGenre[c].user_id,
+        };
 
         const containerInfo = document.createElement("div");
         containerInfo.id = "container-img-info";
@@ -325,7 +328,8 @@ async function showGenre(nameGenre) {
                 new CustomEvent("onstatechange", {
                     detail: {
                         name: "/tradeDisc",
-                        id: 3,
+                        discId: discsGenre[c].id,
+                        ownerId: discsGenre[c].user_id,
                     },
                 })
             );
@@ -346,7 +350,7 @@ async function showGenre(nameGenre) {
 }
 
 async function showAllDiscs() {
-    const res = await fetch("http://localhost:8000/user/alldiscs", {
+    const res = await fetch("/user/alldiscs", {
         method: "GET",
     });
 
@@ -358,8 +362,8 @@ async function showAllDiscs() {
         const divDiscContainer = document.createElement("div");
         divDiscContainer.id = "container-modal-discs";
         divDiscContainer.dataset.infos = {
-          discId: allDiscs[c].id,
-          ownerId: allDiscs[c].user_id
+            discId: allDiscs[c].id,
+            ownerId: allDiscs[c].user_id,
         };
 
         const containerInfo = document.createElement("div");
@@ -483,7 +487,7 @@ async function showAllDiscs() {
                     detail: {
                         name: "/tradeDisc",
                         discId: allDiscs[c].id,
-                        ownerId: allDiscs[c].user_id
+                        ownerId: allDiscs[c].user_id,
                     },
                 })
             );
