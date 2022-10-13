@@ -346,7 +346,7 @@ async function showGenre(nameGenre) {
 }
 
 async function showAllDiscs() {
-    const res = await fetch("http://localhost:8000/user/alldiscs", {
+    const res = await fetch("/user/alldiscs", {
         method: "GET",
     });
 
