@@ -96,7 +96,7 @@ function registerUser() {
 
     const data = { name: name, email: email, password: password };
 
-    fetch("http://localhost:8000/user/signup", {
+    fetch("/user/signup", {
         method: "POST",
         body: JSON.stringify(data),
         headers: { "Content-type": "application/json; charset=UTF-8" },

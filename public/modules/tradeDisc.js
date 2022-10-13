@@ -109,6 +109,7 @@ export function tradeDisc(
     `;
 
     // id do disco à ser trocado, fazer fetch e preencher os campos
+    console.log(e);
     const discToTradeId = e.detail.id;
     console.log(discToTradeId);
 
@@ -166,9 +167,9 @@ async function showDisc(e){
     const divFrom = document.querySelector('.discs-to');
     const img = document.createElement('img');
     img.className = 'card-img';
-    const discId = e.detail.infos.discId;
+    const discId = e.detail.discId;
 
-    const res = await fetch(`http://localhost:8000/disc/one/${discId}`)
+    const res = await fetch(`/disc/one/${discId}`)
     const disc = await res.json();
     console.log(disc);
     const discImg = disc.img;
@@ -178,14 +179,15 @@ async function showDisc(e){
 }
 
 async function choseDiscToOffer(e){
-    const fetchDiscs = await fetch('http://localhost:8000/user/alldiscs');
+    const fetchDiscs = await fetch('/user/alldiscs');
     const myDiscs = await fetchDiscs.json();
     console.log(myDiscs)
 }
 
 async function choseWantedDisc(e){
-    const userTo = e.detail.infos.discOwner;
-    const fetchDiscs = await fetch(`http://localhost:8000/disc/user/${userTo}`);
+    const userTo = e.detail.ownerId;
+    console.log(userTo)
+    const fetchDiscs = await fetch(`/disc/user/${userTo}`);
     const fromDiscs =  await fetchDiscs.json();
     console.log(fromDiscs);
 }

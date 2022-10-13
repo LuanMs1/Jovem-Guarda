@@ -254,12 +254,15 @@ export function genres(
 
 function discsService(evt) {
     const elements = document.querySelectorAll(".link");
-
     for (let i = 0; i < elements.length; i++) {
         elements[i].onclick = () => {
-            let nameGenre = document.querySelector("#name-genre");
-            console.log(nameGenre.textContent);
-            window.dispatchEvent(evt[i]);
+            if (elements[i].id === "card-genre") {
+                evt[i].detail.genre =
+                    elements[i].querySelector("#name-genre").innerHTML;
+                window.dispatchEvent(evt[i]);
+            } else {
+                window.dispatchEvent(evt[i]);
+            }
         };
     }
     document.title = "Estilos";

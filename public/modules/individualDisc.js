@@ -146,7 +146,7 @@ function service(evt) {
 
 
 async function createIndividualDisc(id) {
-    const res = await fetch(`http://localhost:8000/disc/one/${id}`, {
+    const res = await fetch(`/user/${id}`, {
         method: "GET",
     });
 
