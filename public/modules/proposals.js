@@ -100,24 +100,22 @@ async function showOffers() {
     console.log(exchanges);
     const treatedExchanges = organizeData(exchanges);
     console.log(treatedExchanges);
-    
-    const res = await fetch("/user/alldiscs", {
-        method: "GET",
-    });
+    const userTo = await getUser();
+    console.log(userTo);
 
-    const allDiscs = await res.json();
-
-    for (let c = 0; c < allDiscs.length; c++) {
+    for (let tradeId in treatedExchanges) {
         const containerMain = document.getElementById("containerMain");
 
         const divModal = document.createElement("div");
-        divModal.id = "container-modal-proposals";
+        divModal.className = "container-modal-proposals";
+        divModal.id = tradeId;
+
         divModal.dataset.infos = {
-            discId: allDiscs[c].id,
-            ownerId: allDiscs[c].user_id,
+            discId: treatedExchanges[tradeId].id,
+            ownerId: treatedExchanges[tradeId].user_id,
         };
 
-        //Div offer:
+        //Div i want:
         const divOffer = document.createElement("div");
         divOffer.id = "div-offer";
         divModal.appendChild(divOffer);
@@ -125,15 +123,16 @@ async function showOffers() {
         const nameFrom = document.createElement("span");
         nameFrom.innerHTML = `SEU DISCO`;
         divOffer.appendChild(nameFrom);
-        const imgOffer = document.createElement("img");
-        imgOffer.setAttribute("src", "./assets/images/disc3.jpg");
-        imgOffer.id = "img-offer";
-        divModal.appendChild(imgOffer);
+        const imageFrom = document.createElement("img");
+        imageFrom.setAttribute("src", `${treatedExchanges[tradeId][0].img}`);
+        imageFrom.id = "img-offer";
+        divModal.appendChild(imageFrom);
 
         const divNameImg = document.createElement("div");
-        divNameImg.id = "div-name-img";
+        divNameImg.className = "div-name-img";
+        divNameImg.id = tradeId;
         divNameImg.appendChild(nameFrom);
-        divNameImg.appendChild(imgOffer);
+        divNameImg.appendChild(imageFrom);
         divModal.appendChild(divNameImg);
 
         const changeImg = document.createElement("img");
@@ -151,17 +150,19 @@ async function showOffers() {
         const containerInfo = document.createElement("div");
         containerInfo.id = "container-img-info";
 
-        //Div i want:
+        //Div offer:
         const nameTo = document.createElement("span");
         nameTo.innerHTML = `DISCO OFERTADO`;
-        const imgAlbum = document.createElement("img");
-        imgAlbum.id = "img-disc";
-        imgAlbum.setAttribute("src", `${allDiscs[c].img}`);
+        const imageTo = document.createElement("img");
+        imageTo.id = "img-disc";
+
+        imageTo.setAttribute("src", `${treatedExchanges[tradeId][1].img}`);
 
         const divNameImgR = document.createElement("div");
-        divNameImgR.id = "div-name-img";
+        divNameImgR.className = "div-name-img";
+        divNameImg.id = tradeId;
         divNameImgR.appendChild(nameTo);
-        divNameImgR.appendChild(imgAlbum);
+        divNameImgR.appendChild(imageTo);
         divModal.appendChild(divNameImgR);
 
         containerMain.appendChild(divModal);
@@ -172,21 +173,45 @@ async function showOffers() {
         divButtons.id = "div-buttons-pending";
         divModal.appendChild(divButtons);
 
-        console.log(exchanges[c].status);
+        // const text = document.querySelector("div-buttons-pending")
 
-        if (exchanges[c].status === "pending_approval") {
+        console.log(userTo.id);
+        console.log(treatedExchanges[tradeId][1].owner_id);
+        if (userTo.id === treatedExchanges[tradeId][1].owner_id) {
+            const pending = document.createElement("span");
+            pending.innerHTML = "PENDENTE";
+            divButtons.appendChild(pending);
+            pending.id = "span-pending";
+
+            const buttonCancel = document.createElement("button");
+            buttonCancel.innerHTML = "CANCELAR";
+            divButtons.appendChild(buttonCancel);
+            buttonCancel.className = "buttons-proposals";
+            buttonCancel.className = "buttons-cancel";
+
+            const divNameImgL = document.createElement("div");
+            divNameImgL.className = "div-name-img";
+            divNameImg.id = tradeId;
+            divNameImgL.appendChild(pending);
+            divNameImgL.appendChild(buttonCancel);
+            divModal.appendChild(divNameImgL);
+            divModal.appendChild(divNameImgL);
+        } else if (exchanges[tradeId].status === "pending_approval") {
             const buttonAccept = document.createElement("button");
             buttonAccept.innerHTML = "ACEITAR";
             divButtons.appendChild(buttonAccept);
-            buttonAccept.id = "buttons-proposals";
+            buttonAccept.className = "buttons-proposals";
+            buttonAccept.className = "buttons-accept";
 
             const buttonReject = document.createElement("button");
             buttonReject.innerHTML = "REJEITAR";
             divButtons.appendChild(buttonReject);
-            buttonReject.id = "buttons-proposals";
+            buttonReject.className = "buttons-proposals";
+            buttonReject.className = "buttons-reject";
 
             const divNameImgL = document.createElement("div");
-            divNameImgL.id = "div-name-img";
+            divNameImgL.className = "div-name-img";
+            divNameImg.id = tradeId;
             divNameImgL.appendChild(buttonAccept);
             divNameImgL.appendChild(buttonReject);
             divModal.appendChild(divNameImgL);
@@ -195,20 +220,24 @@ async function showOffers() {
             const buttonContacts = document.createElement("button");
             buttonContacts.innerHTML = "CONTATOS";
             divButtons.appendChild(buttonContacts);
-            buttonContacts.id = "buttons-proposals";
+            buttonContacts.className = "buttons-proposals";
+            buttonContacts.className = "buttons-contacts";
 
             const buttonComplete = document.createElement("button");
             buttonComplete.innerHTML = "COMPELTAR";
             divButtons.appendChild(buttonComplete);
-            buttonComplete.id = "buttons-proposals";
+            buttonComplete.className = "buttons-proposals";
+            buttonComplete.className = "buttons-complete";
 
             const buttonCancel = document.createElement("button");
             buttonCancel.innerHTML = "CANCELAR";
             divButtons.appendChild(buttonCancel);
-            buttonCancel.id = "buttons-proposals";
+            buttonCancel.className = "buttons-proposals";
+            buttonCancel.className = "buttons-cancel";
 
             const divNameImgL = document.createElement("div");
-            divNameImgL.id = "div-name-img";
+            divNameImgL.className = "div-name-img";
+            divNameImg.id = tradeId;
             divNameImgL.appendChild(buttonContacts);
             divNameImgL.appendChild(buttonComplete);
             divNameImgL.appendChild(buttonCancel);
@@ -217,9 +246,9 @@ async function showOffers() {
             divModal.appendChild(divNameImgL);
         }
 
-        // containerInfo.appendChild(imgAlbum);
+        // containerInfo.appendChild(imageTo);
 
-        // switch (allDiscs[c].disc_status) {
+        // switch (treatedExchanges[c].disc_status) {
         //     case "available to trade":
         //         conditionDisc = "Disponível para troca.";
         //         break;
@@ -231,11 +260,47 @@ async function showOffers() {
         //         break;
         // }
 
-        const owner = document.createElement("span");
-        owner.innerHTML = `${allDiscs[c].owner}`;
+        // const owner = document.createElement("span");
+        // owner.innerHTML = `${treatedExchanges[tradeId].owner}`;
 
         // changeImgDiv.appendChild(changeImg);
+        const btn = document.querySelectorAll(".buttons-cancel");
+        for (let index = 0; index < btn.length; index++) {
+            btn[index].addEventListener("click", function test() {
+                const test = btn[index].closest("div");
+                console.log(test);
+                console.log("button-cancel");
+                console.log(treatedExchanges);
+                console.log(tradeId);
+                console.log(treatedExchanges[divModal.id][1].id);
+                // cancelExchange(treatedExchanges[index + 1][1].id);
+            });
+        }
     }
+
+    // divModal.id = tradeId;
+
+    // const divName = document.querySelector("#div-name-img");
+    const btn = document.querySelectorAll(".buttons-cancel");
+
+    // const btn = document.querySelector(".buttons-cancel");
+
+    // const test = await btn.parentNode();
+    // console.log(test);
+
+    console.log(btn);
+
+    // const btnAccept = document.querySelectorAll(".buttons-accept");
+    // for (let index = 0; index < btn.length; index++) {
+    //     btnAccept[index].addEventListener("click", function test() {
+    //         const test = btn[index].closest("div");
+    //         console.log(test);
+    //         console.log("button-cancel");
+    //         console.log(treatedExchanges[index + 1][1].id);
+    //         console.log(treatedExchanges);
+    //         cancelExchange(treatedExchanges[index + 1][1].id);
+    //     });
+    // }
 }
 
 async function getActiveExchanges() {
@@ -245,8 +310,11 @@ async function getActiveExchanges() {
 }
 
 async function acceptExchange(exhcangeId) {
+    const options = {
+        method: "PUT",
+    };
     try {
-        await fetch(`user/exchanges/accept/${exchangeId}`);
+        await fetch(`user/exchanges/accept/${exchangeId}`, options);
         return "Troca aceita";
     } catch (err) {
         console.log(err);
@@ -255,8 +323,11 @@ async function acceptExchange(exhcangeId) {
 }
 
 async function rejectExchange(exchangeId) {
+    const options = {
+        method: "PUT",
+    };
     try {
-        await fetch(`user/exchanges/reject/${exchangeId}`);
+        await fetch(`user/exchanges/reject/${exchangeId}`, options);
         return;
     } catch (err) {
         console.log(err);
@@ -264,33 +335,45 @@ async function rejectExchange(exchangeId) {
     }
 }
 async function completeExchange(exchangeId) {
-    await fetch(`user/exchanges/accept/${exchangeId}`);
+    const options = {
+        method: "PUT",
+    };
+    await fetch(`user/exchanges/accept/${exchangeId}`, options);
     return;
 }
 async function cancelExchange(exchangeId) {
-    await fetch(`user/exchanges/cancel/${exchangeId}`);
+    const options = {
+        method: "PUT",
+    };
+    await fetch(`user/exchanges/cancel/${exchangeId}`, options);
+    return;
 }
 
-function organizeData(exchange){
+function organizeData(exchange) {
     const organized = {};
 
-    for (let disc of exchange){
-        if (organized[disc.id]){
+    for (let disc of exchange) {
+        if (organized[disc.id]) {
             disc = discowner(disc);
             organized[disc.id].push(disc);
-        }else{
+        } else {
             disc = discowner(disc);
             organized[disc.id] = [disc];
         }
-    };
+    }
     return organized;
 }
 
-function discowner(disc){
-    if (disc.disc_onwer === disc.user_to){
-        disc.disc_onwer = 'to' 
-    }else{
-        disc.disc_onwer = 'from'
+function discowner(disc) {
+    if (disc.disc_onwer === disc.user_to) {
+        disc.disc_onwer = "to";
+    } else {
+        disc.disc_onwer = "from";
     }
     return disc;
+}
+
+async function getUser() {
+    const user = await fetch(`/user`);
+    return await user.json();
 }
