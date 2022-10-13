@@ -55,7 +55,7 @@ async function loginUser() {
 
     const data = { email: email, password: password };
 
-    const res = await fetch("http://localhost:8000/user/login", {
+    const res = await fetch("/user/login", {
         method: "POST",
         body: JSON.stringify(data),
         headers: { "Content-type": "application/json; charset=UTF-8" },
