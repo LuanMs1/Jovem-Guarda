@@ -85,3 +85,9 @@
     width: 150px;
     height: 150px;
 }
+#msg-error-individual {
+    font-size: 20px;
+    font-family: "Inria Sans";
+    color: rgb(228, 15, 15);
+    padding: 10px;
+}
