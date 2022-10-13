@@ -188,7 +188,8 @@ async function createIndividualDisc(id) {
     
     for (let y = 0; y < individualDisc.length; y++) {
         const imgDiscUploadCreate = document.createElement("img")
-        imgDiscUploadCreate.setAttribute("src", `${individualDisc[y].real_imgs}`)
+        imgDiscUploadCreate.setAttribute("src", `./uploads/discs/${individualDisc[y].real_imgs}`)
+        imgDiscUploadCreate.className = "img-disc-upload-create"
         imgsDiscUpload[y].appendChild(imgDiscUploadCreate)
     }
 }
