@@ -169,7 +169,7 @@ async function showDisc(e){
     img.className = 'card-img';
     const discId = e.detail.discId;
 
-    const res = await fetch(`http://localhost:8000/disc/one/${discId}`)
+    const res = await fetch(`/disc/one/${discId}`)
     const disc = await res.json();
     console.log(disc);
     const discImg = disc.img;
@@ -179,7 +179,7 @@ async function showDisc(e){
 }
 
 async function choseDiscToOffer(e){
-    const fetchDiscs = await fetch('http://localhost:8000/user/alldiscs');
+    const fetchDiscs = await fetch('/user/alldiscs');
     const myDiscs = await fetchDiscs.json();
     console.log(myDiscs)
 }
@@ -187,7 +187,7 @@ async function choseDiscToOffer(e){
 async function choseWantedDisc(e){
     const userTo = e.detail.ownerId;
     console.log(userTo)
-    const fetchDiscs = await fetch(`http://localhost:8000/disc/user/${userTo}`);
+    const fetchDiscs = await fetch(`/disc/user/${userTo}`);
     const fromDiscs =  await fetchDiscs.json();
     console.log(fromDiscs);
 }

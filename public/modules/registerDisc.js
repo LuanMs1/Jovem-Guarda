@@ -547,7 +547,7 @@ function createRegisterDataToDataBase() {
     formElem.onsubmit = async (e) => {
         e.preventDefault();
        
-        let response = await fetch('http://localhost:8000/user/disc', {
+        let response = await fetch('/user/disc', {
           method: 'POST',
           body: formInfo,
         });
