@@ -38,16 +38,16 @@ export function individualDisc(
     <span id="disc-year"></span>
     <img id="disc-img" src="" alt="">
 </section>
-<section id="description-disc">
+<section id="description-disc-individual">
     <div id="description-disc-left">
-        <span id="album-type-individual">Tipo do Album: </span>
-        <span id="vinyl-type-individual" >Tipo do Vinil:</span>
-        <span id="length-individual">Duração:</span>
-        <span id="status-individual">Situação:</span>
-        <span id="owner-individual">Proprietário: </span>
+        <span class="infos-titles" id="album-type-individual">Tipo do Album: </span>
+        <span class="infos-titles" id="vinyl-type-individual" >Tipo do Vinil:</span>
+        <span class="infos-titles" id="length-individual">Duração:</span>
+        <span class="infos-titles" id="status-individual">Situação:</span>
+        <span class="infos-titles" id="owner-individual">Proprietário: </span>
     </div>
-    <div id="description-line"></div>
-    <div id="description-disc-right">
+    <div id="description-line-individual"></div>
+    <div id="description-disc-right-individual">
         <span id="description-individual">Descrição:</span>
     </div>
 </section>
@@ -107,10 +107,8 @@ export function individualDisc(
     </div>
 </section>
     `;
-    const test2 = e
-    const test3 = e.detail.id
-    const test4 = e.detail
-    console.log(test2,e,test3, test4);
+
+    createIndividualDisc(e.detail.id)
 
     service([
         evtMydisc,
@@ -138,7 +136,6 @@ export function individualDisc(
 
 function service(evt) {
     const elements = document.querySelectorAll(".link");
-    // createIndividualDisc(id)
     for (let i = 0; i < elements.length; i++) {
         elements[i].onclick = () => {
             window.dispatchEvent(evt[i]);
@@ -155,6 +152,8 @@ async function createIndividualDisc(id) {
 
     const individualDisc = await res.json();
 
+    console.log(individualDisc);
+
     const discTitle = document.getElementById("disc-title");
     discTitle.innerHTML = `${ individualDisc.album}`
 
@@ -165,7 +164,7 @@ async function createIndividualDisc(id) {
     discYear.innerHTML = `${individualDisc.release_year}`
 
     const discImg = document.getElementById("disc-img");
-    discImg.innerHTML = `${ individualDisc.img}`
+    discImg.setAttribute("src", `${individualDisc.img}`);
 
     const albumTypeIndividual = document.getElementById("album-type-individual");
     albumTypeIndividual.innerHTML = `Tipo do Album: ${ individualDisc.album_type}`
@@ -177,21 +176,12 @@ async function createIndividualDisc(id) {
     lengthIndividual.innerHTML = `Duração: ${individualDisc.length}`
 
     const statusIndividual = document.getElementById("status-individual");
-    statusIndividual.innerHTML = `${ individualDisc.disc_status}`
+    statusIndividual.innerHTML = `Situação: ${individualDisc.disc_status}`
 
     const ownerIndividual = document.getElementById("owner-individual");
-    // ownerIndividual.innerHTML = `Proprietário: ${}`
+    ownerIndividual.innerHTML = `Proprietário: ${individualDisc.name}`
 
     const descriptionIndividual = document.getElementById("description-individual");
-    descriptionIndividual.innerHTML = `Descrição:${individualDisc.disc_description}`
+    descriptionIndividual.innerHTML = `Descrição: ${individualDisc.disc_description}`
 
-   
-    
-    
-   
-   
-   
-    
-    
-    
 }

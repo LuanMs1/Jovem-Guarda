@@ -12,41 +12,40 @@
     font-size: 45px;
 }
 #disc-img {
-    width: 280px;
+    width: 200px;
 }
-/* #description-disc {
+#description-disc-individual {
     background-color: rgb(217, 217, 217, 0.2);
     max-width: 1100px;
-    width: 95vw;
+    width: 55vw;
     height: 45vh;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin-top: 4vw;
     border-radius: 30px;
-} */
-#description-line {
+}
+#description-line-individual {
     background-color: rgb(240, 248, 255, 0.7);
     width: 1px;
     height: 230px;
 }
 #description-disc-left {
     margin-left: 30px;
-    width: 500px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 2.4vw;
     /* background-color: aqua; */
 }
-#description-disc-right {
+#description-disc-right-individual {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     margin-right: 30px;
-    gap: 2.4vw;
-    width: 500px;
+    width: 300px;
     height: 228px;
 }
 #btn-trade {
@@ -64,7 +63,7 @@
 }
 #section-imgs-disc {
     max-width: 1100px;
-    width: 96vw;
+    width: 65vw;
     height: 40vh;
 }
 .imgs-disc-user {
@@ -73,9 +72,12 @@
     background-color: #030526;
     box-shadow: 0px 4px 20px 0px var(--btn-bg-color);
 }
-#position-imgs-disc-user {
+#position-imgs-disc-user-individual {
     margin-top: 15px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
+}
+.infos-titles {
+    font-size: 16px;
 }

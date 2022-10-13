@@ -383,6 +383,7 @@ async function showAllDiscs() {
         containerInfo.appendChild(nameArtist);
         containerInfo.appendChild(yearAlbum);
 
+
         const typeDiscDiv = document.createElement("div");
         typeDiscDiv.id = "type-disc-div";
 
@@ -402,16 +403,52 @@ async function showAllDiscs() {
         lengthAlbumLabel.id = "length-label";
         lengthAlbumLabel.innerHTML = `Duração: `;
 
+        let typeVinylDiscSwitch = null; 
+
+        switch(allDiscs[c].vynil_type) {
+          case 'transparent':
+            typeVinylDiscSwitch = "Transparente"
+            break;
+          case 'matte':
+            typeVinylDiscSwitch = "Fosco"
+            break;
+          case 'glossy':
+            typeVinylDiscSwitch = "Lustroso"
+            break;
+          case 'color':
+            typeVinylDiscSwitch = "Colorido"
+            break;
+          case 'metallic':
+            typeVinylDiscSwitch = "Metálico"
+            break;
+        }
+
+        let typeAlbumDiscSwitch = null; 
+
+        switch(allDiscs[c].album_type) {
+          case 'single':
+            typeAlbumDiscSwitch = "Single"
+            break;
+          case 'ep':
+            typeAlbumDiscSwitch = "EP"
+            break;
+          case 'lp':
+            typeAlbumDiscSwitch = "LP"
+            break;
+        }
+
         const typeAlbum = document.createElement("span");
         typeAlbum.id = "type-album";
-        typeAlbum.innerHTML = `${allDiscs[c].album_type}`;
+        typeAlbum.innerHTML = `${typeAlbumDiscSwitch}`;
 
         const typeDisc = document.createElement("span");
         typeDisc.id = "type-disc";
-        typeDisc.innerHTML = `${allDiscs[c].vynil_type}`;
+        typeDisc.innerHTML = `${typeVinylDiscSwitch}`;
+
         const genreDisc = document.createElement("span");
         genreDisc.id = "genre";
         genreDisc.innerHTML = `${allDiscs[c].genre}`;
+
         const lengthAlbum = document.createElement("span");
         lengthAlbum.id = "length";
         lengthAlbum.innerHTML = `${allDiscs[c].length}`;
@@ -427,15 +464,6 @@ async function showAllDiscs() {
         genreDiscLabel.appendChild(genreDisc);
         lengthAlbumLabel.appendChild(lengthAlbum);
 
-        //   <div id="description-disc-right-infos">
-        //   <div id="container-left-exchange">
-        //     <div id="type-disc"></divid>
-        //       <span>PROPRIETÁRIO:<span> Fulano de tal</span></span>
-        //       <span>CONDIÇÃO:<span> Disco bastante conservado</span></span>
-        //       <span id="description-text">DESCRIÇÃO:<span> Disco de coleção limitada e autografado </span></span>
-        //     </div>
-        //   </div>
-        // </div>
         const descriptionDiscRightInfo = document.createElement("div");
 
         descriptionDiscRightInfo.id = "description-disc-right-infos";
@@ -458,10 +486,24 @@ async function showAllDiscs() {
         const descriptionLabel = document.createElement("label");
         descriptionLabel.innerHTML = `Descrição: `;
 
+        let conditionDisc = null; 
+
+        switch(allDiscs[c].disc_status) {
+          case 'available to trade':
+            conditionDisc = "Disponível para troca."
+            break;
+          case 'wishlist':
+            conditionDisc = "Lista de Desejos."
+            break;
+          case 'own':
+            conditionDisc = "Coleção Própria."
+            break;
+        }
+
         const owner = document.createElement("span");
-        // owner.innerHTML = `${allDiscs[c].}`
+        owner.innerHTML = `${allDiscs[c].owner}`
         const condition = document.createElement("span");
-        condition.innerHTML = `${allDiscs[c].disc_status}`;
+        condition.innerHTML = `${conditionDisc}`;
         const description = document.createElement("span");
         description.innerHTML = `${allDiscs[c].disc_description}`;
 

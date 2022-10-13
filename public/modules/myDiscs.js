@@ -107,6 +107,7 @@ async function loadMyDiscs() {
           }));
           });
 
+          
         const imgCard = document.createElement("img");
         imgCard.className = "card-img";
         imgCard.setAttribute("src", `${dataAllUserDiscs[c].img}`);
