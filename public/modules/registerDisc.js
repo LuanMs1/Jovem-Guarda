@@ -485,7 +485,6 @@ function createPhotoInput(inputNumber, imgDisplay) {
 }
 
 function createPhotoDragandDrop(fileList,imgDisplay) {
-    console.log("oie");
     let reader = new FileReader();
     console.log(reader);
     reader.onload = () => {
