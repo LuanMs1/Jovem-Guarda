@@ -165,17 +165,65 @@ async function createIndividualDisc(id) {
     const discImg = document.getElementById("disc-img");
     discImg.setAttribute("src", `${individualDisc[0].img}`);
 
+    let typeVinylDiscSwitch = null; 
+
+        switch(individualDisc[0].vynil_type) {
+          case 'transparent':
+            typeVinylDiscSwitch = "Transparente"
+            break;
+          case 'matte':
+            typeVinylDiscSwitch = "Fosco"
+            break;
+          case 'glossy':
+            typeVinylDiscSwitch = "Lustroso"
+            break;
+          case 'color':
+            typeVinylDiscSwitch = "Colorido"
+            break;
+          case 'metallic':
+            typeVinylDiscSwitch = "Metálico"
+            break;
+        }
+
+        let typeAlbumDiscSwitch = null; 
+
+        switch(individualDisc[0].album_type) {
+          case 'single':
+            typeAlbumDiscSwitch = "Single"
+            break;
+          case 'ep':
+            typeAlbumDiscSwitch = "EP"
+            break;
+          case 'lp':
+            typeAlbumDiscSwitch = "LP"
+            break;
+        }
+
+        let conditionDisc = null; 
+
+        switch(individualDisc[0].disc_status) {
+          case 'available to trade':
+            conditionDisc = "Disponível para troca."
+            break;
+          case 'wishlist':
+            conditionDisc = "Lista de Desejos."
+            break;
+          case 'own':
+            conditionDisc = "Coleção Própria."
+            break;
+        }
+
     const albumTypeIndividual = document.getElementById("album-type-individual");
-    albumTypeIndividual.innerHTML = `Tipo do Album: ${ individualDisc[0].album_type}`
+    albumTypeIndividual.innerHTML = `Tipo do Album: ${typeAlbumDiscSwitch}`
 
     const vinylTypeIndividual = document.getElementById("vinyl-type-individual");
-    vinylTypeIndividual.innerHTML = `Tipo do Vinil: ${individualDisc[0].vynil_type}`
+    vinylTypeIndividual.innerHTML = `Tipo do Vinil: ${typeVinylDiscSwitch}`
 
     const lengthIndividual = document.getElementById("length-individual");
     lengthIndividual.innerHTML = `Duração: ${individualDisc[0].length}`
 
     const statusIndividual = document.getElementById("status-individual");
-    statusIndividual.innerHTML = `Situação: ${individualDisc[0].disc_status}`
+    statusIndividual.innerHTML = `Situação: ${conditionDisc}`
 
     const ownerIndividual = document.getElementById("owner-individual");
     ownerIndividual.innerHTML = `Proprietário: ${individualDisc[0].name}`
