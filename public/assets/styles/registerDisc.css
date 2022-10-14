@@ -226,6 +226,9 @@ label {
     border: none;
     cursor: pointer;
 }
+#register-album:hover {
+    background-color: rgb(167, 53, 242,0.6);
+}
 #section-imgs-disc {
     max-width: 1100px;
     width: 62vw;

@@ -34,7 +34,7 @@ export function myProfile(
     <span id="title-myProfile">MEU PERFIL</span>
     <form id="formElem">
         <img id="img-center-myProfile" src="./assets/images/userAlpha.jpg" />
-        <input name="img" id="input-profile" type="file" value="">
+        <input name="picture" id="input-profile" type="file" value="">
     <section id="container-edit-profile">
         <div id="modal-profile-left">
             <span>DADOS DA CONTA:</span>
@@ -190,7 +190,7 @@ async function getInformationsUser() {
       const infoUser = await response.json();
       
         console.log(infoUser);
-      console.log(inputEditProfileAdress);
+      
 
       inputEditProfile[0].value = infoUser.email
       inputEditProfile[2].value = infoUser.name

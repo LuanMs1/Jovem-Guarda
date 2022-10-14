@@ -33,14 +33,10 @@
     border-radius: 20px;
     display: flex;
     max-width: 75vw;
-    width: 75vw;
-    /* height: 50vh; */
+    width: 65vw;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding-bottom: 2vw;
-    padding-right: 2vw;
-    margin-bottom: 2vh;
 }
 #modal-profile-left {
     width: 33%;
@@ -74,20 +70,30 @@
 .input-edit-profile {
     width: 12vw;
     height: 5vh;
-    background: #030526;
+    background-color: rgb(50, 31, 117);
     border-radius: 5px;
     color: #d9d9d9;
     padding-left: 10px;
     font-family: "Inria Sans", sans-serif;
+    border: none;
+    cursor: pointer;
+}
+.input-edit-profile:hover {
+    background-color: rgb(50, 31, 117,0.6);
 }
 .input-edit-profile-adress {
     width: 12vw;
     height: 5vh;
-    background: #030526;
+    background-color: rgb(50, 31, 117);
     border-radius: 5px;
     color: #d9d9d9;
     padding-left: 10px;
     font-family: "Inria Sans", sans-serif;
+    border: none;
+    cursor: pointer;
+}
+.input-edit-profile-adress:hover {
+    background-color: rgb(50, 31, 117,0.6);
 }
 ::placeholder {
     display: flex;
@@ -97,16 +103,18 @@
     font-family: "Inria Sans", sans-serif;
 }
 #btn-confirm-edit {
-    width: 7vw;
-    height: 5.5vh;
-    background: linear-gradient(264.83deg, #753af1 -3.28%, #1e1168 100%);
-    box-shadow: 0px 2px 11px rgba(255, 255, 255, 0.1);
-    border-width: 1px;
-    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: var(--btn-bg-color);
+    font-family: "Inria Sans";
+    font-weight: bold;
+    font-size: 15px;
     color: #d9d9d9;
+    width: 200px;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
     cursor: pointer;
-    font-family: "Inria Sans", sans-serif;
-    font-size: bold;
 }
 #btn-confirme-edit:hover {
     background-position: 100% 0;

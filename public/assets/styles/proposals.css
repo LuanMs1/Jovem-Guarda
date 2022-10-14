@@ -28,11 +28,18 @@
 
 .buttons-cancel {
     width: 11vw;
-    background: #a735f2;
+    background-color: var(--btn-bg-color);
+    font-family: "Inria Sans";
+    font-weight: bold;
+    font-size: 15px;
     border-radius: 10px;
     color: #d9d9d9;
     padding: 5px;
+    border: none;
     cursor: pointer;
+}
+.buttons-cancel:hover {
+    background-color: rgb(167, 53, 242,0.6);
 }
 .buttons-accept {
     width: 11vw;
