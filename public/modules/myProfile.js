@@ -1,3 +1,5 @@
+import { getInformationsUser } from "./getInformationsUser.js";
+
 const app = document.querySelector("#app");
 
 export function myProfile(
@@ -166,7 +168,7 @@ export function myProfile(
 
 function service(evt) {
     const elements = document.querySelectorAll(".link");
-    getInformationsUserName()
+    getAllInformationsUser();
     getInformationsUser();
     for (let i = 0; i < elements.length; i++) {
         elements[i].onclick = () => {
@@ -177,7 +179,7 @@ function service(evt) {
 }
 
 
-async function getInformationsUser() {
+async function getAllInformationsUser() {
 
     const inputEditProfile = document.getElementsByClassName("input-edit-profile");
 
@@ -239,18 +241,4 @@ formElem.onsubmit = async (e) => {
     });
 
   };
-}
-
-async function getInformationsUserName() {
-    const userName = document.getElementById("name-user-all");
-    const userNameModal = document.getElementById("name-user-modal");
-
-    const res = await fetch('/user/', {
-        method: 'GET',
-      });
-      
-      const infoName = await res.json();
-
-      userName.innerHTML = infoName.name;
-      userNameModal.innerHTML = infoName.name; 
 }

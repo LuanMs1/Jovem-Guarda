@@ -1,3 +1,5 @@
+import { getInformationsUser } from "./getInformationsUser.js";
+
 const app = document.querySelector("#app");
 
 export function proposals(
@@ -410,16 +412,3 @@ async function getUser() {
     return await user.json();
 }
 
-async function getInformationsUser() {
-    const userName = document.getElementById("name-user-all");
-    const userNameModal = document.getElementById("name-user-modal");
-
-    const res = await fetch('/user/', {
-        method: 'GET',
-      });
-      
-      const infoName = await res.json();
-
-      userName.innerHTML = infoName.name;
-      userNameModal.innerHTML = infoName.name; 
-}
