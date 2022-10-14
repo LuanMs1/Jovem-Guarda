@@ -103,3 +103,18 @@
 #message-error-register {
     color: #ff0000;
 }
+
+#error-name-null {
+    color: #ff0000;
+    display: none;
+}
+
+#error-email-null {
+    color: #ff0000;
+    display: none;
+}
+
+#error-pass-null {
+    color: #ff0000;
+    display: none;
+}
