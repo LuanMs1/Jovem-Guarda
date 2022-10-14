@@ -32,10 +32,9 @@ const loginUsuario = async (req, res) => {
             expiresIn: "8h",
         });
         const cookieExpireTime = 8 * 60 * 60 * 1000;
-        res.cookie('authorization', token);
+        res.cookie("authorization", token);
         return res.status(200).json({ token });
     } catch (error) {
-        console.log(err);
         return res.status(400).json({ message: error.message });
     }
 };
