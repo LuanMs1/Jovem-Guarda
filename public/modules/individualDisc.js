@@ -1,3 +1,5 @@
+import { getInformationsUser } from "./getInformationsUser.js";
+
 const app = document.querySelector("#app");
 
 export function individualDisc(
@@ -27,9 +29,9 @@ export function individualDisc(
         <div id="container-user-all">
             <img
                 id="user-img-all"
-                src="./assets/images/userAlpha.jpg"
+                src="./assets/images/icons/mais (3).png"
             />
-            <span id="name-user-all">Alpha Edtech</span>
+            <span id="name-user-all"></span>
         </div>
     </header>
 
@@ -40,7 +42,7 @@ export function individualDisc(
 </section>
 <section id="description-disc-individual">
     <div id="description-disc-left">
-        <label for="">Tipo do Album: <span class="infos-titles" id="album-type-individual"></span></label>
+        <label for="">Tipo do Álbum: <span class="infos-titles" id="album-type-individual"></span></label>
         
         <label for="">Tipo do Vinil:<span class="infos-titles" id="vinyl-type-individual" ></span></label>
         
@@ -76,8 +78,8 @@ export function individualDisc(
 <section id="container-menu">
     <div id="menu">
         <div id="container-img-name">
-            <img id="img-menu" src="./assets/images/userAlpha.jpg" />
-            <span>Alpha Edtech</span>
+            <img id="img-menu" src="./assets/images/icons/mais (3).png" />
+            <span id="name-user-modal"></span>
         </div>
         <div id="menu-options">
             <div>
@@ -90,7 +92,7 @@ export function individualDisc(
             <div>
                 <img
                     class="icons"
-                    src="./assets/images/icons/profile-user.png"
+                    src="./assets/images/icons/mais (3).png.png"
                 />
                 <span class="selected-page">MEU PERFIL</span>
             </div>
@@ -141,6 +143,8 @@ export function individualDisc(
 }
 
 function service(evt) {
+    getInformationsUser();
+    
     const elements = document.querySelectorAll(".link");
     for (let i = 0; i < elements.length; i++) {
         elements[i].onclick = () => {

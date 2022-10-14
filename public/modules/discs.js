@@ -1,3 +1,5 @@
+import { getInformationsUser } from "./getInformationsUser.js";
+
 const app = document.querySelector("#app");
 
 let nameGenre;
@@ -21,8 +23,8 @@ export function discs(
           <span class="selected-page">DISCOS</span>
           <span class="link">ESTILOS</span>
           <div id="container-user-all">
-            <img id="user-img-all" src="./assets/images/userAlpha.jpg" />
-            <span id="name-user-all">Alpha Edtech</span>
+            <img id="user-img-all" src="./assets/images/icons/mais (3).png" />
+            <span id="name-user-all"></span>
           </div>
         </header>
   
@@ -115,8 +117,8 @@ export function discs(
         <section id="container-menu">
         <div id="menu">
             <div id="container-img-name">
-                <img id="img-menu" src="./assets/images/userAlpha.jpg" />
-                <span>Alpha Edtech</span>
+                <img id="img-menu" src="./assets/images/icons/mais (3).png" />
+                <span id="name-user-modal" ></span>
             </div>
             <div id="menu-options">
                 <div>
@@ -179,7 +181,7 @@ export function discs(
 
 function discsService(evt) {
     const elements = document.querySelectorAll(".link");
-
+    getInformationsUser();
     if (nameGenre) {
         document.querySelector("#disc-title").innerHTML = `${nameGenre}`;
         document.querySelector("#style").value = `${nameGenre}`;
@@ -234,7 +236,7 @@ async function showGenre(nameGenre) {
 
         const typeAlbumLabel = document.createElement("label");
         typeAlbumLabel.id = "type-album-label";
-        typeAlbumLabel.innerHTML = `Tipo do Album: `;
+        typeAlbumLabel.innerHTML = `Tipo do Álbum: `;
 
         const typeDiscLabel = document.createElement("label");
         typeDiscLabel.id = "type-disc-label";
@@ -431,7 +433,7 @@ async function showAllDiscs() {
 
         const typeAlbumLabel = document.createElement("label");
         typeAlbumLabel.id = "type-album-label";
-        typeAlbumLabel.innerHTML = `Tipo do Album: `;
+        typeAlbumLabel.innerHTML = `Tipo do Álbum: `;
 
         const typeDiscLabel = document.createElement("label");
         typeDiscLabel.id = "type-disc-label";
@@ -586,3 +588,4 @@ async function showAllDiscs() {
         changeImgDiv.appendChild(changeImg);
     }
 }
+

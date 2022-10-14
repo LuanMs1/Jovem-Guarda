@@ -1,3 +1,5 @@
+import { getInformationsUser } from "./getInformationsUser.js";
+
 const app = document.querySelector("#app");
 
 export function wishlist(
@@ -17,8 +19,8 @@ export function wishlist(
             <span class="link">DISCOS</span>
             <span class="link">ESTILOS</span>
             <div id="container-user-all">
-                <img id="user-img-all" src="./assets/images/userAlpha.jpg" />
-            <span id="name-user-all">Alpha Edtech</span>
+                <img id="user-img-all" src="./assets/images/icons/mais (3).png" />
+            <span id="name-user-all"></span>
             </div>
         </header>
 
@@ -27,8 +29,8 @@ export function wishlist(
         <section id="container-menu">
             <div id="menu">
                 <div id="container-img-name">
-                    <img id="img-menu" src="./assets/images/userAlpha.jpg" />
-                    <span>Alpha Edtech</span>
+                    <img id="img-menu" src="./assets/images/icons/mais (3).png" />
+                    <span id="name-user-modal"></span>
                 </div>
                 <div id="menu-options">
                     <div>
@@ -81,6 +83,7 @@ export function wishlist(
 
 function service(evt) {
     const elements = document.querySelectorAll(".link");
+    getInformationsUser();
 
     for (let i = 0; i < elements.length; i++) {
         elements[i].onclick = () => {

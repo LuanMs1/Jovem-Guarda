@@ -1,4 +1,5 @@
 import { getSpotifyToken } from "./api-spotify/spotifyToken.js";
+import { getInformationsUser } from "./getInformationsUser.js";
 
 // import { spotifyGetAlbumToRegister } from "./api-spotify/spotifyGetDatasToRegister.js";
 
@@ -21,15 +22,15 @@ export function registerDisc(
       <span class="link">DISCOS</span>
       <span class="link">ESTILOS</span>
       <div id="container-user-all">
-        <img id="user-img-all" src="./assets/images/userAlpha.jpg" />
-        <span id="name-user-all">Alpha Edtech</span>
+        <img id="user-img-all" src="./assets/images/icons/mais (3).png" />
+        <span id="name-user-all"></span>
       </div>
     </header>
     <section id="register-disc-section">
       <span id="register-disc-title">Cadastrar Discos</span>
     </section>
     <section id="logo-register-disc-position">
-        <input id="list-albums" list="albums" type="text" placeholder="PESQUISAR ALBUM">
+        <input id="list-albums" list="albums" type="text" placeholder="PESQUISAR ÁLBUM">
     </section>
     <p id="msg-error"></p>
     <section id="individual-disc">
@@ -39,7 +40,7 @@ export function registerDisc(
         </div>
     <section id="description-disc-register">
         <div id="description-disc-left-register">
-            <label for="select-album-type">TIPO DO ALBUM:
+            <label for="select-album-type">TIPO DO ÁLBUM:
                 <select class="style-select" name="album-type" id="select-album-type">
                   <option value="single">Single</option>
                   <option value="ep">EP</option>
@@ -125,8 +126,8 @@ export function registerDisc(
     <section id="container-menu">
         <div id="menu">
             <div id="container-img-name">
-                <img id="img-menu" src="./assets/images/userAlpha.jpg" />
-                <span>Alpha Edtech</span>
+                <img id="img-menu" src="./assets/images/icons/mais (3).png" />
+                <span id="name-user-modal"></span>
             </div>
             <div id="menu-options">
                 <div>
@@ -189,6 +190,7 @@ function registerDiscService(evt) {
     document.getElementById("register-album").style.display = "none";
     const elements = document.querySelectorAll(".link");
     debounceRegisterApi();
+    getInformationsUser();
 
     for (let i = 0; i <= elements.length; i++) {
         elements[i].addEventListener("click", () => {

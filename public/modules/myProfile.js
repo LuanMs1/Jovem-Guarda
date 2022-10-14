@@ -1,3 +1,5 @@
+import { getInformationsUser } from "./getInformationsUser.js";
+
 const app = document.querySelector("#app");
 
 export function myProfile(
@@ -25,15 +27,15 @@ export function myProfile(
         <div id="container-user-all">
             <img
                 id="user-img-all"
-                src="./assets/images/userAlpha.jpg"
+                src="./assets/images/icons/mais (3).png"
             />
-            <span id="name-user-all">Alpha Edtech</span>
+            <span id="name-user-all"></span>
         </div>
     </header>
 
     <span id="title-myProfile">MEU PERFIL</span>
     <form id="formElem">
-        <img id="img-center-myProfile" src="./assets/images/userAlpha.jpg" />
+        <img id="img-center-myProfile" src="./assets/images/icons/mais (3).png" />
         <input name="img" id="input-profile" type="file" value="">
     <section id="container-edit-profile">
         <div id="modal-profile-left">
@@ -103,8 +105,8 @@ export function myProfile(
 <section id="container-menu">
     <div id="menu">
         <div id="container-img-name">
-            <img id="img-menu" src="./assets/images/userAlpha.jpg" />
-            <span>Alpha Edtech</span>
+            <img id="img-menu" src="./assets/images/icons/mais (3).png" />
+            <span id="name-user-modal"></span>
         </div>
         <div id="menu-options">
             <div>
@@ -166,7 +168,7 @@ export function myProfile(
 
 function service(evt) {
     const elements = document.querySelectorAll(".link");
-
+    getAllInformationsUser();
     getInformationsUser();
     for (let i = 0; i < elements.length; i++) {
         elements[i].onclick = () => {
@@ -177,7 +179,7 @@ function service(evt) {
 }
 
 
-async function getInformationsUser() {
+async function getAllInformationsUser() {
 
     const inputEditProfile = document.getElementsByClassName("input-edit-profile");
 
@@ -209,8 +211,6 @@ async function getInformationsUser() {
 function uploadProfile() {
 const inputProfile = document.getElementById("input-profile");
 
-const btnConfirmEdit = document.getElementById("btn-confirm-edit");
-
 const imgProfile = document.getElementById("img-center-myProfile");
 
 
@@ -231,7 +231,6 @@ imgProfile.addEventListener('click', () => {
 
 const formElem = document.getElementById("formElem");
 const formInfo = new FormData(formElem)
-console.log(formInfo);
 
 formElem.onsubmit = async (e) => {
     e.preventDefault();

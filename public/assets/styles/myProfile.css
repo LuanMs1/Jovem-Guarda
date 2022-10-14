@@ -12,6 +12,7 @@
     height: 150px;
     padding: 10px;
     border-radius: 50%;
+    background-color: #1e1168;
     filter: drop-shadow(0px 3px 10px #a735f2);
     cursor: pointer;
 }
@@ -23,7 +24,6 @@
     display: flex;
     justify-content: center;
     padding-top: 10px;
-    padding-bottom: 20px;
     font-size: 2vw;
 }
 
@@ -123,4 +123,12 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    gap:25px;
+}
+#container-img-name {
+    /* background: rgba(217, 217, 217, 0.3); */
+    /* background: rgb(30, 17, 104, 0.3); */
+    background: rgb(167, 53, 242,0.3);
+    border-radius: 10px;
+    padding: 10px;
 }

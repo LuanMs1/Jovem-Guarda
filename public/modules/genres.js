@@ -1,3 +1,5 @@
+import { getInformationsUser } from "./getInformationsUser.js";
+
 const app = document.querySelector("#app");
 
 export function genres(
@@ -36,8 +38,8 @@ export function genres(
           <span class="link">DISCOS</span>
           <span class="selected-page">ESTILOS</span>
           <div id="container-user-all">
-            <img id="user-img-all" src="./assets/images/userAlpha.jpg" />
-            <span id="name-user-all">Alpha Edtech</span>
+            <img id="user-img-all" src="./assets/images/icons/mais (3).png" />
+            <span id="name-user-all"></span>
           </div>
         </header>
 
@@ -183,8 +185,8 @@ export function genres(
         <section id="container-menu">
             <div id="menu">
                 <div id="container-img-name">
-                    <img id="img-menu" src="./assets/images/userAlpha.jpg" />
-                    <span>Alpha Edtech</span>
+                    <img id="img-menu" src="./assets/images/icons/mais (3).png" />
+                    <span id="name-user-modal"></span>
                 </div>
                 <div id="menu-options">
                     <div>
@@ -253,6 +255,7 @@ export function genres(
 }
 
 function discsService(evt) {
+    getInformationsUser();
     const elements = document.querySelectorAll(".link");
     for (let i = 0; i < elements.length; i++) {
         elements[i].onclick = () => {

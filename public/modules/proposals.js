@@ -1,3 +1,5 @@
+import { getInformationsUser } from "./getInformationsUser.js";
+
 const app = document.querySelector("#app");
 
 export function proposals(
@@ -17,8 +19,8 @@ export function proposals(
             <span class="link">DISCOS</span>
             <span class="link">ESTILOS</span>
             <div id="container-user-all">
-                <img id="user-img-all" src="./assets/images/userAlpha.jpg" />
-            <span id="name-user-all">Alpha Edtech</span>
+                <img id="user-img-all" src="./assets/images/icons/mais (3).png" />
+            <span id="name-user-all"></span>
             </div>
         </header>
 
@@ -30,8 +32,8 @@ export function proposals(
         <section id="container-menu">
             <div id="menu">
                 <div id="container-img-name">
-                    <img id="img-menu" src="./assets/images/userAlpha.jpg" />
-                    <span>Alpha Edtech</span>
+                    <img id="img-menu" src="./assets/images/icons/mais (3).png" />
+                    <span id="name-user-modal" ></span>
                 </div>
                 <div id="menu-options">
                     <div>
@@ -58,7 +60,7 @@ export function proposals(
             </div>
         </section>
     `;
-
+    getInformationsUser();
     service([
         evtMydisc,
         evtDiscs,
@@ -84,7 +86,6 @@ export function proposals(
 
 function service(evt) {
     const elements = document.querySelectorAll(".link");
-
     showOffers();
 
     for (let i = 0; i < elements.length; i++) {
@@ -422,3 +423,4 @@ async function getUser() {
     const user = await fetch(`/user`);
     return await user.json();
 }
+

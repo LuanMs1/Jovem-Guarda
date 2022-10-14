@@ -35,7 +35,18 @@ body {
     padding-bottom: 40px;
     font-size: 2vw;
 }
-
+label {
+    font-family: "Inria Sans", sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+label span {
+    font-family: "Inria Sans", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    text-transform: capitalize;
+}
 /* ------------------------------------ NAV ------------------------------- */
 
 header {
@@ -87,8 +98,12 @@ header span:hover {
     font-size: 15px;
     font-family: "Inria Sans", sans-serif;
     font-weight: bold;
+    text-transform: capitalize;
 }
-
+#name-user-modal {
+    font-family: "Inria Sans", sans-serif;
+    text-transform: capitalize;
+}
 /* --------------------------------- MODAL ----------------------------------- */
 #container-menu {
     max-width: 1050px;
@@ -103,16 +118,17 @@ header span:hover {
     top: 0;
 }
 #menu {
-    background-color: rgb(129, 209, 209, 0.1);
+    
     width: 13vw;
     display: none;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     position: absolute;
-    background-color: #000000;
+    border-radius: 5px;
+    background-color: rgb(17, 17, 17);
     height: 500px;
-    padding: 25px 0px 25px 0px;
+    padding: 20px 0px 25px 0px;
     font-size: 12px;
     text-align: center;
 }
