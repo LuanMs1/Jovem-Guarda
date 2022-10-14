@@ -122,8 +122,8 @@ async function rejectExchange(exchangeId, userId) {
     try {
         const exchangeRes = await exchangedb.getUnformatedExchange(exchangeId);
         const exchangeStatus = exchangeRes.result.rows[0].status;
-        const userOfering = exchangeRes.result.rows[0].user_from;
-        if (userOfering !== userId) throw "Usuário não é dono da troca";
+        const userReceiving = exchangeRes.result.rows[0].user_to;
+        if (userReceiving !== userId) throw "Usuário não é dono da troca";
         if (exchangeStatus !== "pending_approval")
             throw "Aprovação não pendente";
 

@@ -100,8 +100,8 @@ async function showOffers() {
     console.log(exchanges);
     const treatedExchanges = organizeData(exchanges);
     console.log(treatedExchanges);
-    const userTo = await getUser();
-    console.log(userTo);
+    const logUser = await getUser();
+    console.log(logUser);
 
     for (let tradeId in treatedExchanges) {
         const containerMain = document.getElementById("containerMain");
@@ -175,9 +175,9 @@ async function showOffers() {
 
         // const text = document.querySelector("div-buttons-pending")
 
-        console.log(userTo.id);
+        console.log(logUser.id);
         console.log(treatedExchanges[tradeId][1].owner_id);
-        if (userTo.id === treatedExchanges[tradeId][1].owner_id) {
+        if (logUser.name === treatedExchanges[tradeId][1].user_from) {
             const pending = document.createElement("span");
             pending.innerHTML = "PENDENTE";
             divButtons.appendChild(pending);
@@ -224,7 +224,7 @@ async function showOffers() {
             buttonContacts.className = "buttons-contacts";
 
             const buttonComplete = document.createElement("button");
-            buttonComplete.innerHTML = "COMPELTAR";
+            buttonComplete.innerHTML = "COMPLETAR";
             divButtons.appendChild(buttonComplete);
             buttonComplete.className = "buttons-proposals";
             buttonComplete.className = "buttons-complete";
@@ -265,17 +265,45 @@ async function showOffers() {
 
         // changeImgDiv.appendChild(changeImg);
         const btn = document.querySelectorAll(".buttons-cancel");
+        const btnaccept = document.querySelectorAll(".buttons-accept");
+        const btnreject = document.querySelectorAll(".buttons-reject");
 
-        console.log(btn);
+        for (let index = 0; index < btnreject.length; index++) {
+            btnreject[index].addEventListener("click", function test() {
+                rejectExchange(treatedExchanges[tradeId][1].id);
+                window.dispatchEvent(
+                    new CustomEvent("onstatechange", {
+                        detail: {
+                            name: "/proposals",
+                        },
+                    })
+                );
+            });
+        }
+
+        for (let index = 0; index < btnaccept.length; index++) {
+            btnaccept[index].addEventListener("click", function test() {
+                acceptExchange(treatedExchanges[tradeId][1].id);
+                window.dispatchEvent(
+                    new CustomEvent("onstatechange", {
+                        detail: {
+                            name: "/proposals",
+                        },
+                    })
+                );
+            });
+        }
 
         for (let index = 0; index < btn.length; index++) {
             btn[index].addEventListener("click", function test() {
-                const test = btn[index].closest("div");
-                console.log(test);
-                console.log("button-cancel");
-                console.log(treatedExchanges[tradeId][1].id);
-                // console.log(treatedExchanges);
                 cancelExchange(treatedExchanges[tradeId][1].id);
+                window.dispatchEvent(
+                    new CustomEvent("onstatechange", {
+                        detail: {
+                            name: "/proposals",
+                        },
+                    })
+                );
             });
         }
     }
@@ -314,7 +342,7 @@ async function getActiveExchanges() {
     return exchanges;
 }
 
-async function acceptExchange(exhcangeId) {
+async function acceptExchange(exchangeId) {
     const options = {
         method: "PUT",
     };

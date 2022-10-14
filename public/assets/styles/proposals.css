@@ -27,7 +27,7 @@
 }
 
 .buttons-cancel {
-    width: 9vw;
+    width: 11vw;
     background: #a735f2;
     border-radius: 10px;
     color: #d9d9d9;
@@ -35,7 +35,7 @@
     cursor: pointer;
 }
 .buttons-accept {
-    width: 9vw;
+    width: 11vw;
     background: #a735f2;
     border-radius: 10px;
     color: #d9d9d9;
@@ -43,23 +43,23 @@
     cursor: pointer;
 }
 .buttons-reject {
-    width: 9vw;
+    width: 11vw;
     background: #a735f2;
     border-radius: 10px;
     color: #d9d9d9;
     padding: 5px;
     cursor: pointer;
 }
-.buttons-contact {
-    width: 9vw;
+.buttons-contacts {
+    width: 11vw;
     background: #a735f2;
     border-radius: 10px;
     color: #d9d9d9;
     padding: 5px;
     cursor: pointer;
 }
-.buttons-complet {
-    width: 9vw;
+.buttons-complete {
+    width: 11vw;
     background: #a735f2;
     border-radius: 10px;
     color: #d9d9d9;
@@ -67,7 +67,7 @@
     cursor: pointer;
 }
 .buttons-proposals {
-    width: 9vw;
+    width: 11vw;
     background: #a735f2;
     border-radius: 10px;
     color: #d9d9d9;
