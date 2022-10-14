@@ -13,16 +13,20 @@ export function register(evtBack, evtJoin, evtConfirmation) {
             <div>
               <input id="name-register" type="text" placeholder="NOME">
             </div>
+            <p id="error-name-null"></p>
             <div>
                 <input id="email-register" type="text" placeholder="EMAIL">
             </div>
+            <p id="error-email-null"></p>
             <div>
                 <input id="password-register" type="password" placeholder="SENHA">
             </div>
+            <p id="error-pass-null"></p>
             <div>
                 <input id="confirm-password-register" type="password" placeholder="CONFIRME SUA SENHA">
             </div>
             <p id="message-error-register"></p>
+            <p id="message-error-register-null"></p>
             <div>
                 <input id="btn-submit-register"class="link" type="button" value="CADASTRAR">
             </div>
@@ -63,6 +67,27 @@ function registerService(evt) {
     for (let i = 0; i < elements.length; i++) {
         elements[i].onclick = () => {
             if (evt[i].detail.name == "/confirmation") {
+                const nameRegister = document.querySelector("#error-name-null");
+                const emailRegister =
+                    document.querySelector("#error-email-null");
+                const passRegister = document.querySelector("#error-pass-null");
+                const nameInput =
+                    document.querySelector("#name-register").value;
+                const emailInput =
+                    document.querySelector("#email-register").value;
+                // const passInput =
+                //     document.querySelector("#email-register").value;
+
+                // if (nameInput === "") {
+                //     nameRegister.innerHTML = "Insira um nome";
+                // }
+                // if (emailInput === "") {
+                //     nameRegister.innerHTML = "Insira um email";
+                // }
+                // if (passInput === "") {
+                //     nameRegister.innerHTML = "Insira uma senha";
+                // }
+
                 const pass = document.querySelector("#password-register").value;
                 const confirmPass = document.querySelector(
                     "#confirm-password-register"
@@ -75,8 +100,23 @@ function registerService(evt) {
                 console.log(`pass=${pass}`);
                 console.log(`confirm=${confirmPass}`);
                 if (pass !== confirmPass) {
+                    passRegister.style.display = "none";
+                    emailRegister.style.display = "none";
+                    nameRegister.style.display = "none";
                     msgError.innerHTML = "As senhas inseridas são diferentes";
                     control = 1;
+                } else if (nameInput === "") {
+                    nameRegister.style.display = "flex";
+                    nameRegister.innerHTML = "Insira um nome";
+                } else if (emailInput === "") {
+                    emailRegister.style.display = "flex";
+                    nameRegister.style.display = "none";
+                    emailRegister.innerHTML = "Insira um email";
+                } else if (pass === "") {
+                    passRegister.style.display = "flex";
+                    emailRegister.style.display = "none";
+                    nameRegister.style.display = "none";
+                    passRegister.innerHTML = "Insira uma senha";
                 } else {
                     registerUser();
                     window.dispatchEvent(evt[i]);
