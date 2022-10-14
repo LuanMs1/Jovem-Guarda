@@ -27,9 +27,9 @@ export function individualDisc(
         <div id="container-user-all">
             <img
                 id="user-img-all"
-                src="./assets/images/userAlpha.jpg"
+                src="./assets/images/icons/mais (3).png"
             />
-            <span id="name-user-all">Alpha Edtech</span>
+            <span id="name-user-all"></span>
         </div>
     </header>
 
@@ -76,8 +76,8 @@ export function individualDisc(
 <section id="container-menu">
     <div id="menu">
         <div id="container-img-name">
-            <img id="img-menu" src="./assets/images/userAlpha.jpg" />
-            <span>Alpha Edtech</span>
+            <img id="img-menu" src="./assets/images/icons/mais (3).png" />
+            <span id="name-user-modal"></span>
         </div>
         <div id="menu-options">
             <div>
@@ -90,7 +90,7 @@ export function individualDisc(
             <div>
                 <img
                     class="icons"
-                    src="./assets/images/icons/profile-user.png"
+                    src="./assets/images/icons/mais (3).png.png"
                 />
                 <span class="selected-page">MEU PERFIL</span>
             </div>
@@ -141,6 +141,8 @@ export function individualDisc(
 }
 
 function service(evt) {
+    getInformationsUser();
+    
     const elements = document.querySelectorAll(".link");
     for (let i = 0; i < elements.length; i++) {
         elements[i].onclick = () => {
@@ -292,3 +294,18 @@ async function deleteIndividualDisc() {
 
     // }
 }
+
+async function getInformationsUser() {
+    const userName = document.getElementById("name-user-all");
+    const userNameModal = document.getElementById("name-user-modal");
+
+    const res = await fetch('/user/', {
+        method: 'GET',
+      });
+      
+      const infoName = await res.json();
+
+      userName.innerHTML = infoName.name;
+      userNameModal.innerHTML = infoName.name; 
+}
+

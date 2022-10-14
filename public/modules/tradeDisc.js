@@ -27,9 +27,9 @@ export function tradeDisc(
         <div id="container-user-all">
             <img
                 id="user-img-all"
-                src="./assets/images/userAlpha.jpg"
+                src="./assets/images/icons/mais (3).png"
             />
-            <span id="name-user-all">Alpha Edtech</span>
+            <span id="name-user-all"></span>
         </div>
     </header>
 
@@ -71,8 +71,8 @@ export function tradeDisc(
 <section id="container-menu">
     <div id="menu">
         <div id="container-img-name">
-            <img id="img-menu" src="./assets/images/userAlpha.jpg" />
-            <span>Alpha Edtech</span>
+            <img id="img-menu" src="./assets/images/icons/mais (3).png" />
+            <span id="name-user-modal"></span>
         </div>
         <div id="menu-options">
             <div>
@@ -185,6 +185,7 @@ async function makeProposal(wanted, offered) {
 }
 
 function service(evt) {
+    getInformationsUser();
     const elements = document.querySelectorAll(".link");
 
     for (let i = 0; i < elements.length; i++) {
@@ -279,3 +280,18 @@ function extractIds(nodeList) {
     }
     return ids;
 }
+
+async function getInformationsUser() {
+    const userName = document.getElementById("name-user-all");
+    const userNameModal = document.getElementById("name-user-modal");
+
+    const res = await fetch('/user/', {
+        method: 'GET',
+      });
+      
+      const infoName = await res.json();
+
+      userName.innerHTML = infoName.name;
+      userNameModal.innerHTML = infoName.name; 
+}
+
