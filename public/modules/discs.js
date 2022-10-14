@@ -236,7 +236,7 @@ async function showGenre(nameGenre) {
 
         const typeAlbumLabel = document.createElement("label");
         typeAlbumLabel.id = "type-album-label";
-        typeAlbumLabel.innerHTML = `Tipo do Album: `;
+        typeAlbumLabel.innerHTML = `Tipo do Álbum: `;
 
         const typeDiscLabel = document.createElement("label");
         typeDiscLabel.id = "type-disc-label";
@@ -433,7 +433,7 @@ async function showAllDiscs() {
 
         const typeAlbumLabel = document.createElement("label");
         typeAlbumLabel.id = "type-album-label";
-        typeAlbumLabel.innerHTML = `Tipo do Album: `;
+        typeAlbumLabel.innerHTML = `Tipo do Álbum: `;
 
         const typeDiscLabel = document.createElement("label");
         typeDiscLabel.id = "type-disc-label";

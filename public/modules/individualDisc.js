@@ -42,7 +42,7 @@ export function individualDisc(
 </section>
 <section id="description-disc-individual">
     <div id="description-disc-left">
-        <label for="">Tipo do Album: <span class="infos-titles" id="album-type-individual"></span></label>
+        <label for="">Tipo do Álbum: <span class="infos-titles" id="album-type-individual"></span></label>
         
         <label for="">Tipo do Vinil:<span class="infos-titles" id="vinyl-type-individual" ></span></label>
         

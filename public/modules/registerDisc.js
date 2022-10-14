@@ -30,7 +30,7 @@ export function registerDisc(
       <span id="register-disc-title">Cadastrar Discos</span>
     </section>
     <section id="logo-register-disc-position">
-        <input id="list-albums" list="albums" type="text" placeholder="PESQUISAR ALBUM">
+        <input id="list-albums" list="albums" type="text" placeholder="PESQUISAR ÁLBUM">
     </section>
     <p id="msg-error"></p>
     <section id="individual-disc">
@@ -40,7 +40,7 @@ export function registerDisc(
         </div>
     <section id="description-disc-register">
         <div id="description-disc-left-register">
-            <label for="select-album-type">TIPO DO ALBUM:
+            <label for="select-album-type">TIPO DO ÁLBUM:
                 <select class="style-select" name="album-type" id="select-album-type">
                   <option value="single">Single</option>
                   <option value="ep">EP</option>
