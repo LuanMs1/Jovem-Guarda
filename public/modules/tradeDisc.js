@@ -175,7 +175,13 @@ async function makeProposal(wanted, offered) {
         headers: { "Content-type": "application/json; charset=UTF-8" },
     };
     await fetch("/user/exchanges", options);
-    alert("PROPOSTA FEITA");
+    window.dispatchEvent(
+        new CustomEvent("onstatechange", {
+            detail: {
+                name: "/proposals",
+            },
+        })
+    );
 }
 
 function service(evt) {
@@ -233,9 +239,9 @@ async function choseWantedDisc(e) {
 function creatingSelection(discs, fatherElement, elementForImgs) {
     // creating elements to select
     const select = document.createElement("select");
-    select.id = "select-trade"
+    select.id = "select-trade";
     const subm = document.createElement("button");
-    subm.id="subm-trade"
+    subm.id = "subm-trade";
     for (let i in discs) {
         const option = document.createElement("option");
         option.innerHTML = discs[i].album;
