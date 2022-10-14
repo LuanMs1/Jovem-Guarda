@@ -1,17 +1,17 @@
 const db = require("./index");
 
-async function completeFancy(exchangeId, avaliation){
-    const {rate, text} = avaliation; 
+async function completeFancy(exchangeId, avaliation) {
+    const { rate, text } = avaliation;
     const client = await db.getClient();
-    try{
-        await client.query('BEGIN');
+    try {
+        await client.query("BEGIN");
         // get exchange infos
         const exchangeText = `
             SELECT exchange.*, exchange_disc_list.disc_id FROM exchange_disc_list
             INNER JOIN exchange ON exchange.id = exchange_disc_list.exchange_id
             WHERE exchange_id = $1;
-        `
-        const exchange = (await client.query(exchangeText,[exchangeId])).rows;
+        `;
+        const exchange = (await client.query(exchangeText, [exchangeId])).rows;
         const userFrom = exchange[0].user_from;
         const userTo = exchange[0].user_to;
         //changing exchange status
@@ -26,15 +26,14 @@ async function completeFancy(exchangeId, avaliation){
         const discText = `
             SELECT * FROM discs
             WHERE id = $1;
-        `
+        `;
         const deleteText = `
             UPDATE discs
             SET deleted_at = $1
             WHERE id = $2
         `;
 
-        
-        for (let item of exchange){
+        for (let item of exchange) {
             const disc = (await client.query(discText, [item.disc_id])).rows[0];
             delete disc.created_at;
             delete disc.deleted_at;
@@ -43,51 +42,51 @@ async function completeFancy(exchangeId, avaliation){
             // deleting discs
             await client.query(deleteText, [new Date(), item.disc_id]);
             const isFrom = disc.user_id === userFrom;
-            disc.user_id = (isFrom) ? userTo : userFrom; 
+            disc.user_id = isFrom ? userTo : userFrom;
 
             //creating discs
             const values = Object.values(disc);
             const columns = Object.keys(disc);
             const createDiscText = `
-                INSERT INTO discs (${columns.toString('')})
+                INSERT INTO discs (${columns.toString("")})
                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
                 RETURNING id
-            `
-            const newDiscId = await client.query(createDiscText,[values]);
+            `;
+            const newDiscId = await client.query(createDiscText, [values]);
 
             //geting disc genres
             const genresText = `
                 SELECT 
-            `
+            `;
         }
 
         //creating avaliation
         const avaliationQueryText = `
             INSERT INTO avaliations (user_id, rate, description, exchange_id, created_at)
             VALUES ($1, $2, $3, $4, $5)
-        `
+        `;
 
-        await client.query('COMMIT');
-        return {error:null, result: 'Complete'};
-    }catch(err){
-        await client.query('ROLLBACK');
-        return {error:err, result: null};
-    }finally{
+        await client.query("COMMIT");
+        return { error: null, result: "Complete" };
+    } catch (err) {
+        await client.query("ROLLBACK");
+        return { error: err, result: null };
+    } finally {
         client.release();
     }
-};
+}
 
-async function complete(exchangeId, avaliation){
+async function complete(exchangeId, avaliation) {
     const client = await db.getClient();
-    try{
-        await client.query('BEGIN');
+    try {
+        await client.query("BEGIN");
         // get exchange infos
         const exchangeText = `
             SELECT exchange.*, exchange_disc_list.disc_id FROM exchange_disc_list
             INNER JOIN exchange ON exchange.id = exchange_disc_list.exchange_id
             WHERE exchange_id = $1;
-        `
-        const exchange = (await client.query(exchangeText,[exchangeId])).rows;
+        `;
+        const exchange = (await client.query(exchangeText, [exchangeId])).rows;
         const userFrom = exchange[0].user_from;
         const userTo = exchange[0].user_to;
         //changing exchange status
@@ -96,124 +95,124 @@ async function complete(exchangeId, avaliation){
             SET status = 'complete'
             WHERE id = $1
         `;
-        await client.query(statusText,[exchangeId]);
+        await client.query(statusText, [exchangeId]);
 
         //altering discId
         const alterOwnerText = `
             UPDATE discs
             SET user_id = $1
             WHERE id = $2
-        `
+        `;
         const discText = `
             SELECT * FROM discs
             WHERE id = $1;
-        `
-        for (let item of exchange){
+        `;
+        for (let item of exchange) {
             const discId = item.disc_id;
             const disc = (await client.query(discText, [discId])).rows[0];
-            const newOwner = (disc.user_id == userFrom)? userTo : userFrom;
+            const newOwner = disc.user_id == userFrom ? userTo : userFrom;
             await client.query(alterOwnerText, [newOwner, discId]);
         }
 
         //creating avaliation
-        const avaliationQueryText = `
-            INSERT INTO 
-                avaliations (user_id, rate, description, exchange_id, created_at)
-            VALUES ($1, $2, $3, $4, $5)
-        `
-        for (let user of avaliation){
-            const ratingUser = user.id;
-            const text = user.text;
-            const rate = user.rate;
-            const values = [ratingUser, rate, text, exchangeId, new Date()]
-            await client.query(avaliationQueryText, values)
-        }
+        // const avaliationQueryText = `
+        //     INSERT INTO
+        //         avaliations (user_id, rate, description, exchange_id, created_at)
+        //     VALUES ($1, $2, $3, $4, $5)
+        // `;
+        // for (let user of avaliation) {
+        //     const ratingUser = user.id;
+        //     const text = user.text;
+        //     const rate = user.rate;
+        //     const values = [ratingUser, rate, text, exchangeId, new Date()];
+        //     await client.query(avaliationQueryText, values);
+        // }
 
-        await client.query('COMMIT');
-        return {error:null, result: 'Complete'};
-    }catch(err){
-        await client.query('ROLLBACK');
-        return {error:err, result: null};
-    }finally{
+        await client.query("COMMIT");
+        return { error: null, result: "Complete" };
+    } catch (err) {
+        await client.query("ROLLBACK");
+        return { error: err, result: null };
+    } finally {
         client.release();
     }
-
 }
 
-async function markExchangeUserComplete(userId, exchangeId, avaliation){
+async function markExchangeUserComplete(userId, exchangeId, avaliation) {
     const client = await db.getClient();
     const completeText = `
         UPDATE exchange
         SET user_completed = $1
         WHERE id = $2
-    `
+    `;
 
-    const avaliationText = `
-        INSERT INTO 
-            avaliations (user_id, rate, description, exchange_id, created_at)
-        VALUES ($1, $2, $3, $4, $5)
-    `
-    try{
-        await client.query('BEGIN');
+    // const avaliationText = `
+    //     INSERT INTO
+    //         avaliations (user_id, rate, description, exchange_id, created_at)
+    //     VALUES ($1, $2, $3, $4, $5)
+    // `;
+    try {
+        await client.query("BEGIN");
         await client.query(completeText, [userId, exchangeId]);
-        const avaliationValues = [
-            avaliation.id, 
-            avaliation.rate, 
-            avaliation.text,
-            exchangeId,
-            new Date()
-        ];
-        await client.query(avaliationText, avaliationValues)
-        await client.query('COMMIT');
-        return {error: null, result: 'complete'};
-    }catch(err){
-        await client.query('ROLLBACK');
-        return {error: err, result: null}
-    }finally{
+        // console.log(avaliation);
+        // const avaliationValues = [
+        //     avaliation.id,
+        //     avaliation.rate,
+        //     avaliation.text,
+        //     exchangeId,
+        //     new Date(),
+        // ];
+        // await client.query(avaliationText, avaliationValues);
+        await client.query("COMMIT");
+        return { error: null, result: "complete" };
+    } catch (err) {
+        await client.query("ROLLBACK");
+        return { error: err, result: null };
+    } finally {
         client.release();
     }
 }
 
-async function exchangeProposal(userTo, userFrom, discs){
+async function exchangeProposal(userTo, userFrom, discs) {
     const client = await db.getClient();
-    try{
-        await client.query('BEGIN');
+    try {
+        await client.query("BEGIN");
         // inserting exchange
         const exchangeValues = [userTo, userFrom, new Date()];
         const exchangeText = `
             INSERT INTO exchange (user_to, user_from, requested_at)
             VALUES ($1, $2, $3)
             RETURNING id;
-        `
+        `;
         const exchange = await client.query(exchangeText, exchangeValues);
         const exchangeId = exchange.rows[0].id;
-        
+
         //creating values string
-        const valuesString = []
-        for (let i in discs){
+        const valuesString = [];
+        for (let i in discs) {
             i++;
             valuesString.push(`(${exchangeId}, $${i})`);
-        };
+        }
 
         const discsText = `
             INSERT INTO exchange_disc_list (exchange_id, disc_id)
             VALUES ${valuesString.toString()};
-        `
-        await client.query(discsText, discs);        
+        `;
+        await client.query(discsText, discs);
 
-        await client.query('COMMIT');
-        return {error: null, result: 'Cadastrado'}
-    } catch(err){
-        await client.query('ROLLBACK');
-        return {error: err, result: null}
-    }finally{
+        await client.query("COMMIT");
+        return { error: null, result: "Cadastrado" };
+    } catch (err) {
+        await client.query("ROLLBACK");
+        return { error: err, result: null };
+    } finally {
         client.release();
     }
-};
+}
 
-async function userActiveExchanges(userId){
+async function userActiveExchanges(userId) {
     const text = `
-        SELECT  exchange.id, exchange.status, userFrom.name As user_from, 
+        SELECT  exchange.id, exchange.status, exchange.user_completed, userFrom.name As user_from, 
                 userTo.name AS user_to, discs.album AS disc_name, 
                 userOwner.name As disc_onwer, discs.user_id As owner_id, discs.img
         FROM exchange
@@ -226,18 +225,16 @@ async function userActiveExchanges(userId){
         INNER JOIN users AS userOwner
             ON userOwner.id = discs.user_id
         WHERE (user_from = $1 OR user_to = $2) AND (status = 'pending_approval' OR status = 'pending_exchange');
-    `
+    `;
 
-    try{
-        const exchangesRes = await db.query(text,[userId, userId]);
-        return {error: null, result: exchangesRes};
-    }catch(err){
-
-        return {error: err, result: null}
+    try {
+        const exchangesRes = await db.query(text, [userId, userId]);
+        return { error: null, result: exchangesRes };
+    } catch (err) {
+        return { error: err, result: null };
     }
-
-};
-async function userInactiveExchanges(userId){
+}
+async function userInactiveExchanges(userId) {
     const text = `
         SELECT exchange.id, exchange.status, userFrom.name As user_from, 
                 userTo.name AS user_to, discs.album AS disc_name, 
@@ -252,18 +249,16 @@ async function userInactiveExchanges(userId){
         INNER JOIN users AS userOwner
             ON userOwner.id = discs.user_id
         WHERE (user_from = $1 OR user_to = $2) AND NOT (status = 'pending_approval' OR status = 'pending_exchange');
-    `
+    `;
 
-    try{
-        const exchangesRes = await db.query(text,[userId,userId]);
-        return {error: null, result: exchangesRes};
-    }catch(err){
-
-        return {error: err, result: null}
+    try {
+        const exchangesRes = await db.query(text, [userId, userId]);
+        return { error: null, result: exchangesRes };
+    } catch (err) {
+        return { error: err, result: null };
     }
-
-};
-async function allInactiveExchanges(userId){
+}
+async function allInactiveExchanges(userId) {
     const text = `
         SELECT  exchange.id, exchange.status, userFrom.name As user_from, 
                 userTo.name AS user_to, discs.album AS disc_name, 
@@ -278,18 +273,16 @@ async function allInactiveExchanges(userId){
         INNER JOIN users AS userOwner
             ON userOwner.id = discs.user_id
         WHERE NOT (status = 'pending_approval' OR status = 'pending_exchange');
-    `
+    `;
 
-    try{
-        const exchangesRes = await db.query(text,[userId]);
-        return {error: null, result: exchangesRes};
-    }catch(err){
-
-        return {error: err, result: null}
+    try {
+        const exchangesRes = await db.query(text, [userId]);
+        return { error: null, result: exchangesRes };
+    } catch (err) {
+        return { error: err, result: null };
     }
-
-};
-async function allActiveExchanges(userId){
+}
+async function allActiveExchanges(userId) {
     const text = `
         SELECT  exchange.id, exchange.status, userFrom.name As user_from, 
                 userTo.name AS user_to, discs.album AS disc_name, 
@@ -304,19 +297,17 @@ async function allActiveExchanges(userId){
         INNER JOIN users AS userOwner
             ON userOwner.id = discs.user_id
         WHERE (status = 'pending_approval' OR status = 'pending_exchange');
-    `
+    `;
 
-    try{
-        const exchangesRes = await db.query(text,[userId]);
-        return {error: null, result: exchangesRes};
-    }catch(err){
-
-        return {error: err, result: null}
+    try {
+        const exchangesRes = await db.query(text, [userId]);
+        return { error: null, result: exchangesRes };
+    } catch (err) {
+        return { error: err, result: null };
     }
+}
 
-};
-
-async function getExchange(exchangeId){
+async function getExchange(exchangeId) {
     const text = `
         SELECT  exchange.id, exchange.status, userFrom.name As user_from, 
                 userTo.name AS user_to, discs.album AS disc_name, 
@@ -331,73 +322,69 @@ async function getExchange(exchangeId){
         INNER JOIN users AS userOwner
             ON userOwner.id = discs.user_id
         WHERE exchange.id = $1;
-    `
+    `;
 
-    try{
-        const exchangesRes = await db.query(text,[exchangeId]);
-        return {error: null, result: exchangesRes};
-    }catch(err){
-
-        return {error: err, result: null}
+    try {
+        const exchangesRes = await db.query(text, [exchangeId]);
+        return { error: null, result: exchangesRes };
+    } catch (err) {
+        return { error: err, result: null };
     }
-};
+}
 
-async function getUnformatedExchange(exchangeId){
+async function getUnformatedExchange(exchangeId) {
     const text = `
         SELECT * FROM exchange
         WHERE id = $1;
     `;
-    try{
-        const exchangesRes = await db.query(text,[exchangeId]);
-        return {error: null, result: exchangesRes};
-    }catch(err){
-
-        return {error: err, result: null}
+    try {
+        const exchangesRes = await db.query(text, [exchangeId]);
+        return { error: null, result: exchangesRes };
+    } catch (err) {
+        return { error: err, result: null };
     }
 }
-async function accept(exchangeId){
+async function accept(exchangeId) {
     const text = `
         UPDATE exchange
         SET status = 'pending_exchange'
         WHERE id = $1
-    `
-    try{
+    `;
+    try {
         const acceptRes = await db.query(text, [exchangeId]);
-        return {error: null, result: acceptRes};
-    }catch(err){
-        return {error:err, result: null};
+        return { error: null, result: acceptRes };
+    } catch (err) {
+        return { error: err, result: null };
     }
-};
+}
 
-async function reject(exchangeId){
+async function reject(exchangeId) {
     const text = `
         UPDATE exchange
         SET status = 'rejected'
         WHERE id = $1
-    `
-    try{
+    `;
+    try {
         const rejectRes = await db.query(text, [exchangeId]);
-        return {error: null, result: rejectRes};
-
-    }catch(err){
-        return {error:err, result: null};
+        return { error: null, result: rejectRes };
+    } catch (err) {
+        return { error: err, result: null };
     }
-};
+}
 
-async function cancel(exchangeId){
+async function cancel(exchangeId) {
     const text = `
         UPDATE exchange
         SET status = 'cancelled'
         WHERE id = $1
-    `
-    try{
+    `;
+    try {
         const rejectRes = await db.query(text, [exchangeId]);
-        return {error: null, result: rejectRes};
-        
-    }catch(err){
-        return {error:err, result: null};
+        return { error: null, result: rejectRes };
+    } catch (err) {
+        return { error: err, result: null };
     }
-};
+}
 module.exports = {
     exchangeProposal,
     userActiveExchanges,
@@ -410,5 +397,5 @@ module.exports = {
     cancel,
     complete,
     getUnformatedExchange,
-    markExchangeUserComplete
-}
+    markExchangeUserComplete,
+};

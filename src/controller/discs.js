@@ -64,18 +64,18 @@ const generalFilter = async (req, res) => {
     console.log(offset);
     const barFilter = {
         album: [searchString],
-        artist: [searchString]
+        artist: [searchString],
     };
-    try{
-        const searchRes = await services.filter(barFilter,offset)
+    try {
+        const searchRes = await services.filter(barFilter, offset);
         if (searchRes.error) throw searchRes.error;
 
         return res.status(200).json(searchRes.result);
-    }catch(err) {
+    } catch (err) {
         console.log(err);
-        return res.status(500).json({message: err})
+        return res.status(500).json({ message: err });
     }
-}
+};
 const getUserDiscByAlbum = async (req, res) => {
     const albumName = req.body.album;
     const userId = req.user.id;
@@ -162,9 +162,9 @@ const deleteDisc = async (req, res) => {
 
         const disc = discRes.result;
         // comparando se o usuário é dono do disco
-        console.log(disc.user_id    );
+        console.log(disc.user_id);
         console.log(userId);
-        console.log(disc!== userId);
+        console.log(disc !== userId);
         if (disc[0].user_id !== userId) throw "Disco não pertence ao usuário";
         const deleteRes = await services.deleteDisc(discId);
         if (deleteRes.error) throw deleteRes.error;

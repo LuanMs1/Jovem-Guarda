@@ -190,7 +190,10 @@ async function showOffers() {
 
         console.log(logUser.id);
         console.log(treatedExchanges[tradeId][1].owner_id);
-        if (logUser.name === treatedExchanges[tradeId][1].user_from) {
+        if (
+            logUser.name === treatedExchanges[tradeId][1].user_from &&
+            treatedExchanges[tradeId][1].status === "pending_approval"
+        ) {
             const pending = document.createElement("span");
             pending.innerHTML = "PENDENTE";
             divButtons.appendChild(pending);
@@ -280,6 +283,7 @@ async function showOffers() {
         const btn = document.querySelectorAll(".buttons-cancel");
         const btnaccept = document.querySelectorAll(".buttons-accept");
         const btnreject = document.querySelectorAll(".buttons-reject");
+        const btncomplete = document.querySelectorAll(".buttons-complete");
 
         for (let index = 0; index < btnreject.length; index++) {
             btnreject[index].addEventListener("click", function test() {
@@ -310,6 +314,19 @@ async function showOffers() {
         for (let index = 0; index < btn.length; index++) {
             btn[index].addEventListener("click", function test() {
                 cancelExchange(treatedExchanges[tradeId][1].id);
+                window.dispatchEvent(
+                    new CustomEvent("onstatechange", {
+                        detail: {
+                            name: "/proposals",
+                        },
+                    })
+                );
+            });
+        }
+
+        for (let index = 0; index < btncomplete.length; index++) {
+            btncomplete[index].addEventListener("click", function test() {
+                completeExchange(treatedExchanges[tradeId][1].id);
                 window.dispatchEvent(
                     new CustomEvent("onstatechange", {
                         detail: {
@@ -382,9 +399,9 @@ async function rejectExchange(exchangeId) {
 }
 async function completeExchange(exchangeId) {
     const options = {
-        method: "PUT",
+        method: "POST",
     };
-    await fetch(`user/exchanges/accept/${exchangeId}`, options);
+    await fetch(`user/exchanges/complete/${exchangeId}`, options);
     return;
 }
 async function cancelExchange(exchangeId) {
@@ -423,4 +440,3 @@ async function getUser() {
     const user = await fetch(`/user`);
     return await user.json();
 }
-

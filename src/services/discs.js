@@ -4,12 +4,18 @@ const discsdb = require("../repositories/discs");
 //         artist: infos.artist,
 //         release_year: infos.release_year
 const discColumns = [
-    'user_id', 'album', 
-    'artist', 'release_year', 
-    'img', 'vynil_type', 
-    'album_type', 'length', 
-    'disc_description', 'disc_status','genre'
-]
+    "user_id",
+    "album",
+    "artist",
+    "release_year",
+    "img",
+    "vynil_type",
+    "album_type",
+    "length",
+    "disc_description",
+    "disc_status",
+    "genre",
+];
 
 /// FUNÇÔES DE VALIDAÇÔES /////
 function validateDiscInfos(infos) {
@@ -20,27 +26,27 @@ function validateDiscInfos(infos) {
 
 function validateAtributes(infos) {
     const infomedAtributes = Object.keys(infos);
-    for (element of infomedAtributes){
-        if(!discColumns.includes(element)) return 'Atributo inválido';
-    };
+    for (element of infomedAtributes) {
+        if (!discColumns.includes(element)) return "Atributo inválido";
+    }
 }
 
-function checkConstraint(atribute,value){
+function checkConstraint(atribute, value) {
     if (!value) return;
     let allowed;
-    switch (atribute){
-        case 'vynil_type':
-            allowed = ['transparent', 'glossy', 'matte', 'collor', 'metallic'];
-            if (!allowed.includes(value)) return 'Tipo de vynil inválido';
+    switch (atribute) {
+        case "vynil_type":
+            allowed = ["transparent", "glossy", "matte", "collor", "metallic"];
+            if (!allowed.includes(value)) return "Tipo de vynil inválido";
             break;
 
-        case 'disc_status':
-            allowed = ['own', 'available to trade', 'wishlist'];
-            if (!allowed.includes(value)) return 'Status de disco inválido';
+        case "disc_status":
+            allowed = ["own", "available to trade", "wishlist"];
+            if (!allowed.includes(value)) return "Status de disco inválido";
             break;
-        case 'album_type':
-            allowed = ['single', 'ep', 'lp'];
-            if (!allowed.includes(value)) return 'Tipo de album inválido';
+        case "album_type":
+            allowed = ["single", "ep", "lp"];
+            if (!allowed.includes(value)) return "Tipo de album inválido";
             break;
     }
 }
@@ -65,39 +71,36 @@ async function registerUserDisc(userId, discInfos, discsImgs) {
         //salvando nome das imagens no banco
         const discId = registration.result.rows[0].id;
         const discsImgsArray = [];
-        // console.log(discsImgsArray);
         discsImgs.forEach((element) => {
             discsImgsArray.push(element.filename);
-        })
-        await discsdb.postDiscImg(discId,discsImgsArray)
+        });
+        await discsdb.postDiscImg(discId, discsImgsArray);
 
-
-        return {error: null, result: registration.result.rows};
-    }catch(err){
+        return { error: null, result: registration.result.rows };
+    } catch (err) {
         // caso encontre erro
         return { error: err, result: null };
     }
 }
 
-async function deleteDisc(discId){
+async function deleteDisc(discId) {
     if (!discId) return "ID de disco necessário";
 
-    try{
+    try {
         const deleteRes = await discsdb.remove(discId);
-        if(deleteRes.error) throw filter.error;
+        if (deleteRes.error) throw filter.error;
 
-        if (deleteRes.result.rowCount === 0) throw 'Disco não encontrado';
-        return {error: null, result: 'Disco deletado'};
-    }catch(err){
-        return {error: err, result: null};
+        if (deleteRes.result.rowCount === 0) throw "Disco não encontrado";
+        return { error: null, result: "Disco deletado" };
+    } catch (err) {
+        return { error: err, result: null };
     }
 }
 
-
-async function putDisc (infos, discId){
-    try{
+async function putDisc(infos, discId) {
+    try {
         // Validações
-        if (!discId) throw 'Id de disco necessário';
+        if (!discId) throw "Id de disco necessário";
         const missingData = validateDiscInfos(infos);
         if (missingData) throw missingData;
 
@@ -105,10 +108,10 @@ async function putDisc (infos, discId){
         const registration = await discsdb.updateDisc(infos, discId);
         if (registration.error) throw registration.error;
 
-        return {error: null, result: registration.result.rows};
-    }catch(err){
+        return { error: null, result: registration.result.rows };
+    } catch (err) {
         // caso encontre erro
-        return {error: err, result: null};
+        return { error: err, result: null };
     }
 }
 
@@ -143,7 +146,7 @@ async function getDisc(discId) {
     }
 }
 
-async function getUserDisc(userId, albumName){
+async function getUserDisc(userId, albumName) {
     try {
         // validações
         if (!albumName) throw "Necessário informar nome do album";
@@ -170,9 +173,9 @@ async function getAllDiscs(offset) {
         return { error: err, result: null };
     }
 }
-async function getAllDiscsButOwners(userId,offset) {
+async function getAllDiscsButOwners(userId, offset) {
     try {
-        const discsRes = await discsdb.getAllDiscsButOwners(userId,offset);
+        const discsRes = await discsdb.getAllDiscsButOwners(userId, offset);
         if (discsRes.error) throw discsRes.error;
 
         return { error: null, result: discsRes.result.rows };
@@ -181,33 +184,34 @@ async function getAllDiscsButOwners(userId,offset) {
     }
 }
 
-
-
-
-async function filter(filterInfo, offset = 0){
-    try{
+async function filter(filterInfo, offset = 0) {
+    try {
         //validando colunas
         const columns = Object.keys(filterInfo);
-        if(!columns) throw 'Informar filtro';
+        if (!columns) throw "Informar filtro";
         const invalidAtribute = validateAtributes(filterInfo);
-        if(invalidAtribute) return 'Atributo inválido';
+        if (invalidAtribute) return "Atributo inválido";
 
         //Validando dados de tempo se existirem;
-        if (filterInfo.release_year){
-            if(filterInfo.release_year.length !== 2) throw 'Filtro por lançamento espera intervalo'
+        if (filterInfo.release_year) {
+            if (filterInfo.release_year.length !== 2)
+                throw "Filtro por lançamento espera intervalo";
         }
         //Validando constraints
-        for (let constraint of ['vynil_type', 'disc_status', 'album_type']){
-
-            const invalidConstraint = checkConstraint(constraint, filterInfo[constraint])
+        for (let constraint of ["vynil_type", "disc_status", "album_type"]) {
+            const invalidConstraint = checkConstraint(
+                constraint,
+                filterInfo[constraint]
+            );
             if (invalidConstraint) return invalidConstraint;
         }
 
         //removendo espaço em branco e adicionando % para pegar padrão
-        for (let fil in filterInfo){
-            if (fil !== 'release_year' && fil !== 'user_id'){
-                for (let i in filterInfo[fil]){
-                    filterInfo[fil][i] ='%' + filterInfo[fil][i].trim().toUpperCase() + '%'
+        for (let fil in filterInfo) {
+            if (fil !== "release_year" && fil !== "user_id") {
+                for (let i in filterInfo[fil]) {
+                    filterInfo[fil][i] =
+                        "%" + filterInfo[fil][i].trim().toUpperCase() + "%";
                 }
             }
         }
@@ -215,37 +219,35 @@ async function filter(filterInfo, offset = 0){
         const filter = await discsdb.filterOr(filterInfo, offset);
         if (filter.error) throw filter.error;
 
-        return {error: null, result: filter.result.rows};
-    }catch(err){
-        return {error: err, result: null};
+        return { error: null, result: filter.result.rows };
+    } catch (err) {
+        return { error: err, result: null };
     }
 }
 
-async function filterByGenre(genre){
-    try{
+async function filterByGenre(genre) {
+    try {
         const filter = {
-            genre: [genre]
+            genre: [genre],
         };
         const genreFilter = await discsdb.filterOr(filter);
-        if(genreFilter.error) throw genreFilter.error;
+        if (genreFilter.error) throw genreFilter.error;
 
-        return {error: null, result: genreFilter.result.rows};
-    }catch(err){
-
-        return {error: err, result: null};
+        return { error: null, result: genreFilter.result.rows };
+    } catch (err) {
+        return { error: err, result: null };
     }
-};
+}
 
-
-module.exports ={
-    registerUserDisc, 
-    userDiscs, 
-    getDisc, 
+module.exports = {
+    registerUserDisc,
+    userDiscs,
+    getDisc,
     getAllDiscs,
     putDisc,
     filterByGenre,
     filter,
     deleteDisc,
     getUserDisc,
-    getAllDiscsButOwners
+    getAllDiscsButOwners,
 };
