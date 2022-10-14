@@ -196,7 +196,7 @@ async function showOffers() {
             divNameImgL.appendChild(buttonCancel);
             divModal.appendChild(divNameImgL);
             divModal.appendChild(divNameImgL);
-        } else if (exchanges[tradeId].status === "pending_approval") {
+        } else if (treatedExchanges[tradeId][1].status === "pending_approval") {
             const buttonAccept = document.createElement("button");
             buttonAccept.innerHTML = "ACEITAR";
             divButtons.appendChild(buttonAccept);
