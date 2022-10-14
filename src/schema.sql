@@ -55,8 +55,10 @@ CREATE TABLE exchange (
   user_from integer NOT NULL REFERENCES users(id),
   requested_at timestamptz DEFAULT now(),
   finished_at timestamptz
+  user_completed int
 );
 ALTER TABLE exchange ADD CONSTRAINT exchange_status_check CHECK (status IN ('pending_approval', 'rejected', 'pending_exchange', 'cancelled', 'complete'));
+ALTER TABLE exchange ADD CONSTRAINT user_completed_fk FOREIGN KEY (user_completed) REFERENCES users(id);
 
 DROP TABLE IF EXISTS exchange_disc_list;
 CREATE TABLE exchange_disc_list (
