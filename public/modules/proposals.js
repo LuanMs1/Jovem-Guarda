@@ -115,6 +115,12 @@ async function showOffers() {
             ownerId: treatedExchanges[tradeId].user_id,
         };
 
+        //Div offer:
+        const nameTo = document.createElement("span");
+        nameTo.innerHTML = `DISCO OFERTADO`;
+        const imageTo = document.createElement("img");
+        imageTo.id = "img-disc";
+
         //Div i want:
         const divOffer = document.createElement("div");
         divOffer.id = "div-offer";
@@ -124,7 +130,13 @@ async function showOffers() {
         nameFrom.innerHTML = `SEU DISCO`;
         divOffer.appendChild(nameFrom);
         const imageFrom = document.createElement("img");
-        imageFrom.setAttribute("src", `${treatedExchanges[tradeId][0].img}`);
+        for (let discInTrade of treatedExchanges[tradeId]) {
+            if (logUser.id === discInTrade.owner_id) {
+                imageFrom.setAttribute("src", `${discInTrade.img}`);
+            } else {
+                imageTo.setAttribute("src", `${discInTrade.img}`);
+            }
+        }
         imageFrom.id = "img-offer";
         divModal.appendChild(imageFrom);
 
@@ -150,13 +162,13 @@ async function showOffers() {
         const containerInfo = document.createElement("div");
         containerInfo.id = "container-img-info";
 
-        //Div offer:
-        const nameTo = document.createElement("span");
-        nameTo.innerHTML = `DISCO OFERTADO`;
-        const imageTo = document.createElement("img");
-        imageTo.id = "img-disc";
+        // //Div offer:
+        // const nameTo = document.createElement("span");
+        // nameTo.innerHTML = `DISCO OFERTADO`;
+        // const imageTo = document.createElement("img");
+        // imageTo.id = "img-disc";
 
-        imageTo.setAttribute("src", `${treatedExchanges[tradeId][1].img}`);
+        // imageTo.setAttribute("src", `${treatedExchanges[tradeId][1].img}`);
 
         const divNameImgR = document.createElement("div");
         divNameImgR.className = "div-name-img";
